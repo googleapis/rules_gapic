@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("//rules_gapic:gapic_pkg.bzl", "construct_package_dir_paths", "put_dep_in_a_bucket")
-load("//rules_gapic:gapic.bzl", "path_ignoring_repository")
+load("//:gapic_pkg.bzl", "construct_package_dir_paths", "put_dep_in_a_bucket")
+load("//:gapic.bzl", "path_ignoring_repository")
 
 def _py_gapic_src_pkg_impl(ctx):
     strs_srcs = []

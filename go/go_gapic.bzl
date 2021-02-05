@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("//rules_gapic:gapic.bzl", "gapic_srcjar", "unzipped_srcjar")
+load("//:gapic.bzl", "gapic_srcjar", "unzipped_srcjar")
 load("@io_bazel_rules_go//go/private:rules/rule.bzl", "go_rule")
 load("@io_bazel_rules_go//go:def.bzl", "GoSource", "go_context")
 load("@io_bazel_rules_go//go:def.bzl", "go_library")

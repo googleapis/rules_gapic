@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("//rules_gapic:gapic.bzl", "CustomProtoInfo", "gapic_srcjar", "proto_custom_library")
-load("//rules_gapic:gapic_pkg.bzl", "construct_package_dir_paths")
+load("//:gapic.bzl", "CustomProtoInfo", "gapic_srcjar", "proto_custom_library")
+load("//:gapic_pkg.bzl", "construct_package_dir_paths")
 
 def _ruby_gapic_src_pkg_impl(ctx):
     proto_grpc_srcs = []

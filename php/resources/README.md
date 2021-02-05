@@ -50,4 +50,4 @@ The recommended (tested) way of doing it is as follows:
     ```
     tar -zchpf php-7.1.30_linux_x86_64.tar.gz php-7.1.30/bin php-7.1.30/lib
     ```
-11. Copy the created archive to the `rules_gapic/php/resources` folder in this repository and post a PR.
+11. Copy the created archive to the `php/resources` folder in this repository and post a PR.

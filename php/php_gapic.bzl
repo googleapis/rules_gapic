@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("//rules_gapic:gapic.bzl", "gapic_srcjar", "proto_custom_library")
+load("//:gapic.bzl", "gapic_srcjar", "proto_custom_library")
 
 def php_proto_library(name, deps, plugin_args = [], **kwargs):
     srcjar_target_name = name

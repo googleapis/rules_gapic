@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("//rules_gapic:gapic.bzl", "GapicInfo", "gapic_srcjar", "unzipped_srcjar")
+load("//:gapic.bzl", "GapicInfo", "gapic_srcjar", "unzipped_srcjar")
 
 def _py_gapic_postprocessed_srcjar_impl(ctx):
     gapic_srcjar = ctx.file.gapic_srcjar

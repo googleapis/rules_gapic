@@ -1,8 +1,42 @@
 ## GAPIC Generator [Bazel](https://www.bazel.build/) Integration
 
+**This is not an officially supported Google project.**
+
+This repository contains Bazel rules for generating Google Cloud client
+libraries using the corresponding generators:
+
+- [C#](https://github.com/googleapis/gapic-generator-csharp)
+- [Go](https://github.com/googleapis/gapic-generator-go)
+- [Java](https://github.com/googleapis/gapic-generator-java)
+- [PHP](https://github.com/googleapis/gapic-generator-php)
+- [Python](https://github.com/googleapis/gapic-generator-python)
+- [Ruby](https://github.com/googleapis/gapic-generator-ruby)
+- [TypeScript](https://github.com/googleapis/gapic-generator-typescript)
+
+The input for each generator is usually a set of
+[proto files](https://developers.google.com/protocol-buffers) defining the given
+API. The definitions for Google Cloud APIs can be found in the
+[googleapis](https://github.com/googleapis/googleapis) repository.
+
+Example of generating a client library for Language API:
+
+```sh
+git clone https://github.com/googleapis/googleapis
+cd googleapis
+bazel build //google/cloud/language/v1:google-cloud-language-v1-java
+bazel build //google/cloud/language/v1:gapi-cloud-language-v1-go
+bazel build //google/cloud/language/v1:language-v1-py
+bazel build //google/cloud/language/v1:google-cloud-language-v1-php
+bazel build //google/cloud/language/v1:language-v1-nodejs
+bazel build //google/cloud/language/v1:google-cloud-language-v1-ruby
+bazel build //google/cloud/language/v1:google-cloud-language-v1-csharp
+```
+(note that the Bazel target names are different for different languages for
+legacy reasons)
+
 ### Requirements
 
-- Bazel version `1.0.0`.
+- Bazel version `3.0.0`.
 - Linux (may work on other platforms, but this haven't been tested).
 - `gcc`, `make`, `autoconf`, `unzip` tools
 
@@ -57,7 +91,7 @@ The rules will call `gapic-generator` and do all the necessary pre- and post- ge
 
 2. **`nodejs_gapic_library`** - Node.js **macro**, which calls `nodejs_gapic_srcjar` to generate and postprocess gapic library.
 
-3. **`nodejs_gapic_assembly_pkg`** - Node.js **macro** which accepts the previously built `nodejs_proto_library` and `proto_library` artifact as arguments and packages them into an idiomatic (for Node.js) package which is ready for opensourcing and is independent from Bazel. This rule does not need corresponding `nodejs_proto_library` input arguments, because the Node.js client does not use pregenerated protbuf/grpc stubs but does it in runtime (loading protobuf files directly, that is why a `proto_library` target is expected as input to this rule).  
+3. **`nodejs_gapic_assembly_pkg`** - Node.js **macro** which accepts the previously built `nodejs_proto_library` and `proto_library` artifact as arguments and packages them into an idiomatic (for Node.js) package which is ready for opensourcing and is independent from Bazel. This rule does not need corresponding `nodejs_proto_library` input arguments, because the Node.js client does not use pregenerated protbuf/grpc stubs but does it in runtime (loading protobuf files directly, that is why a `proto_library` target is expected as input to this rule).
 
 
 #### Ruby

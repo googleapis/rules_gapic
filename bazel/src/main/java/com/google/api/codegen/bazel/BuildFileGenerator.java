@@ -1,18 +1,32 @@
+// Copyright 2021 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package com.google.api.codegen.bazel;
 
 import java.io.IOException;
 import java.nio.file.Files;
 
 // To run from bazel and overwrite existing BUILD.bazel files:
-//    bazel run //rules_gapic/bazel:build_file_generator -- \
-//        --src=rules_gapic/bazel/src/test/data/googleapis
+//    bazel run //bazel:build_file_generator -- \
+//        --src=bazel/src/test/data/googleapis
 //
 // To compile and copy resources manually from the repository root directory (no bazel needed):
-//    javac -d . rules_gapic/bazel/src/main/java/com/google/api/codegen/bazel/*.java
-//    cp rules_gapic/bazel/src/main/java/com/google/api/codegen/bazel/*.mustache
+//    javac -d . bazel/src/main/java/com/google/api/codegen/bazel/*.java
+//    cp bazel/src/main/java/com/google/api/codegen/bazel/*.mustache
 // Then to run manually:
 //    java -cp . com.google.api.codegen.bazel.BuildFileGenerator \
-//        --src=rules_gapic/bazel/src/test/data/googleapis
+//        --src=bazel/src/test/data/googleapis
 public class BuildFileGenerator {
   public static void main(String[] args) throws IOException {
     BuildFileGenerator bfg = new BuildFileGenerator();

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("//rules_gapic:gapic.bzl", "GapicInfo", "gapic_srcjar", "proto_custom_library")
+load("//:gapic.bzl", "GapicInfo", "gapic_srcjar", "proto_custom_library")
 
 def csharp_proto_library(name, deps, **kwargs):
     srcjar_target_name = name

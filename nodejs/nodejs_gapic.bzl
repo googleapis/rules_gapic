@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("//rules_gapic:gapic.bzl", "gapic_srcjar")
+load("//:gapic.bzl", "gapic_srcjar")
 
 def _nodejs_gapic_postprocessed_srcjar_impl(ctx):
     gapic_srcjar = ctx.file.gapic_srcjar

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("//rules_gapic:gapic_pkg.bzl", "construct_package_dir_paths", "put_dep_in_a_bucket", "pkg_tar")
+load("//:gapic_pkg.bzl", "construct_package_dir_paths", "put_dep_in_a_bucket", "pkg_tar")
 load("@com_google_api_gax_java_properties//:dependencies.properties.bzl", "PROPERTIES")
 
 def _wrapPropertyNamesInBraces(properties):
@@ -191,7 +191,7 @@ def java_gapic_assembly_gradle_pkg(
     if proto_deps:
         _java_gapic_gradle_pkg(
             name = proto_target,
-            template_label = Label("//rules_gapic/java:resources/gradle/proto.gradle.tmpl"),
+            template_label = Label("//java:resources/gradle/proto.gradle.tmpl"),
             deps = proto_deps,
             **kwargs
         )
@@ -200,7 +200,7 @@ def java_gapic_assembly_gradle_pkg(
     if grpc_deps:
         _java_gapic_gradle_pkg(
             name = grpc_target,
-            template_label = Label("//rules_gapic/java:resources/gradle/grpc.gradle.tmpl"),
+            template_label = Label("//java:resources/gradle/grpc.gradle.tmpl"),
             deps = proto_target_dep + grpc_deps,
             **kwargs
         )
@@ -208,9 +208,9 @@ def java_gapic_assembly_gradle_pkg(
 
     if client_deps:
         if transport == "rest":
-            template_label = Label("//rules_gapic/java:resources/gradle/client_disco.gradle.tmpl")
+            template_label = Label("//java:resources/gradle/client_disco.gradle.tmpl")
         else:
-            template_label = Label("//rules_gapic/java:resources/gradle/client.gradle.tmpl")
+            template_label = Label("//java:resources/gradle/client.gradle.tmpl")
 
         _java_gapic_gradle_pkg(
             name = client_target,
@@ -250,7 +250,7 @@ def java_discogapic_assembly_gradle_pkg(
     if client_deps:
         _java_gapic_gradle_pkg(
             name = client_target,
-            template_label = Label("//rules_gapic/java:resources/gradle/client_disco.gradle.tmpl"),
+            template_label = Label("//java:resources/gradle/client_disco.gradle.tmpl"),
             deps = client_deps,
             test_deps = client_test_deps,
             **kwargs
@@ -312,8 +312,8 @@ def _java_gapic_assembly_gradle_pkg(name, assembly_name, deps, visibility = None
         name = resource_target_name,
         deps = deps,
         templates = {
-            Label("//rules_gapic/java:resources/gradle/assembly.gradle.tmpl"): "build.gradle",
-            Label("//rules_gapic/java:resources/gradle/settings.gradle.tmpl"): "settings.gradle",
+            Label("//java:resources/gradle/assembly.gradle.tmpl"): "build.gradle",
+            Label("//java:resources/gradle/settings.gradle.tmpl"): "settings.gradle",
         },
     )
 
@@ -321,7 +321,7 @@ def _java_gapic_assembly_gradle_pkg(name, assembly_name, deps, visibility = None
         name = name,
         extension = "tar.gz",
         deps = [
-            Label("//rules_gapic/java:gradlew"),
+            Label("//java:gradlew"),
             resource_target_name,
         ] + deps,
         package_dir = assembly_name,

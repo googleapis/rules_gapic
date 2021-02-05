@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("//rules_gapic:gapic.bzl", "gapic_srcjar", "proto_custom_library")
+load("//:gapic.bzl", "gapic_srcjar", "proto_custom_library")
 load("@com_google_api_gax_java_properties//:dependencies.properties.bzl", "PROPERTIES")
 
 def _java_gapic_postprocessed_srcjar_impl(ctx):
