@@ -6,7 +6,6 @@ This repository contains Bazel rules for generating Google Cloud client
 libraries using the corresponding generators:
 
 - [C#](https://github.com/googleapis/gapic-generator-csharp)
-- [Go](https://github.com/googleapis/gapic-generator-go)
 - [Java](https://github.com/googleapis/gapic-generator-java)
 - [PHP](https://github.com/googleapis/gapic-generator-php)
 - [Python](https://github.com/googleapis/gapic-generator-python)
@@ -61,14 +60,6 @@ The rules will call `gapic-generator` and do all the necessary pre- and post- ge
 3. **`java_discogapic_library`** - Java **macro**, which is very similar to `java_gapic_library` and does same, but for discogapic libraries.
 4. **`java_gapic_test`** - Java **macro**, which creates `java_test` and groups them in a `test_suite`, accepting `java_gapic_library` test artifact and the generated test classes full names (with package).
 5. **`java_gapic_assembly_gradle_pkg`** - Java **macro** which accepts the previously built `java_proto_library`, `java_grpc_library`, `java_gapic_library` and `proto_library` artifacts as arguments and packages them into an idiomatic (for PHP) package which is ready for opensourcing and is independent from Bazel.
-
-
-#### Go
-1. **`go_gapic_srcjar`** - Go **macro**, which first calls `gapic_srcjar` to generate the source code, then calls an internal rule which does all the Go-specific postprocessing of the code (formatting using `gofmt` tool, splitting the code into main, test and smoke test `.srcjar` (zip format) archives).
-
-2. **`go_gapic_library`** - Go **macro**, which calls `go_gapic_srcjar` to generate and postprocess gapic library code, then calls `go_library` rule from [rules_go](https://github.com/bazelbuild/rules_go) bazel extensions to compile the generated code. Also this macros declares directories and then unpacks the sources for main, tests and smoke tests into those directories (so them can be consumed by `go_library` and `go_test` which do not accept `.srcjar` as an input).
-
-3. **`go_gapic_assembly_pkg`** - Go **macro** which accepts the previously built `go_gapic_library` (including the `-test.srcjar` and `-smoke-test.srcjar`) and `go_proto_library` artifacts and packages them into an idiomatic (for Go) package which is ready for opensourcing and is independent from Bazel.
 
 #### Python
 1. **`py_gapic_srcjar`** - Python **macro**, which first calls `gapic_srcjar` to generate the source code. Then, it calls an internal rule, which does all the Python-specific postprocessing of the code. This postprocessing includes formatting the code and splitting the code into main and test `.srcjar` archives (a zip format).
