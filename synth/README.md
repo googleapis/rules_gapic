@@ -11,9 +11,9 @@ To run `synth.py` for Language API put the following in the `BUILD.bazel` file
 in the `//google/cloud/language` package:  
 
 ```bzl
-load("@rules_gapic//synth:gapic_postprocessor.bzl", "synth_pkg")
+load("@rules_gapic//synth:gapic_postprocessor.bzl", "java_synth_pkg")
 
-synth_pkg(
+java_synth_pkg(
     name = "java_language",
     synth_script = "synth.py",
     srcs = [
