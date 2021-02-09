@@ -16,7 +16,7 @@ load("@rules_gapic//synth:gapic_postprocessor.bzl", "synth_pkg")
 synth_pkg(
     name = "java_language",
     synth_script = "synth.py",
-    gapic_assemblies = [
+    srcs = [
         "//google/cloud/language/v1:google-cloud-language-v1-java",
         "//google/cloud/language/v1beta2:google-cloud-language-v1beta2-java",
     ],

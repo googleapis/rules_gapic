@@ -24,7 +24,7 @@ def _postprocessed_gapic_pkg_impl(ctx):
     tmp_dir_path = "%s/%s" % (output_pkg.dirname, tmp_dir_name)
 
     gapic_assemblies = []
-    for gapic_assembly in ctx.attr.gapic_assemblies:
+    for gapic_assembly in ctx.attr.srcs:
         gapic_assemblies.extend(gapic_assembly.files.to_list())
 
     script = """
@@ -60,7 +60,7 @@ def _postprocessed_gapic_pkg_impl(ctx):
 
 postprocessed_gapic_pkg = rule(
     attrs = {
-        "gapic_assemblies": attr.label_list(
+        "srcs": attr.label_list(
             allow_files = True,
             mandatory = False
         ),
@@ -83,11 +83,11 @@ postprocessed_gapic_pkg = rule(
     implementation = _postprocessed_gapic_pkg_impl,
 )
 
-def java_synth_pkg(name, synth_script, gapic_assemblies, visibility = None, **kwargs):
+def java_synth_pkg(name, synth_script, srcs, visibility = None, **kwargs):
     postprocessed_gapic_pkg(
         name = name,
         synth_script = synth_script,
-        gapic_assemblies = gapic_assemblies,
+        srcs = srcs,
         formatter = Label("//synth:google_java_format_binary"),
         visibility = visibility,
     )
