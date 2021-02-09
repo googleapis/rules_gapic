@@ -35,7 +35,7 @@ legacy reasons)
 
 ### Requirements
 
-- Bazel version `3.0.0`.
+- Bazel version `3.0.0+`.
 - Linux (may work on other platforms, but this haven't been tested).
 - `gcc`, `make`, `autoconf`, `unzip` tools
 
