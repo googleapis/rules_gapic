@@ -61,6 +61,8 @@ class ApiVersionedDir {
   private static final String[] PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES = {
     // TypeScript:
     "package_name", "main_service", "bundle_config", "iam_service",
+    // Ruby:
+    "ruby_cloud_title", "ruby_cloud_description",
     // Other languages: add below
   };
 
