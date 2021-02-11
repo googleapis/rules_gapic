@@ -1,5 +1,13 @@
 # Changelog
 
+### [0.1.1](https://www.github.com/googleapis/rules_gapic/compare/v0.1.0...v0.1.1) (2021-02-11)
+
+
+### Bug Fixes
+
+* remove monolith Go rules ([#4](https://www.github.com/googleapis/rules_gapic/issues/4)) ([fddc5df](https://www.github.com/googleapis/rules_gapic/commit/fddc5dfdf25374bee506ac0065afffe9856f19e2))
+* update ruby rules to regenerate into ruby_cloud_gapic_library ([#7](https://www.github.com/googleapis/rules_gapic/issues/7)) ([0fe0094](https://www.github.com/googleapis/rules_gapic/commit/0fe0094de9ad210f0749d1273c3babbeac432e97))
+
 ## 0.1.0 (2021-02-08)
 
 
