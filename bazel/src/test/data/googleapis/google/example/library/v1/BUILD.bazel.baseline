@@ -124,6 +124,7 @@ go_gapic_library(
     grpc_service_config = "library_example_grpc_service_config.json",
     importpath = "cloud.google.com/go/example/library/apiv1;library",
     service_yaml = "//google/example/library:library_example_v1.yaml",
+    metadata = True,
     deps = [
         ":library_go_proto",
         "//google/api:httpbody_go_proto",
@@ -143,6 +144,7 @@ go_gapic_assembly_pkg(
     deps = [
         ":library_go_gapic",
         ":library_go_gapic_srcjar-test.srcjar",
+        ":library_go_gapic_srcjar-metadata.srcjar",
         ":library_go_proto",
     ],
 )
