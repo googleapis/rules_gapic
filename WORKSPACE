@@ -1,4 +1,4 @@
-workspace(name = "com_google_api_codegen_bazel")
+workspace(name = "rules_gapic")
 
 load("//:repositories.bzl", "com_google_api_codegen_bazel_repositories")
 com_google_api_codegen_bazel_repositories()
