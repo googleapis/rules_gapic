@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.1.0](https://www.github.com/googleapis/rules_gapic/compare/v0.1.0...v0.1.0) (2021-02-12)
+
+
+### Features
+
+* add reserved ruby parameters ([#8](https://www.github.com/googleapis/rules_gapic/issues/8)) ([5b88dd7](https://www.github.com/googleapis/rules_gapic/commit/5b88dd7b2a5ee55b56fc72acf20a1b8aa23178cb))
+
+
+### Bug Fixes
+
+* change WORKSPACE name to rules_gapic ([#13](https://www.github.com/googleapis/rules_gapic/issues/13)) ([a6ba3b4](https://www.github.com/googleapis/rules_gapic/commit/a6ba3b48ea5c589c470db01c19b81e7208a1f27b))
+* no need to have Node.js rules ([#11](https://www.github.com/googleapis/rules_gapic/issues/11)) ([73d2207](https://www.github.com/googleapis/rules_gapic/commit/73d22071f8af736859ae8287cd7b81ee198c02b9))
+* remove monolith Go rules ([#4](https://www.github.com/googleapis/rules_gapic/issues/4)) ([fddc5df](https://www.github.com/googleapis/rules_gapic/commit/fddc5dfdf25374bee506ac0065afffe9856f19e2))
+* update ruby rules to regenerate into ruby_cloud_gapic_library ([#7](https://www.github.com/googleapis/rules_gapic/issues/7)) ([0fe0094](https://www.github.com/googleapis/rules_gapic/commit/0fe0094de9ad210f0749d1273c3babbeac432e97))
+
 ## 0.1.0 (2021-02-08)
 
 
