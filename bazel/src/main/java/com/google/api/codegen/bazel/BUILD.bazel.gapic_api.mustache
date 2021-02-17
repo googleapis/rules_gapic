@@ -117,6 +117,7 @@ go_gapic_library(
     grpc_service_config = {{grpc_service_config}},
     importpath = "{{go_gapic_importpath}}",
     service_yaml = "{{service_yaml}}",
+    metadata = True,
     deps = [
         ":{{name}}_go_proto",{{go_gapic_deps}}
     ],
@@ -135,6 +136,7 @@ go_gapic_assembly_pkg(
     deps = [
         ":{{name}}_go_gapic",
         ":{{name}}_go_gapic_srcjar-test.srcjar",
+        ":{{name}}_go_gapic_srcjar-metadata.srcjar",
         ":{{name}}_go_proto",
     ],
 )
