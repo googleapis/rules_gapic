@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0](https://www.github.com/googleapis/rules_gapic/compare/v0.2.0...v0.3.0) (2021-02-17)
+
+
+### Features
+
+* **bazel:** enable Go metadata gen ([#16](https://www.github.com/googleapis/rules_gapic/issues/16)) ([748854c](https://www.github.com/googleapis/rules_gapic/commit/748854c6c95ed68eef741a6be6c6cc27ab86a05b))
+
+
+### Bug Fixes
+
+* renames and docs cleanup ([#18](https://www.github.com/googleapis/rules_gapic/issues/18)) ([7840242](https://www.github.com/googleapis/rules_gapic/commit/7840242217e08f51c75100d363b7e26667c8fa1d))
+
 ## [0.2.0](https://www.github.com/googleapis/rules_gapic/compare/v0.1.0...v0.2.0) (2021-02-12)
 
 
