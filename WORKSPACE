@@ -1,7 +1,7 @@
 workspace(name = "rules_gapic")
 
-load("//:repositories.bzl", "com_google_api_codegen_bazel_repositories")
-com_google_api_codegen_bazel_repositories()
+load("//:repositories.bzl", "rules_gapic_repositories")
+rules_gapic_repositories()
 
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 protobuf_deps()
