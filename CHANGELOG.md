@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.3.1](https://www.github.com/googleapis/rules_gapic/compare/v0.3.0...v0.3.1) (2021-02-19)
+
+
+### Bug Fixes
+
+* ruby rules to have correct `srcs` form ([#20](https://www.github.com/googleapis/rules_gapic/issues/20)) ([475b182](https://www.github.com/googleapis/rules_gapic/commit/475b182282d51ccb58871a5ca2d3e10568baa7a1))
+
 ## [0.3.0](https://www.github.com/googleapis/rules_gapic/compare/v0.2.0...v0.3.0) (2021-02-17)
 
 
