@@ -80,7 +80,7 @@ java_gapic_library(
 java_gapic_test(
     name = "library_java_gapic_test_suite",
     test_classes = [
-        "com.google.example.library.v1.LibraryServiceClientTest",
+        "com.google.cloud.example.library.v1.LibraryClientTest",
     ],
     runtime_deps = [":library_java_gapic_test"],
 )
