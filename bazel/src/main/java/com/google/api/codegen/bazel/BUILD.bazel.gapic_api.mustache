@@ -262,6 +262,9 @@ ruby_grpc_library(
 ruby_cloud_gapic_library(
     name = "{{name}}_ruby_gapic",
     srcs = [":{{name}}_proto_with_info",],
+    extra_protoc_parameters = [
+        "ruby-cloud-gem-name=google-cloud-{{assembly_name}}-{{version}}",
+    ],
     grpc_service_config = {{grpc_service_config}},
     deps = [
         ":{{name}}_ruby_grpc",
