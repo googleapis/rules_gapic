@@ -25,8 +25,7 @@ import org.junit.Test;
 
 public class BuildFileGeneratorTest {
   private static final String SRC_DIR = Paths.get("googleapis").toString();
-  private static final String PATH_PREFIX =
-      Paths.get("bazel", "src", "test", "data").toString();
+  private static final String PATH_PREFIX = Paths.get("bazel", "src", "test", "data").toString();
 
   @Test
   public void testGenerateBuildFiles() throws IOException {
@@ -41,7 +40,27 @@ public class BuildFileGeneratorTest {
         Paths.get(fileBodyPathPrefix.toString(), "v1", "BUILD.bazel").toString();
     String rawBuildFilePath = Paths.get(fileBodyPathPrefix.toString(), "BUILD.bazel").toString();
 
-    Assert.assertEquals(2, fw.files.size());
+    Assert.assertEquals(3, fw.files.size());
+    Assert.assertEquals(
+        ApisVisitor.readFile(gapicBuildFilePath + ".baseline"), fw.files.get(gapicBuildFilePath));
+    Assert.assertEquals(
+        ApisVisitor.readFile(rawBuildFilePath + ".baseline"), fw.files.get(rawBuildFilePath));
+  }
+
+  @Test
+  public void testGenerateBuildFiles_legacyJavaLanguageOverrides() throws IOException {
+    String buildozerPath = getBuildozerPath();
+    ArgsParser args =
+        new ArgsParser(new String[] {"--buildozer=" + buildozerPath, "--src=" + SRC_DIR});
+    FileWriter fw = new FileWriter();
+    new BuildFileGenerator().generateBuildFiles(args.createApisVisitor(fw, PATH_PREFIX));
+
+    Path fileBodyPathPrefix = Paths.get(PATH_PREFIX, SRC_DIR, "google", "example", "library");
+    String gapicBuildFilePath =
+        Paths.get(fileBodyPathPrefix.toString(), "v1legacy", "BUILD.bazel").toString();
+    String rawBuildFilePath = Paths.get(fileBodyPathPrefix.toString(), "BUILD.bazel").toString();
+
+    Assert.assertEquals(3, fw.files.size());
     Assert.assertEquals(
         ApisVisitor.readFile(gapicBuildFilePath + ".baseline"), fw.files.get(gapicBuildFilePath));
     Assert.assertEquals(
