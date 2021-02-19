@@ -364,13 +364,12 @@ class ApiVersionedDir {
         if (kind.contains("_gapic_assembly_")) {
           if (this.assemblyPkgRulesNames.containsKey(kind)) {
             // Duplicated rule of the same kind will break our logic for preserving rule name.
-            System.err.println("There are more than one rule of kind " + kind + ".");
             System.err.println(
-                "Bazel build file generator does not support regenerating BUILD.bazel in this"
-                    + " case.");
-            System.err.println(
-                "Please run it with --overwrite option to overwrite the existing BUILD.bazel"
-                    + " completely.");
+                String.format(
+                    "There is more than one rule of kind %s. Bazel build file generator does not"
+                        + " support regenerating BUILD.bazel in this case.  Please run it with"
+                        + " --overwrite option to overwrite the existing BUILD.bazel completely.",
+                    kind));
             throw new RuntimeException("Duplicated rule " + kind);
           }
           this.assemblyPkgRulesNames.put(kind, name);
