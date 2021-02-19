@@ -269,7 +269,7 @@ ruby_grpc_library(
 
 ruby_cloud_gapic_library(
     name = "library_ruby_gapic",
-    srcs = [":library_proto_with_info",],
+    srcs = [":library_proto_with_info"],
     extra_protoc_parameters = [
         "ruby-cloud-gem-name=google-cloud-example-library-v1",
     ],
