@@ -82,30 +82,14 @@ public class Buildozer {
       if (value.equals("(missing)")) {
         return null;
       }
+      // if value has spaces, `buildozer print` will return it in quotes. Remove the quotes
+      if (value.charAt(0) == '"' && value.charAt(value.length() - 1) == '"') {
+        value = value.substring(1, value.length() - 1);
+      }
       return value;
     } catch (IndexOutOfBoundsException ignored) {
       return null;
     }
-  }
-
-  // Set the value to the given attribute of the given target. Apply changes
-  // immediately.
-  public void setAttribute(Path bazelBuildFile, String target, String attribute, String value)
-      throws IOException {
-    execute(bazelBuildFile, String.format("set %s \"%s\"", attribute, value), target);
-  }
-
-  // Remove the given attribute of the given target. Apply changes immediately.
-  public void removeAttribute(Path bazelBuildFile, String target, String attribute)
-      throws IOException {
-    execute(bazelBuildFile, String.format("remove %s", attribute), target);
-  }
-
-  // Add the value to the given list attribute of the given target. Apply changes
-  // immediately.
-  public void addAttribute(Path bazelBuildFile, String target, String attribute, String value)
-      throws IOException {
-    execute(bazelBuildFile, String.format("add %s \"%s\"", attribute, value), target);
   }
 
   // Set the value to the given attribute of the given target.
@@ -113,13 +97,21 @@ public class Buildozer {
   public void batchSetAttribute(Path bazelBuildFile, String target, String attribute, String value)
       throws IOException {
     batch.add(
-        String.format("set %s \"%s\"|%s:%s", attribute, value, bazelBuildFile.toString(), target));
+        String.format(
+            "set %s \"%s\"|%s:%s",
+            attribute,
+            value.replace(" ", "\\ "),
+            bazelBuildFile.toString(), target));
   }
 
   // Remove the given attribute of the given target. Apply changes immediately.
   public void batchRemoveAttribute(Path bazelBuildFile, String target, String attribute)
       throws IOException {
-    batch.add(String.format("remove %s|%s:%s", attribute, bazelBuildFile.toString(), target));
+    batch.add(
+        String.format("remove %s|%s:%s",
+            attribute,
+            bazelBuildFile.toString(),
+            target));
   }
 
   // Add the value to the given list attribute of the given target.
@@ -127,7 +119,11 @@ public class Buildozer {
   public void batchAddAttribute(Path bazelBuildFile, String target, String attribute, String value)
       throws IOException {
     batch.add(
-        String.format("add %s \"%s\"|%s:%s", attribute, value, bazelBuildFile.toString(), target));
+        String.format(
+            "add %s \"%s\"|%s:%s",
+            attribute,
+            value.replace(" ", "\\ "),
+            bazelBuildFile.toString(), target));
   }
 
   // Make all changes that are waiting in the batch.
