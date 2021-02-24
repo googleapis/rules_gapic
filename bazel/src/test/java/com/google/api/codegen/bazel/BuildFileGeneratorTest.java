@@ -192,15 +192,17 @@ public class BuildFileGeneratorTest {
         "[value1 value2]", buildozer.getAttribute(buildBazel, "rule2", "list_attr"));
 
     // Set some attributes and get the result
-    buildozer.setAttribute(buildBazel, "rule1", "attr", "new_attr_value");
-    buildozer.addAttribute(buildBazel, "rule2", "list_attr", "value3");
+    buildozer.batchSetAttribute(buildBazel, "rule1", "attr", "new_attr_value");
+    buildozer.batchAddAttribute(buildBazel, "rule2", "list_attr", "value3");
+    buildozer.commit();
     Assert.assertEquals("new_attr_value", buildozer.getAttribute(buildBazel, "rule1", "attr"));
     Assert.assertEquals(
         "[value1 value2 value3]", buildozer.getAttribute(buildBazel, "rule2", "list_attr"));
 
     // Remove attribute
     Assert.assertEquals("remove_a", buildozer.getAttribute(buildBazel, "rule1", "to_be_removed_a"));
-    buildozer.removeAttribute(buildBazel, "rule1", "to_be_removed_a");
+    buildozer.batchRemoveAttribute(buildBazel, "rule1", "to_be_removed_a");
+    buildozer.commit();
     Assert.assertEquals(null, buildozer.getAttribute(buildBazel, "rule1", "to_be_removed_a"));
 
     // Test batch operations
