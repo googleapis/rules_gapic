@@ -77,14 +77,6 @@ The rules will call `gapic-generator` and do all the necessary pre- and post- ge
 
 5. **`php_gapic_assembly_pkg`** - PHP **macro** which accepts the previously built `php_proto_library`, `php_grpc_library` and `php_gapic_library` artifacts as arguments and packages them into an idiomatic (for PHP) package which is ready for opensourcing and is independent from Bazel.
 
-#### Node.js
-1. **`nodejs_gapic_srcjar`** - Node.js **macro**, which first calls `gapic_srcjar` to generate the source code, then calls an internal rule which does all the specific to Node.js postprocessing of the code (mainly just splitting the code into main, test, smoke test and packaging (`package.json`) `.srcjar` files (zip format)).
-
-2. **`nodejs_gapic_library`** - Node.js **macro**, which calls `nodejs_gapic_srcjar` to generate and postprocess gapic library.
-
-3. **`nodejs_gapic_assembly_pkg`** - Node.js **macro** which accepts the previously built `nodejs_proto_library` and `proto_library` artifact as arguments and packages them into an idiomatic (for Node.js) package which is ready for opensourcing and is independent from Bazel. This rule does not need corresponding `nodejs_proto_library` input arguments, because the Node.js client does not use pregenerated protbuf/grpc stubs but does it in runtime (loading protobuf files directly, that is why a `proto_library` target is expected as input to this rule).
-
-
 #### Ruby
 1. **`ruby_proto_library`** - Ruby **macro**, which generates Ruby protobuf stubs by calling protobuf compiler with `--ruby_out` parameter.
 
@@ -111,17 +103,11 @@ The rules will call `gapic-generator` and do all the necessary pre- and post- ge
 #### Java
 1. **`java/java_gapic_repositories.bzl`** - this file essentially replaces `artman_<service>.yaml`, `dependencies.yaml` and `api_defaults.yaml` by using `bazel` itself for dependencies resolution. Previously the dependencies were handled in a form of yaml config values, when they are not validated to: 1) be correct/exist; 2) match generated code; 3) be sufficient/redundant. To deal with dependencies versions mismatch, the `repo_mapping` feature of Bazel is supposed to be used (enabled by `--experimental_enable_repo_mapping` command line argument).
 
-#### Go
-1. **`go/go_gapic_repositories.bzl`** - this file declares the Go-specific dependencies of the generated output and is supposed to be included in the WORKSPACE file of the consuming workspace (for example in `googleapis`).
-
 #### Python
 1. **`python/py_gapic_repositories.bzl`** - this file declares the Python-specific dependencies of the generated output. It is intended to be included in the `WORKSPACE` file of the consuming workspace (for example, in `googleapis`).
 
 #### PHP
 1. **`php/php_gapic_repositories.bzl`** - this file declares the PHP-specific dependencies of the generated output and is supposed to be included in the WORKSPACE file of the consuming workspace (for example in `googleapis`). This file also declares the `php` repository rule, which downloads and builds from sources the PHP interpreter (by using `gcc`, `make` and `autoconf` tools, so they are expected to be installed on the system).
-
-#### Node.js
-There are not any specific to Node.js dependencies at this moment (they may be added in the future).
 
 #### Ruby
 There are not any specific to Ruby dependencies at this moment (they may be added in the future).

@@ -40,8 +40,12 @@ jobs:
         echo "and it will start over with a clean cache."
         echo "The old one will disappear after 7 days."
 
-    - name: Run bazel build in google/cloud/compute/v1
+    - name: Run bazel build in bazel folder
       run: bazel build //bazel:build_file_generator
 
     - name: Run generated tests
       run: bazel test '//bazel:*'
+
+    - name: Show test output
+      run: cat bazel-out/*/testlogs/bazel/build_file_generator_test/test.log
+      if: ${{ failure() }}

@@ -81,15 +81,24 @@ class BazelBuildFileView {
 
     Set<String> javaTests = new TreeSet<>();
     for (String service : bp.getServices()) {
-      String javaPackage = bp.getLangGapicPackages().get("java");
+      // Prioritize the language override in gapic.yaml if it is present.
+      // New APIs (circa 2020) should rely on the protobuf options instead.
+      String javaPackage =
+          bp.getLangGapicPackages().containsKey("java")
+              ? bp.getLangGapicPackages().get("java")
+              : bp.getLangProtoPackages().get("java");
       if (javaPackage == null) {
         continue;
       }
 
       String actualService =
-          bp.getLangGapicNameOverrides()
-              .get("java")
-              .getOrDefault(bp.getProtoPackage() + "." + service, service);
+          bp.getLangGapicNameOverrides().containsKey("java")
+              // The service name is overridden in gapic.yaml.
+              ? bp.getLangGapicNameOverrides()
+                  .get("java")
+                  .getOrDefault(bp.getProtoPackage() + "." + service, service)
+              // Default service name as it appears in the proto.
+              : service;
       if (actualService.startsWith("IAM")) {
         actualService = actualService.replaceAll("^IAM", "Iam");
       }

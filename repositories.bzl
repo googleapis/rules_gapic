@@ -15,7 +15,7 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
 
-def com_google_api_codegen_bazel_repositories():
+def rules_gapic_repositories():
     ## Dependencies for buildozer
     maybe(
         http_archive,

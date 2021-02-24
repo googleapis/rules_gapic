@@ -1,1 +1,8 @@
+# Bazel
 bazel-*
+
+# Vim.
+*.sw*
+*.vim
+
+
