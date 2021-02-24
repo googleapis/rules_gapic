@@ -1,5 +1,30 @@
 # Changelog
 
+## [0.4.0](https://www.github.com/googleapis/rules_gapic/compare/v0.3.0...v0.4.0) (2021-02-19)
+
+
+### Features
+
+* add default value for the ruby gem name ([#22](https://www.github.com/googleapis/rules_gapic/issues/22)) ([428c05b](https://www.github.com/googleapis/rules_gapic/commit/428c05b06e0fe487f377929776285c81aa12e8c2))
+
+
+### Bug Fixes
+
+* **build_gen:** support proto java_package, make gapic.yaml dep optional, add tests [rules_gapic] ([#26](https://www.github.com/googleapis/rules_gapic/issues/26)) ([dc4dd84](https://www.github.com/googleapis/rules_gapic/commit/dc4dd840853ad7a929499f9b65c7ad66bb002dd4))
+* ruby rules to have correct `srcs` form ([#20](https://www.github.com/googleapis/rules_gapic/issues/20)) ([475b182](https://www.github.com/googleapis/rules_gapic/commit/475b182282d51ccb58871a5ca2d3e10568baa7a1))
+
+## [0.3.0](https://www.github.com/googleapis/rules_gapic/compare/v0.2.0...v0.3.0) (2021-02-17)
+
+
+### Features
+
+* **bazel:** enable Go metadata gen ([#16](https://www.github.com/googleapis/rules_gapic/issues/16)) ([748854c](https://www.github.com/googleapis/rules_gapic/commit/748854c6c95ed68eef741a6be6c6cc27ab86a05b))
+
+
+### Bug Fixes
+
+* renames and docs cleanup ([#18](https://www.github.com/googleapis/rules_gapic/issues/18)) ([7840242](https://www.github.com/googleapis/rules_gapic/commit/7840242217e08f51c75100d363b7e26667c8fa1d))
+
 ## [0.2.0](https://www.github.com/googleapis/rules_gapic/compare/v0.1.0...v0.2.0) (2021-02-12)
 
 

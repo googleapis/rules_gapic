@@ -33,9 +33,10 @@ class ApiVersionedDir {
       Pattern.compile("(?m)^package\\s+(?<protoPackage>[\\w+\\.]+)\\s*;\\s*$");
   private static final Pattern IMPORTS =
       Pattern.compile("(?m)^import\\s+\"(?<import>[\\w+\\\\./]+)\"\\s*;\\s*$");
-  private static final Pattern PROTO_OPTIONS =
+  // A proto's language package options.
+  private static final Pattern PROTO_LANG_PACKAGE =
       Pattern.compile(
-          "(?m)^option\\s+(?<optName>\\w+)\\s+=\\s+\"(?<optValue>[\\w./;\\\\\\-]+)\"\\s*;\\s*$");
+          "(?m)^option\\s+(?<optName>(java|go|csharp|ruby|php|javascript)_(namespace|package))\\s+=\\s+\"(?<optValue>[\\w./;\\\\\\-]+)\"\\s*;\\s*$");
   private static final Pattern SERVICE =
       Pattern.compile("(?m)^service\\s+(?<service>\\w+)\\s+(\\{)*\\s*$");
   private static final Pattern LANG_PACKAGES =
@@ -60,9 +61,13 @@ class ApiVersionedDir {
 
   private static final String[] PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES = {
     // TypeScript:
-    "package_name", "main_service", "bundle_config", "iam_service",
+    "package_name",
+    "main_service",
+    "bundle_config",
+    "iam_service",
     // Ruby:
-    "ruby_cloud_title", "ruby_cloud_description",
+    "ruby_cloud_title",
+    "ruby_cloud_description",
     // Other languages: add below
   };
 
@@ -316,7 +321,7 @@ class ApiVersionedDir {
     }
 
     // Parse file-level options
-    m = PROTO_OPTIONS.matcher(fileBody);
+    m = PROTO_LANG_PACKAGE.matcher(fileBody);
     while (m.find()) {
       String optName = m.group("optName");
       String optValue = m.group("optValue");
@@ -359,11 +364,12 @@ class ApiVersionedDir {
         if (kind.contains("_gapic_assembly_")) {
           if (this.assemblyPkgRulesNames.containsKey(kind)) {
             // Duplicated rule of the same kind will break our logic for preserving rule name.
-            System.err.println("There are more than one rule of kind " + kind + ".");
             System.err.println(
-                "Bazel build file generator does not support regenerating BUILD.bazel in this case.");
-            System.err.println(
-                "Please run it with --overwrite option to overwrite the existing BUILD.bazel completely.");
+                String.format(
+                    "There is more than one rule of kind %s. Bazel build file generator does not"
+                        + " support regenerating BUILD.bazel in this case.  Please run it with"
+                        + " --overwrite option to overwrite the existing BUILD.bazel completely.",
+                    kind));
             throw new RuntimeException("Duplicated rule " + kind);
           }
           this.assemblyPkgRulesNames.put(kind, name);

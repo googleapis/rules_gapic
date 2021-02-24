@@ -25,8 +25,7 @@ import org.junit.Test;
 
 public class BuildFileGeneratorTest {
   private static final String SRC_DIR = Paths.get("googleapis").toString();
-  private static final String PATH_PREFIX =
-      Paths.get("bazel", "src", "test", "data").toString();
+  private static final String PATH_PREFIX = Paths.get("bazel", "src", "test", "data").toString();
 
   @Test
   public void testGenerateBuildFiles() throws IOException {
@@ -41,7 +40,27 @@ public class BuildFileGeneratorTest {
         Paths.get(fileBodyPathPrefix.toString(), "v1", "BUILD.bazel").toString();
     String rawBuildFilePath = Paths.get(fileBodyPathPrefix.toString(), "BUILD.bazel").toString();
 
-    Assert.assertEquals(2, fw.files.size());
+    Assert.assertEquals(3, fw.files.size());
+    Assert.assertEquals(
+        ApisVisitor.readFile(gapicBuildFilePath + ".baseline"), fw.files.get(gapicBuildFilePath));
+    Assert.assertEquals(
+        ApisVisitor.readFile(rawBuildFilePath + ".baseline"), fw.files.get(rawBuildFilePath));
+  }
+
+  @Test
+  public void testGenerateBuildFiles_legacyJavaLanguageOverrides() throws IOException {
+    String buildozerPath = getBuildozerPath();
+    ArgsParser args =
+        new ArgsParser(new String[] {"--buildozer=" + buildozerPath, "--src=" + SRC_DIR});
+    FileWriter fw = new FileWriter();
+    new BuildFileGenerator().generateBuildFiles(args.createApisVisitor(fw, PATH_PREFIX));
+
+    Path fileBodyPathPrefix = Paths.get(PATH_PREFIX, SRC_DIR, "google", "example", "library");
+    String gapicBuildFilePath =
+        Paths.get(fileBodyPathPrefix.toString(), "v1legacy", "BUILD.bazel").toString();
+    String rawBuildFilePath = Paths.get(fileBodyPathPrefix.toString(), "BUILD.bazel").toString();
+
+    Assert.assertEquals(3, fw.files.size());
     Assert.assertEquals(
         ApisVisitor.readFile(gapicBuildFilePath + ".baseline"), fw.files.get(gapicBuildFilePath));
     Assert.assertEquals(
@@ -100,6 +119,8 @@ public class BuildFileGeneratorTest {
         "renamed_csharp_rule");
     buildozer.batchSetAttribute(
         gapicBuildFilePath, "google-cloud-example-library-v1-java", "name", "renamed_java_rule");
+    buildozer.batchSetAttribute(
+        gapicBuildFilePath, "library_ruby_gapic", "ruby_cloud_title", "Title with spaces");
 
     // The following values should NOT be preserved:
     buildozer.batchSetAttribute(
@@ -128,6 +149,10 @@ public class BuildFileGeneratorTest {
     Assert.assertEquals(
         "renamed_java_rule",
         buildozer.getAttribute(gapicBuildFilePath, "%java_gapic_assembly_gradle_pkg", "name"));
+    Assert.assertEquals(
+        "Title with spaces",
+        buildozer.getAttribute(gapicBuildFilePath, "%ruby_cloud_gapic_library", "ruby_cloud_title"));
+
     // Check that grpc_service_config value is not preserved:
     Assert.assertEquals(
         "library_example_grpc_service_config.json",
@@ -167,15 +192,17 @@ public class BuildFileGeneratorTest {
         "[value1 value2]", buildozer.getAttribute(buildBazel, "rule2", "list_attr"));
 
     // Set some attributes and get the result
-    buildozer.setAttribute(buildBazel, "rule1", "attr", "new_attr_value");
-    buildozer.addAttribute(buildBazel, "rule2", "list_attr", "value3");
+    buildozer.batchSetAttribute(buildBazel, "rule1", "attr", "new_attr_value");
+    buildozer.batchAddAttribute(buildBazel, "rule2", "list_attr", "value3");
+    buildozer.commit();
     Assert.assertEquals("new_attr_value", buildozer.getAttribute(buildBazel, "rule1", "attr"));
     Assert.assertEquals(
         "[value1 value2 value3]", buildozer.getAttribute(buildBazel, "rule2", "list_attr"));
 
     // Remove attribute
     Assert.assertEquals("remove_a", buildozer.getAttribute(buildBazel, "rule1", "to_be_removed_a"));
-    buildozer.removeAttribute(buildBazel, "rule1", "to_be_removed_a");
+    buildozer.batchRemoveAttribute(buildBazel, "rule1", "to_be_removed_a");
+    buildozer.commit();
     Assert.assertEquals(null, buildozer.getAttribute(buildBazel, "rule1", "to_be_removed_a"));
 
     // Test batch operations
