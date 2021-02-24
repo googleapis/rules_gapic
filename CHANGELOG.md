@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.0](https://www.github.com/googleapis/rules_gapic/compare/v0.4.0...v0.5.0) (2021-02-24)
+
+
+### Features
+
+* add synth rules ([#6](https://www.github.com/googleapis/rules_gapic/issues/6)) ([108ecc0](https://www.github.com/googleapis/rules_gapic/commit/108ecc0aed3a91241ca114e16c9f1cd97dcf2d31))
+
+
+### Bug Fixes
+
+* properly support spaces in string values ([#27](https://www.github.com/googleapis/rules_gapic/issues/27)) ([ff1d244](https://www.github.com/googleapis/rules_gapic/commit/ff1d244dc6a8f531c8699f998de64ba82b2e2a71))
+
 ## [0.4.0](https://www.github.com/googleapis/rules_gapic/compare/v0.3.0...v0.4.0) (2021-02-19)
 
 
