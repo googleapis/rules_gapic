@@ -119,6 +119,8 @@ public class BuildFileGeneratorTest {
         "renamed_csharp_rule");
     buildozer.batchSetAttribute(
         gapicBuildFilePath, "google-cloud-example-library-v1-java", "name", "renamed_java_rule");
+    buildozer.batchSetAttribute(
+        gapicBuildFilePath, "library_ruby_gapic", "ruby_cloud_title", "Title with spaces");
 
     // The following values should NOT be preserved:
     buildozer.batchSetAttribute(
@@ -147,6 +149,10 @@ public class BuildFileGeneratorTest {
     Assert.assertEquals(
         "renamed_java_rule",
         buildozer.getAttribute(gapicBuildFilePath, "%java_gapic_assembly_gradle_pkg", "name"));
+    Assert.assertEquals(
+        "Title with spaces",
+        buildozer.getAttribute(gapicBuildFilePath, "%ruby_cloud_gapic_library", "ruby_cloud_title"));
+
     // Check that grpc_service_config value is not preserved:
     Assert.assertEquals(
         "library_example_grpc_service_config.json",

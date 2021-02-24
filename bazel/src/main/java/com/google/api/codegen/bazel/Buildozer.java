@@ -82,6 +82,9 @@ public class Buildozer {
       if (value.equals("(missing)")) {
         return null;
       }
+      if (value.charAt(0) == '"' && value.charAt(value.length() - 1) == '"') {
+        value = value.substring(1, value.length() - 1);
+      }
       return value;
     } catch (IndexOutOfBoundsException ignored) {
       return null;
@@ -92,7 +95,8 @@ public class Buildozer {
   // immediately.
   public void setAttribute(Path bazelBuildFile, String target, String attribute, String value)
       throws IOException {
-    execute(bazelBuildFile, String.format("set %s \"%s\"", attribute, value), target);
+    final String escapedValue = value.replace(" ", "\\ ");
+    execute(bazelBuildFile, String.format("set %s \"%s\"", attribute, escapedValue), target);
   }
 
   // Remove the given attribute of the given target. Apply changes immediately.
@@ -105,15 +109,17 @@ public class Buildozer {
   // immediately.
   public void addAttribute(Path bazelBuildFile, String target, String attribute, String value)
       throws IOException {
-    execute(bazelBuildFile, String.format("add %s \"%s\"", attribute, value), target);
+    final String escapedValue = value.replace(" ", "\\ ");
+    execute(bazelBuildFile, String.format("add %s \"%s\"", attribute, escapedValue), target);
   }
 
   // Set the value to the given attribute of the given target.
   // The changes will be applied when the whole batch is committed with .commit().
   public void batchSetAttribute(Path bazelBuildFile, String target, String attribute, String value)
       throws IOException {
+    final String escapedValue = value.replace(" ", "\\ ");
     batch.add(
-        String.format("set %s \"%s\"|%s:%s", attribute, value, bazelBuildFile.toString(), target));
+        String.format("set %s \"%s\"|%s:%s", attribute, escapedValue, bazelBuildFile.toString(), target));
   }
 
   // Remove the given attribute of the given target. Apply changes immediately.
@@ -126,8 +132,9 @@ public class Buildozer {
   // The changes will be applied when the whole batch is committed with .commit().
   public void batchAddAttribute(Path bazelBuildFile, String target, String attribute, String value)
       throws IOException {
+    final String escapedValue = value.replace(" ", "\\ ");
     batch.add(
-        String.format("add %s \"%s\"|%s:%s", attribute, value, bazelBuildFile.toString(), target));
+        String.format("add %s \"%s\"|%s:%s", attribute, escapedValue, bazelBuildFile.toString(), target));
   }
 
   // Make all changes that are waiting in the batch.
