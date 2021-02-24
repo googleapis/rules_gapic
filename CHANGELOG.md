@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.4.1](https://www.github.com/googleapis/rules_gapic/compare/v0.4.0...v0.4.1) (2021-02-24)
+
+
+### Bug Fixes
+
+* properly support spaces in string values ([#27](https://www.github.com/googleapis/rules_gapic/issues/27)) ([ff1d244](https://www.github.com/googleapis/rules_gapic/commit/ff1d244dc6a8f531c8699f998de64ba82b2e2a71))
+
 ## [0.4.0](https://www.github.com/googleapis/rules_gapic/compare/v0.3.0...v0.4.0) (2021-02-19)
 
 
