@@ -197,7 +197,9 @@ class BazelBuildFileView {
   private Set<String> mapJavaGapicDeps(Set<String> protoImports) {
     Set<String> javaImports = new TreeSet<>();
     for (String protoImport : protoImports) {
-      if (protoImport.endsWith(":iam_policy_proto") || protoImport.endsWith(":policy_proto")) {
+      if (protoImport.endsWith(":iam_policy_proto")
+          || protoImport.endsWith(":policy_proto")
+          || protoImport.endsWith(":options_proto")) {
         javaImports.add(replaceLabelName(protoImport, ":iam_java_proto"));
       } else if (protoImport.endsWith(":service_proto")
           || protoImport.endsWith(":httpbody_proto")) {
@@ -210,7 +212,9 @@ class BazelBuildFileView {
   private Set<String> mapJavaGapicTestDeps(Set<String> protoImports) {
     Set<String> javaImports = new TreeSet<>();
     for (String protoImport : protoImports) {
-      if (protoImport.endsWith(":iam_policy_proto") || protoImport.endsWith(":policy_proto")) {
+      if (protoImport.endsWith(":iam_policy_proto") 
+          || protoImport.endsWith(":policy_proto")
+          || protoImport.endsWith(":options_proto")) {
         javaImports.add(replaceLabelName(protoImport, ":iam_java_grpc"));
       }
     }
@@ -233,7 +237,8 @@ class BazelBuildFileView {
       } else if (protoImport.endsWith(":operations_proto")) {
         goImports.add(replaceLabelName(protoImport, ":longrunning_go_proto"));
       } else if (protoImport.endsWith(":iam_policy_proto")
-          || protoImport.endsWith(":policy_proto")) {
+          || protoImport.endsWith(":policy_proto")
+          || protoImport.endsWith(":options_proto")) {
         goImports.add(replaceLabelName(protoImport, ":iam_go_proto"));
       } else if (protoImport.endsWith(":config_change_proto")) {
         goImports.add(replaceLabelName(protoImport, ":configchange_go_proto"));
@@ -277,7 +282,8 @@ class BazelBuildFileView {
           }
         }
       } else if (protoImport.endsWith(":iam_policy_proto")
-          || protoImport.endsWith(":policy_proto")) {
+          || protoImport.endsWith(":policy_proto")
+          || protoImport.endsWith(":options_proto")) {
         goImports.add(replaceLabelName(protoImport, ":iam_go_proto"));
       } else if (protoImport.endsWith(":service_proto")) {
         goImports.add(replaceLabelName(protoImport, ":serviceconfig_go_proto"));
