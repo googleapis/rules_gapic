@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.5.1](https://www.github.com/googleapis/rules_gapic/compare/v0.5.0...v0.5.1) (2021-03-12)
+
+
+### Bug Fixes
+
+* add options_proto to iam pkg mapping ([#31](https://www.github.com/googleapis/rules_gapic/issues/31)) ([cc63d3e](https://www.github.com/googleapis/rules_gapic/commit/cc63d3ee357550ccf1ba7f1459706b4ba081b8f9))
+
 ## [0.5.0](https://www.github.com/googleapis/rules_gapic/compare/v0.4.0...v0.5.0) (2021-02-24)
 
 
