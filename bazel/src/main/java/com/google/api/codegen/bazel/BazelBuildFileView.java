@@ -99,9 +99,6 @@ class BazelBuildFileView {
                   .getOrDefault(bp.getProtoPackage() + "." + service, service)
               // Default service name as it appears in the proto.
               : service;
-      if (actualService.startsWith("IAM")) {
-        actualService = actualService.replaceAll("^IAM", "Iam");
-      }
       javaTests.add(javaPackage + "." + actualService + "ClientTest");
     }
     tokens.put("java_tests", joinSetWithIndentation(javaTests));
