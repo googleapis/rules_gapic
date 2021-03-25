@@ -76,7 +76,6 @@ class BazelBuildFileView {
           "\"" + convertPathToLabel(bp.getProtoPackage(), bp.getServiceConfigJsonPath()) + "\"");
     }
 
-    tokens.put("gapic_yaml", convertPathToLabel(bp.getProtoPackage(), bp.getGapicYamlPath()));
     tokens.put("service_yaml", convertPathToLabel(bp.getProtoPackage(), bp.getServiceYamlPath()));
 
     Set<String> javaTests = new TreeSet<>();
@@ -209,7 +208,7 @@ class BazelBuildFileView {
   private Set<String> mapJavaGapicTestDeps(Set<String> protoImports) {
     Set<String> javaImports = new TreeSet<>();
     for (String protoImport : protoImports) {
-      if (protoImport.endsWith(":iam_policy_proto") 
+      if (protoImport.endsWith(":iam_policy_proto")
           || protoImport.endsWith(":policy_proto")
           || protoImport.endsWith(":options_proto")) {
         javaImports.add(replaceLabelName(protoImport, ":iam_java_grpc"));
