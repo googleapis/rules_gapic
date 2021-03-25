@@ -169,10 +169,10 @@ py_gapic_assembly_pkg(
 ##############################################################################
 load(
     "@com_google_googleapis_imports//:imports.bzl",
-    "php_gapic_assembly_pkg",
-    "php_gapic_library",
-    "php_grpc_library",
-    "php_proto_library",
+    php_gapic_assembly_pkg = "php_gapic_assembly_pkg2",
+    php_gapic_library = "php_gapic_library2",
+    php_grpc_library = "php_grpc_library2",
+    php_proto_library = "php_proto_library2",
 )
 
 php_proto_library(
@@ -188,10 +188,8 @@ php_grpc_library(
 
 php_gapic_library(
     name = "{{name}}_php_gapic",
-    src = ":{{name}}_proto_with_info",
-    gapic_yaml = "{{gapic_yaml}}",
+    srcs = [":{{name}}_proto_with_info"],
     grpc_service_config = {{grpc_service_config}},
-    package = "{{package}}",
     service_yaml = "{{service_yaml}}",
     deps = [
         ":{{name}}_php_grpc",
