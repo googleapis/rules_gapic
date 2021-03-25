@@ -137,7 +137,9 @@ class ApisVisitor extends SimpleFileVisitor<Path> {
     BazelBuildFileTemplate template = null;
     String tmplType = "";
     if (bp.getProtoPackage() != null) {
-      if (bp.getGapicYamlPath() != null) {
+      boolean isGapicLibrary =
+          bp.getServiceYamlPath() != null || bp.getServiceConfigJsonPath() != null;
+      if (isGapicLibrary) {
         bp.injectFieldsFromTopLevel();
         template = this.gapicApiTempl;
         tmplType = "GAPIC_VERSIONED";
