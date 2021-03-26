@@ -62,7 +62,9 @@ class BazelBuildFileView {
     tokens.put("go_proto_importpath", bp.getLangProtoPackages().get("go").split(";")[0]);
     tokens.put("go_proto_deps", joinSetWithIndentation(mapGoProtoDeps(actualImports)));
 
-    if (bp.getGapicYamlPath() == null) {
+    boolean isGapicLibrary =
+        bp.getServiceYamlPath() != null || bp.getServiceConfigJsonPath() != null;
+    if (!isGapicLibrary) {
       return;
     }
 
