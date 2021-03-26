@@ -62,7 +62,9 @@ class BazelBuildFileView {
     tokens.put("go_proto_importpath", bp.getLangProtoPackages().get("go").split(";")[0]);
     tokens.put("go_proto_deps", joinSetWithIndentation(mapGoProtoDeps(actualImports)));
 
-    if (bp.getGapicYamlPath() == null) {
+    boolean isGapicLibrary =
+        bp.getServiceYamlPath() != null || bp.getServiceConfigJsonPath() != null;
+    if (!isGapicLibrary) {
       return;
     }
 
@@ -209,7 +211,7 @@ class BazelBuildFileView {
   private Set<String> mapJavaGapicTestDeps(Set<String> protoImports) {
     Set<String> javaImports = new TreeSet<>();
     for (String protoImport : protoImports) {
-      if (protoImport.endsWith(":iam_policy_proto") 
+      if (protoImport.endsWith(":iam_policy_proto")
           || protoImport.endsWith(":policy_proto")
           || protoImport.endsWith(":options_proto")) {
         javaImports.add(replaceLabelName(protoImport, ":iam_java_grpc"));
