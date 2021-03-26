@@ -78,7 +78,6 @@ class BazelBuildFileView {
           "\"" + convertPathToLabel(bp.getProtoPackage(), bp.getServiceConfigJsonPath()) + "\"");
     }
 
-    tokens.put("gapic_yaml", convertPathToLabel(bp.getProtoPackage(), bp.getGapicYamlPath()));
     tokens.put("service_yaml", convertPathToLabel(bp.getProtoPackage(), bp.getServiceYamlPath()));
 
     Set<String> javaTests = new TreeSet<>();
