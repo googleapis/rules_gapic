@@ -1,5 +1,13 @@
 # Changelog
 
+### [0.5.2](https://www.github.com/googleapis/rules_gapic/compare/v0.5.1...v0.5.2) (2021-04-01)
+
+
+### Bug Fixes
+
+* **gapic:** generate gapic build on seeing service.yaml or grpc_service_config.json ([#37](https://www.github.com/googleapis/rules_gapic/issues/37)) ([1a62038](https://www.github.com/googleapis/rules_gapic/commit/1a62038b41919bdf34d3a3b83e22a0e73de3d3f9))
+* **java:** remove IAM special-casing in test_classes generation ([#34](https://www.github.com/googleapis/rules_gapic/issues/34)) ([bebd02b](https://www.github.com/googleapis/rules_gapic/commit/bebd02bcb94758fe774b7e40495924d23a8f1f0c))
+
 ### [0.5.1](https://www.github.com/googleapis/rules_gapic/compare/v0.5.0...v0.5.1) (2021-03-12)
 
 
