@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.5.3](https://www.github.com/googleapis/rules_gapic/compare/v0.5.2...v0.5.3) (2021-04-05)
+
+
+### Bug Fixes
+
+* **build_gen:** handle errdetails_go_proto as a dep ([#40](https://www.github.com/googleapis/rules_gapic/issues/40)) ([1f0a0ef](https://www.github.com/googleapis/rules_gapic/commit/1f0a0ef3d5ae42cd816fdea043e4dc7cd9c47b3d))
+
 ### [0.5.2](https://www.github.com/googleapis/rules_gapic/compare/v0.5.1...v0.5.2) (2021-04-01)
 
 
