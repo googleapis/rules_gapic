@@ -248,6 +248,8 @@ class BazelBuildFileView {
         goImports.add(replaceLabelName(protoImport, ":monitoredres_go_proto"));
       } else if (protoImport.endsWith(":launch_stage_proto")) {
         goImports.add(replaceLabelName(protoImport, ":api_go_proto"));
+      } else if (protoImport.endsWith(":error_details_proto")) {
+        goImports.add(replaceLabelName(protoImport, ":errdetails_go_proto"));
       } else {
         goImports.add(protoImport.replaceAll("_proto$", "_go_proto"));
       }
