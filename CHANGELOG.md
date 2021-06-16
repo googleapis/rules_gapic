@@ -1,5 +1,17 @@
 # Changelog
 
+### [0.5.5](https://www.github.com/googleapis/rules_gapic/compare/v0.5.3...v0.5.5) (2021-06-16)
+
+
+### Bug Fixes
+
+* remove gen of protoc-gen-docs-plugin ([#47](https://www.github.com/googleapis/rules_gapic/issues/47)) ([c12c6dc](https://www.github.com/googleapis/rules_gapic/commit/c12c6dc44ce4de371f66dd450b3ac4f333c63f4b))
+
+
+### Miscellaneous Chores
+
+* release 0.5.5 ([#49](https://www.github.com/googleapis/rules_gapic/issues/49)) ([ae1fb5a](https://www.github.com/googleapis/rules_gapic/commit/ae1fb5a9abda1279aa3606d525615dfeae936692))
+
 ### [0.5.3](https://www.github.com/googleapis/rules_gapic/compare/v0.5.2...v0.5.3) (2021-04-05)
 
 
