@@ -24,6 +24,7 @@ import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 class BazelBuildFileView {
+  private static final String COMMON_RESOURCES_PROTO = "//google/cloud:common_resources_proto";
   private static final Pattern LABEL_NAME = Pattern.compile(":\\w+$");
   private final Map<String, String> tokens = new HashMap<>();
   private final Map<String, Map<String, String>> overriddenStringAttributes = new HashMap<>();
@@ -40,6 +41,13 @@ class BazelBuildFileView {
     tokens.put("proto_srcs", joinSetWithIndentation(bp.getProtos()));
     tokens.put("version", bp.getVersion());
     tokens.put("package", bp.getProtoPackage());
+
+    Set<String> extraImports = new TreeSet<>();
+    extraImports.add(COMMON_RESOURCES_PROTO);
+    if (bp.hasLocations() && !bp.getProtoPackage().equals("google.cloud.location")) {
+      extraImports.add("//google/cloud/location:location_proto");
+    }
+    tokens.put("extra_imports", joinSetWithIndentation(extraImports));
 
     String packPrefix = bp.getProtoPackage().replace(".", "/") + '/';
     Set<String> actualImports = new TreeSet<>();
@@ -102,10 +110,16 @@ class BazelBuildFileView {
               : service;
       javaTests.add(javaPackage + "." + actualService + "ClientTest");
     }
+
+    // Remove common_resources.proto because it is only needed for the proto_library_with_info target.
+    extraImports.remove(COMMON_RESOURCES_PROTO);
+    actualImports.addAll(extraImports);
+
     tokens.put("java_tests", joinSetWithIndentation(javaTests));
     tokens.put("java_gapic_deps", joinSetWithIndentationNl(mapJavaGapicDeps(actualImports)));
     tokens.put(
         "java_gapic_test_deps", joinSetWithIndentationNl(mapJavaGapicTestDeps(actualImports)));
+    tokens.put("extra_imports_java", joinSetWithIndentationNl(mapJavaGapicAssemblyPkgDeps(extraImports)));
 
     // Construct GAPIC import path & package name based on go_package proto option
     String protoPkg = bp.getProtoPackage();
@@ -202,9 +216,24 @@ class BazelBuildFileView {
       } else if (protoImport.endsWith(":service_proto")
           || protoImport.endsWith(":httpbody_proto")) {
         javaImports.add(replaceLabelName(protoImport, ":api_java_proto"));
+      } else if (protoImport.endsWith(":location_proto")) {
+        javaImports.add("//google/cloud/location:location_java_proto");
+        javaImports.add("//google/cloud/location:location_java_grpc");
       }
     }
     return javaImports;
+  }
+
+  private Set<String> mapJavaGapicAssemblyPkgDeps(Set<String> protoImports) {
+    Set<String> asemmblyPkgDeps = new TreeSet<>();
+    for (String protoImport : protoImports) {
+      if (protoImport.endsWith(":location_proto")) {
+        asemmblyPkgDeps.add("//google/cloud/location:location_java_proto");
+        asemmblyPkgDeps.add("//google/cloud/location:location_java_grpc");
+      }
+      asemmblyPkgDeps.add(protoImport);
+    }
+    return asemmblyPkgDeps;
   }
 
   private Set<String> mapJavaGapicTestDeps(Set<String> protoImports) {
@@ -214,6 +243,8 @@ class BazelBuildFileView {
           || protoImport.endsWith(":policy_proto")
           || protoImport.endsWith(":options_proto")) {
         javaImports.add(replaceLabelName(protoImport, ":iam_java_grpc"));
+      } else if (protoImport.endsWith(":location_proto")) {
+        javaImports.add("//google/cloud/location:location_java_grpc");
       }
     }
     return javaImports;

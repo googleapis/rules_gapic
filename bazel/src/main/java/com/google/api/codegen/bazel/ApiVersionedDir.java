@@ -59,6 +59,8 @@ class ApiVersionedDir {
 
   private static String CLOUD_AUTH_SCOPE = "https://www.googleapis.com/auth/cloud-platform";
 
+  private static String LOCATIONS_MIXIN = "google.cloud.location.Locations";
+
   private static final String[] PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES = {
     // TypeScript:
     "package_name",
@@ -163,6 +165,8 @@ class ApiVersionedDir {
   //         https://www.googleapis.com/auth/cloud-platform
   private boolean cloudScope;
 
+  private boolean containsLocations;
+
   // Names of *_gapic_assembly_* rules (since they may be overridden by the user)
   private final Map<String, String> assemblyPkgRulesNames = new HashMap<>();
 
@@ -242,6 +246,10 @@ class ApiVersionedDir {
     return assemblyPkgRulesNames;
   }
 
+  boolean hasLocations() {
+    return this.containsLocations;
+  }
+
   void parseYamlFile(String fileName, String fileBody) {
     // It is a gapic yaml
     Matcher m = GAPIC_YAML_TYPE.matcher(fileBody);
@@ -271,9 +279,11 @@ class ApiVersionedDir {
     if (m.find()) {
       serviceYamlPath = fileName;
 
-      if (fileBody.contains(CLOUD_AUTH_SCOPE)) {
-        cloudScope = true;
-      }
+      // API Servic config specifies the use of the Cloud oauth scope.
+      this.cloudScope = fileBody.contains(CLOUD_AUTH_SCOPE);
+
+      // API Serivce config has Locations API.
+      this.containsLocations = fileBody.contains(LOCATIONS_MIXIN);
     }
   }
 
@@ -411,10 +421,10 @@ class ApiVersionedDir {
       serviceYamlPath = version + '/' + topLevelServiceYaml;
     }
 
-    Boolean topLevelCloudScope = parent.getCloudScopes().get(version);
-    if (topLevelCloudScope == null) {
-      topLevelCloudScope = parent.getCloudScopes().getOrDefault("", false);
-    }
-    cloudScope = topLevelCloudScope;
+    boolean topLevelCloudScope = parent.getCloudScopes().getOrDefault(version, false);
+    cloudScope = topLevelCloudScope ? topLevelCloudScope : cloudScope;
+    
+    boolean topLevelContainsLocations = parent.getContainsLocations().getOrDefault(version, false);
+    containsLocations = topLevelContainsLocations ? topLevelContainsLocations : containsLocations;
   }
 }
