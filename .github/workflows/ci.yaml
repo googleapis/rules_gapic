@@ -44,7 +44,7 @@ jobs:
       run: bazel build //bazel:build_file_generator
 
     - name: Run generated tests
-      run: bazel test '//bazel:*'
+      run: bazel test --test_output=errors '//bazel:*'
 
     - name: Show test output
       run: cat bazel-out/*/testlogs/bazel/build_file_generator_test/test.log
