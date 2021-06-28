@@ -9,12 +9,14 @@ package(default_visibility = ["//visibility:public"])
 load("@rules_proto//proto:defs.bzl", "proto_library")
 
 proto_library(
-    name = "{{name}}_proto",
+    name = "types_proto",
     srcs = [
-        {{proto_srcs}}
+        "library_types.proto",
     ],
     deps = [
-        {{proto_deps}}
+        "//google/api:annotations_proto",
+        "//google/api:field_behavior_proto",
+        "//google/api:resource_proto",
     ],
 )
 
@@ -28,14 +30,14 @@ load(
 )
 
 java_proto_library(
-    name = "{{name}}_java_proto",
-    deps = [":{{name}}_proto"],
+    name = "types_java_proto",
+    deps = [":types_proto"],
 )
 
 java_grpc_library(
-    name = "{{name}}_java_grpc",
-    srcs = [":{{name}}_proto"],
-    deps = [":{{name}}_java_proto"],
+    name = "types_java_grpc",
+    srcs = [":types_proto"],
+    deps = [":types_java_proto"],
 )
 
 ##############################################################################
@@ -47,12 +49,12 @@ load(
 )
 
 go_proto_library(
-    name = "{{name}}_go_proto",
+    name = "types_go_proto",
     compilers = ["@io_bazel_rules_go//proto:go_grpc"],
-    importpath = "{{go_proto_importpath}}",
-    protos = [":{{name}}_proto"],
+    importpath = "google.golang.org/genproto/googleapis/example/library/types",
+    protos = [":types_proto"],
     deps = [
-        {{go_proto_deps}}
+        "//google/api:annotations_go_proto",
     ],
 )
 
@@ -66,15 +68,15 @@ load(
 )
 
 py_gapic_library(
-    name = "{{name}}_py_gapic",
-    srcs = [":{{name}}_proto"],
+    name = "types_py_gapic",
+    srcs = [":types_proto"],
 )
 
 # Open Source Packages
 py_gapic_assembly_pkg(
-    name = "{{assembly_name}}-{{version}}-py",
+    name = "types-{{version}}-py",
     deps = [
-        ":{{name}}_py_gapic",
+        ":types_py_gapic",
     ],
 )
 
@@ -88,14 +90,14 @@ load(
 )
 
 php_proto_library(
-    name = "{{name}}_php_proto",
-    deps = [":{{name}}_proto"],
+    name = "types_php_proto",
+    deps = [":types_proto"],
 )
 
 php_grpc_library(
-    name = "{{name}}_php_grpc",
-    srcs = [":{{name}}_proto"],
-    deps = [":{{name}}_php_proto"],
+    name = "types_php_grpc",
+    srcs = [":types_proto"],
+    deps = [":types_php_proto"],
 )
 
 ##############################################################################
@@ -118,14 +120,14 @@ load(
 )
 
 ruby_proto_library(
-    name = "{{name}}_ruby_proto",
-    deps = [":{{name}}_proto"],
+    name = "types_ruby_proto",
+    deps = [":types_proto"],
 )
 
 ruby_grpc_library(
-    name = "{{name}}_ruby_grpc",
-    srcs = [":{{name}}_proto"],
-    deps = [":{{name}}_ruby_proto"],
+    name = "types_ruby_grpc",
+    srcs = [":types_proto"],
+    deps = [":types_ruby_proto"],
 )
 
 ##############################################################################
@@ -138,14 +140,14 @@ load(
 )
 
 csharp_proto_library(
-    name = "{{name}}_csharp_proto",
-    deps = [":{{name}}_proto"],
+    name = "types_csharp_proto",
+    deps = [":types_proto"],
 )
 
 csharp_grpc_library(
-    name = "{{name}}_csharp_grpc",
-    srcs = [":{{name}}_proto"],
-    deps = [":{{name}}_csharp_proto"],
+    name = "types_csharp_grpc",
+    srcs = [":types_proto"],
+    deps = [":types_csharp_proto"],
 )
 
 ##############################################################################
