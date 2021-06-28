@@ -39,7 +39,6 @@ public class BuildFileGeneratorTest {
     String gapicBuildFilePath =
         Paths.get(fileBodyPathPrefix.toString(), "v1", "BUILD.bazel").toString();
     String rawBuildFilePath = Paths.get(fileBodyPathPrefix.toString(), "type", "BUILD.bazel").toString();
-    System.out.println(fw.files.get(rawBuildFilePath));
     String rootBuildFilePath = Paths.get(fileBodyPathPrefix.toString(), "BUILD.bazel").toString();
 
     Assert.assertEquals(4, fw.files.size());
