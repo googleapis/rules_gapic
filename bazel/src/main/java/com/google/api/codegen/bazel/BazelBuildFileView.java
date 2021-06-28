@@ -78,7 +78,12 @@ class BazelBuildFileView {
           "\"" + convertPathToLabel(bp.getProtoPackage(), bp.getServiceConfigJsonPath()) + "\"");
     }
 
-    tokens.put("service_yaml", convertPathToLabel(bp.getProtoPackage(), bp.getServiceYamlPath()));
+    String serviceYaml = "None";
+    if (bp.getServiceYamlPath() != null) {
+      // Wrap the label in quotations, because None doesn't need them, so they can't be in the template.
+      serviceYaml = "\""+convertPathToLabel(bp.getProtoPackage(), bp.getServiceYamlPath())+"\"";
+    }
+    tokens.put("service_yaml", serviceYaml);
 
     Set<String> javaTests = new TreeSet<>();
     for (String service : bp.getServices()) {
