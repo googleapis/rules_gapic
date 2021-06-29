@@ -38,13 +38,16 @@ public class BuildFileGeneratorTest {
     Path fileBodyPathPrefix = Paths.get(PATH_PREFIX, SRC_DIR, "google", "example", "library");
     String gapicBuildFilePath =
         Paths.get(fileBodyPathPrefix.toString(), "v1", "BUILD.bazel").toString();
-    String rawBuildFilePath = Paths.get(fileBodyPathPrefix.toString(), "BUILD.bazel").toString();
+    String rawBuildFilePath = Paths.get(fileBodyPathPrefix.toString(), "type", "BUILD.bazel").toString();
+    String rootBuildFilePath = Paths.get(fileBodyPathPrefix.toString(), "BUILD.bazel").toString();
 
-    Assert.assertEquals(3, fw.files.size());
+    Assert.assertEquals(4, fw.files.size());
     Assert.assertEquals(
         ApisVisitor.readFile(gapicBuildFilePath + ".baseline"), fw.files.get(gapicBuildFilePath));
     Assert.assertEquals(
         ApisVisitor.readFile(rawBuildFilePath + ".baseline"), fw.files.get(rawBuildFilePath));
+    Assert.assertEquals(
+        ApisVisitor.readFile(rootBuildFilePath + ".baseline"), fw.files.get(rootBuildFilePath));
   }
 
   @Test
@@ -58,13 +61,13 @@ public class BuildFileGeneratorTest {
     Path fileBodyPathPrefix = Paths.get(PATH_PREFIX, SRC_DIR, "google", "example", "library");
     String gapicBuildFilePath =
         Paths.get(fileBodyPathPrefix.toString(), "v1legacy", "BUILD.bazel").toString();
-    String rawBuildFilePath = Paths.get(fileBodyPathPrefix.toString(), "BUILD.bazel").toString();
+    String rootBuildFilePath = Paths.get(fileBodyPathPrefix.toString(), "BUILD.bazel").toString();
 
-    Assert.assertEquals(3, fw.files.size());
+    Assert.assertEquals(4, fw.files.size());
     Assert.assertEquals(
         ApisVisitor.readFile(gapicBuildFilePath + ".baseline"), fw.files.get(gapicBuildFilePath));
     Assert.assertEquals(
-        ApisVisitor.readFile(rawBuildFilePath + ".baseline"), fw.files.get(rawBuildFilePath));
+        ApisVisitor.readFile(rootBuildFilePath + ".baseline"), fw.files.get(rootBuildFilePath));
   }
 
   @Test
@@ -91,14 +94,14 @@ public class BuildFileGeneratorTest {
     Path fileBodyPathPrefix =
         Paths.get(copiedGoogleapis.toString(), "google", "example", "library");
     Path gapicBuildFilePath = Paths.get(fileBodyPathPrefix.toString(), "v1", "BUILD.bazel");
-    String rawBuildFilePath = Paths.get(fileBodyPathPrefix.toString(), "BUILD.bazel").toString();
+    String rootBuildFilePath = Paths.get(fileBodyPathPrefix.toString(), "BUILD.bazel").toString();
 
     Assert.assertEquals(
         ApisVisitor.readFile(gapicBuildFilePath.toString() + ".baseline"),
         ApisVisitor.readFile(gapicBuildFilePath.toString()));
     Assert.assertEquals(
-        ApisVisitor.readFile(rawBuildFilePath + ".baseline"),
-        ApisVisitor.readFile(rawBuildFilePath));
+        ApisVisitor.readFile(rootBuildFilePath + ".baseline"),
+        ApisVisitor.readFile(rootBuildFilePath));
 
     // Now change some values in google/example/library/v1/BUILD.bazel
     Buildozer.setBinaryPath(buildozerPath);
@@ -170,8 +173,8 @@ public class BuildFileGeneratorTest {
         ApisVisitor.readFile(gapicBuildFilePath.toString() + ".baseline"),
         ApisVisitor.readFile(gapicBuildFilePath.toString()));
     Assert.assertEquals(
-        ApisVisitor.readFile(rawBuildFilePath + ".baseline"),
-        ApisVisitor.readFile(rawBuildFilePath));
+        ApisVisitor.readFile(rootBuildFilePath + ".baseline"),
+        ApisVisitor.readFile(rootBuildFilePath));
   }
 
   @Test

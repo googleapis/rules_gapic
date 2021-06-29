@@ -63,7 +63,7 @@ java_gapic_library(
     name = "{{name}}_java_gapic",
     srcs = [":{{name}}_proto_with_info"],
     grpc_service_config = {{grpc_service_config}},
-    service_yaml = "{{service_yaml}}",
+    service_yaml = {{service_yaml}},
     test_deps = [
         ":{{name}}_java_grpc",{{java_gapic_test_deps}}
     ],
@@ -117,7 +117,7 @@ go_gapic_library(
     srcs = [":{{name}}_proto_with_info"],
     grpc_service_config = {{grpc_service_config}},
     importpath = "{{go_gapic_importpath}}",
-    service_yaml = "{{service_yaml}}",
+    service_yaml = {{service_yaml}},
     metadata = True,
     deps = [
         ":{{name}}_go_proto",{{go_gapic_deps}}
@@ -191,7 +191,7 @@ php_gapic_library(
     name = "{{name}}_php_gapic",
     srcs = [":{{name}}_proto_with_info"],
     grpc_service_config = {{grpc_service_config}},
-    service_yaml = "{{service_yaml}}",
+    service_yaml = {{service_yaml}},
     deps = [
         ":{{name}}_php_grpc",
         ":{{name}}_php_proto",
@@ -224,7 +224,7 @@ nodejs_gapic_library(
     extra_protoc_parameters = ["metadata"],
     grpc_service_config = {{grpc_service_config}},
     package = "{{package}}",
-    service_yaml = "{{service_yaml}}",
+    service_yaml = {{service_yaml}},
     deps = [],
 )
 
