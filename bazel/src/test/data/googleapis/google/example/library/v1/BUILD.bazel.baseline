@@ -88,13 +88,19 @@ java_gapic_test(
 
 # Open Source Packages
 java_gapic_assembly_gradle_pkg(
-    name = "google-cloud-example-library-v1-java",
+    name = "example-library-v1-java",
     deps = [
         ":library_java_gapic",
         ":library_java_grpc",
         ":library_java_proto",
         ":library_proto",
     ],
+)
+
+alias(
+    name = "google-cloud-example-library-v1-java",
+    actual = ":example-library-v1-go",
+    deprecated = "Please use :example-library-v1-java."
 )
 
 ##############################################################################
@@ -141,13 +147,19 @@ go_test(
 
 # Open Source Packages
 go_gapic_assembly_pkg(
-    name = "gapi-cloud-example-library-v1-go",
+    name = "example-library-v1-go",
     deps = [
         ":library_go_gapic",
         ":library_go_gapic_srcjar-test.srcjar",
         ":library_go_gapic_srcjar-metadata.srcjar",
         ":library_go_proto",
     ],
+)
+
+alias(
+    name = "gapi-cloud-example-library-v1-go",
+    actual = ":example-library-v1-go",
+    deprecated = "Please use :example-library-v1-go."
 )
 
 ##############################################################################
@@ -208,12 +220,18 @@ php_gapic_library(
 
 # Open Source Packages
 php_gapic_assembly_pkg(
-    name = "google-cloud-example-library-v1-php",
+    name = "example-library-v1-php",
     deps = [
         ":library_php_gapic",
         ":library_php_grpc",
         ":library_php_proto",
     ],
+)
+
+alias(
+    name = "google-cloud-example-library-v1-php",
+    actual = ":example-library-v1-php",
+    deprecated = "Please use :example-library-v1-php."
 )
 
 ##############################################################################
@@ -281,12 +299,18 @@ ruby_cloud_gapic_library(
 
 # Open Source Packages
 ruby_gapic_assembly_pkg(
-    name = "google-cloud-example-library-v1-ruby",
+    name = "example-library-v1-ruby",
     deps = [
         ":library_ruby_gapic",
         ":library_ruby_grpc",
         ":library_ruby_proto",
     ],
+)
+
+alias(
+    name = "google-cloud-example-library-v1-ruby",
+    actual = ":example-library-v1-ruby",
+    deprecated = "Please use :example-library-v1-ruby."
 )
 
 ##############################################################################
@@ -324,12 +348,18 @@ csharp_gapic_library(
 
 # Open Source Packages
 csharp_gapic_assembly_pkg(
-    name = "google-cloud-example-library-v1-csharp",
+    name = "example-library-v1-csharp",
     deps = [
         ":library_csharp_gapic",
         ":library_csharp_grpc",
         ":library_csharp_proto",
     ],
+)
+
+alias(
+    name = "google-cloud-example-library-v1-csharp",
+    actual = ":example-library-v1-csharp",
+    deprecated = "Please use :example-library-v1-csharp."
 )
 
 ##############################################################################

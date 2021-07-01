@@ -117,11 +117,11 @@ public class BuildFileGeneratorTest {
         gapicBuildFilePath, "library_nodejs_gapic", "extra_protoc_parameters", "param2");
     buildozer.batchSetAttribute(
         gapicBuildFilePath,
-        "google-cloud-example-library-v1-csharp",
+        "example-library-v1-csharp",
         "name",
         "renamed_csharp_rule");
     buildozer.batchSetAttribute(
-        gapicBuildFilePath, "google-cloud-example-library-v1-java", "name", "renamed_java_rule");
+        gapicBuildFilePath, "example-library-v1-java", "name", "renamed_java_rule");
     buildozer.batchSetAttribute(
         gapicBuildFilePath, "library_ruby_gapic", "ruby_cloud_title", "Title with spaces");
 
