@@ -81,19 +81,21 @@ java_gapic_test(
 )
 
 # Open Source Packages
+java_gapic_assembly_gradle_pkg_deps = [
+    ":{{name}}_java_gapic",
+    ":{{name}}_java_grpc",
+    ":{{name}}_java_proto",
+    ":{{name}}_proto",
+]
+
 java_gapic_assembly_gradle_pkg(
     name = "{{assembly_name}}-{{version}}-java",
-    deps = [
-        ":{{name}}_java_gapic",
-        ":{{name}}_java_grpc",
-        ":{{name}}_java_proto",
-        ":{{name}}_proto",
-    ],
+    deps = java_gapic_assembly_gradle_pkg_deps,
 )
 
-alias(
+java_gapic_assembly_gradle_pkg(
     name = "google-cloud-{{assembly_name}}-{{version}}-java",
-    actual = ":{{assembly_name}}-{{version}}-go",
+    deps = java_gapic_assembly_gradle_pkg_deps,
     deprecated = "Please use :{{assembly_name}}-{{version}}-java."
 )
 
@@ -138,19 +140,21 @@ go_test(
 )
 
 # Open Source Packages
+go_gapic_assembly_pkg_deps = [
+    ":{{name}}_go_gapic",
+    ":{{name}}_go_gapic_srcjar-test.srcjar",
+    ":{{name}}_go_gapic_srcjar-metadata.srcjar",
+    ":{{name}}_go_proto",
+]
+
 go_gapic_assembly_pkg(
     name = "{{assembly_name}}-{{version}}-go",
-    deps = [
-        ":{{name}}_go_gapic",
-        ":{{name}}_go_gapic_srcjar-test.srcjar",
-        ":{{name}}_go_gapic_srcjar-metadata.srcjar",
-        ":{{name}}_go_proto",
-    ],
+    deps = go_gapic_assembly_pkg_deps,
 )
 
-alias(
+go_gapic_assembly_pkg(
     name = "gapi-cloud-{{assembly_name}}-{{version}}-go",
-    actual = ":{{assembly_name}}-{{version}}-go",
+    deps = go_gapic_assembly_pkg_deps,
     deprecated = "Please use :{{assembly_name}}-{{version}}-go."
 )
 
@@ -211,18 +215,20 @@ php_gapic_library(
 )
 
 # Open Source Packages
+php_gapic_assembly_pkg_deps = [
+    ":{{name}}_php_gapic",
+    ":{{name}}_php_grpc",
+    ":{{name}}_php_proto",
+]
+
 php_gapic_assembly_pkg(
     name = "{{assembly_name}}-{{version}}-php",
-    deps = [
-        ":{{name}}_php_gapic",
-        ":{{name}}_php_grpc",
-        ":{{name}}_php_proto",
-    ],
+    deps = php_gapic_assembly_pkg_deps,
 )
 
-alias(
+php_gapic_assembly_pkg(
     name = "google-cloud-{{assembly_name}}-{{version}}-php",
-    actual = ":{{assembly_name}}-{{version}}-php",
+    deps = php_gapic_assembly_pkg_deps,
     deprecated = "Please use :{{assembly_name}}-{{version}}-php."
 )
 
@@ -290,18 +296,20 @@ ruby_cloud_gapic_library(
 )
 
 # Open Source Packages
+ruby_gapic_assembly_pkg_deps = [
+    ":{{name}}_ruby_gapic",
+    ":{{name}}_ruby_grpc",
+    ":{{name}}_ruby_proto",
+]
+
 ruby_gapic_assembly_pkg(
     name = "{{assembly_name}}-{{version}}-ruby",
-    deps = [
-        ":{{name}}_ruby_gapic",
-        ":{{name}}_ruby_grpc",
-        ":{{name}}_ruby_proto",
-    ],
+    deps = ruby_gapic_assembly_pkg_deps,
 )
 
-alias(
+ruby_gapic_assembly_pkg(
     name = "google-cloud-{{assembly_name}}-{{version}}-ruby",
-    actual = ":{{assembly_name}}-{{version}}-ruby",
+    deps = ruby_gapic_assembly_pkg_deps,
     deprecated = "Please use :{{assembly_name}}-{{version}}-ruby."
 )
 
@@ -339,18 +347,20 @@ csharp_gapic_library(
 )
 
 # Open Source Packages
+csharp_gapic_assembly_pkg_deps = [
+    ":{{name}}_csharp_gapic",
+    ":{{name}}_csharp_grpc",
+    ":{{name}}_csharp_proto",
+]
+
 csharp_gapic_assembly_pkg(
     name = "{{assembly_name}}-{{version}}-csharp",
-    deps = [
-        ":{{name}}_csharp_gapic",
-        ":{{name}}_csharp_grpc",
-        ":{{name}}_csharp_proto",
-    ],
+    deps = csharp_gapic_assembly_pkg_deps,
 )
 
-alias(
+csharp_gapic_assembly_pkg(
     name = "google-cloud-{{assembly_name}}-{{version}}-csharp",
-    actual = ":{{assembly_name}}-{{version}}-csharp",
+    deps = csharp_gapic_assembly_pkg_deps,
     deprecated = "Please use :{{assembly_name}}-{{version}}-csharp."
 )
 
