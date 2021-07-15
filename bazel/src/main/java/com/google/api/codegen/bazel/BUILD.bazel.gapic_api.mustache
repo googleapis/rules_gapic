@@ -32,7 +32,7 @@ proto_library_with_info(
     name = "{{name}}_proto_with_info",
     deps = [
         ":{{name}}_proto",
-        "//google/cloud:common_resources_proto",
+        {{extra_imports}}
     ],
 )
 
@@ -87,7 +87,7 @@ java_gapic_assembly_gradle_pkg(
         ":{{name}}_java_gapic",
         ":{{name}}_java_grpc",
         ":{{name}}_java_proto",
-        ":{{name}}_proto",
+        ":{{name}}_proto",{{extra_imports_java}}
     ],
 )
 
