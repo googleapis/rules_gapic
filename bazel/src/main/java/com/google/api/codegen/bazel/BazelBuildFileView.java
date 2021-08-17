@@ -218,8 +218,7 @@ class BazelBuildFileView {
           || protoImport.endsWith(":policy_proto")
           || protoImport.endsWith(":options_proto")) {
         javaImports.add(replaceLabelName(protoImport, ":iam_java_proto"));
-      } else if (protoImport.endsWith(":service_proto")
-          || protoImport.endsWith(":httpbody_proto")) {
+      } else if (protoImport.startsWith("//google/api:")) {
         javaImports.add(replaceLabelName(protoImport, ":api_java_proto"));
       } else if (protoImport.endsWith(":location_proto")) {
         javaImports.add("//google/cloud/location:location_java_proto");
@@ -325,6 +324,10 @@ class BazelBuildFileView {
         goImports.add(replaceLabelName(protoImport, ":serviceconfig_go_proto"));
       } else if (protoImport.endsWith(":httpbody_proto")) {
         goImports.add(replaceLabelName(protoImport, ":httpbody_go_proto"));
+      } else if (protoImport.endsWith(":monitored_resource_proto")) {
+        goImports.add(replaceLabelName(protoImport, ":monitoredres_go_proto"));
+      } else if (protoImport.endsWith(":metric_proto")) {
+        goImports.add(replaceLabelName(protoImport, ":metric_go_proto"));
       }
     }
     return goImports;
