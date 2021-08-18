@@ -62,6 +62,7 @@ java_grpc_library(
 java_gapic_library(
     name = "{{name}}_java_gapic",
     srcs = [":{{name}}_proto_with_info"],
+    gapic_yaml = {{gapic_yaml}},
     grpc_service_config = {{grpc_service_config}},
     service_yaml = {{service_yaml}},
     test_deps = [

@@ -93,6 +93,15 @@ class BazelBuildFileView {
     }
     tokens.put("service_yaml", serviceYaml);
 
+    // We need to continue to supply the gapic_yaml to Java targets when the
+    // gapic_yaml is available, because that means it was added for some override.
+    String gapicYaml = "None";
+    String gp = bp.getGapicYamlPath();
+    if (gp != null && !gp.isEmpty()) {
+      gapicYaml = "\""+convertPathToLabel(bp.getProtoPackage(), gp)+"\"";
+    }
+    tokens.put("gapic_yaml", gapicYaml);
+
     Set<String> javaTests = new TreeSet<>();
     for (String service : bp.getServices()) {
       // Prioritize the language override in gapic.yaml if it is present.
