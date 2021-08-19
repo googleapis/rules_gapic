@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.6.0](https://www.github.com/googleapis/rules_gapic/compare/v0.5.5...v0.6.0) (2021-08-19)
+
+
+### Features
+
+* **bazel:** py_gapic_library for non-service protos ([#53](https://www.github.com/googleapis/rules_gapic/issues/53)) ([5331882](https://www.github.com/googleapis/rules_gapic/commit/5331882892a2ded049dadc31c55694e9c51eac12))
+* **build_gen:** add service_yaml to java_gapic_library ([#45](https://www.github.com/googleapis/rules_gapic/issues/45)) ([7db0098](https://www.github.com/googleapis/rules_gapic/commit/7db0098351882d1e06b8a4842f361b5be15a59bb))
+* **build_gen:** inject Locations mixin proto deps ([#52](https://www.github.com/googleapis/rules_gapic/issues/52)) ([15c1f88](https://www.github.com/googleapis/rules_gapic/commit/15c1f88c64901bfa67a908efeaa4de850a8e8c7a))
+
+
+### Bug Fixes
+
+* **bazel:** include gapic_yaml in java if present ([#65](https://www.github.com/googleapis/rules_gapic/issues/65)) ([2b6fc8e](https://www.github.com/googleapis/rules_gapic/commit/2b6fc8e06faf86070683bcce4db241060dba8f73))
+* **bazel:** retain certain google/api deps ([#63](https://www.github.com/googleapis/rules_gapic/issues/63)) ([455392f](https://www.github.com/googleapis/rules_gapic/commit/455392f678df6097b7a7089b0932475eba3a5a70)), closes [#62](https://www.github.com/googleapis/rules_gapic/issues/62)
+* **bazel:** use None when no service_yaml ([#54](https://www.github.com/googleapis/rules_gapic/issues/54)) ([7bdaf87](https://www.github.com/googleapis/rules_gapic/commit/7bdaf871ef364818fa02247e1a001891d3f43091))
+
 ### [0.5.5](https://www.github.com/googleapis/rules_gapic/compare/v0.5.3...v0.5.5) (2021-06-16)
 
 
