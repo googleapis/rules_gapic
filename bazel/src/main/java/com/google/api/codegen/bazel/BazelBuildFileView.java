@@ -96,9 +96,9 @@ class BazelBuildFileView {
     // We need to continue to supply the gapic_yaml to Java targets when the
     // gapic_yaml is available, because that means it was added for some override.
     String gapicYaml = "None";
-    String gp = bp.getGapicYamlPath();
-    if (gp != null && !gp.isEmpty()) {
-      gapicYaml = "\""+convertPathToLabel(bp.getProtoPackage(), gp)+"\"";
+    String gapicYamlPath = bp.getGapicYamlPath();
+    if (gapicYamlPath != null && !gapicYamlPath.isEmpty()) {
+      gapicYaml = "\""+convertPathToLabel(bp.getProtoPackage(), gapicYamlPath)+"\"";
     }
     tokens.put("gapic_yaml", gapicYaml);
 
