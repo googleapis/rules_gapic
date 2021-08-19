@@ -5,7 +5,6 @@
 
 ### Features
 
-* **bazel:** py_gapic_library for non-service protos ([#53](https://www.github.com/googleapis/rules_gapic/issues/53)) ([5331882](https://www.github.com/googleapis/rules_gapic/commit/5331882892a2ded049dadc31c55694e9c51eac12))
 * **build_gen:** add service_yaml to java_gapic_library ([#45](https://www.github.com/googleapis/rules_gapic/issues/45)) ([7db0098](https://www.github.com/googleapis/rules_gapic/commit/7db0098351882d1e06b8a4842f361b5be15a59bb))
 * **build_gen:** inject Locations mixin proto deps ([#52](https://www.github.com/googleapis/rules_gapic/issues/52)) ([15c1f88](https://www.github.com/googleapis/rules_gapic/commit/15c1f88c64901bfa67a908efeaa4de850a8e8c7a))
 
