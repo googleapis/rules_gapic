@@ -61,21 +61,28 @@ go_proto_library(
 ##############################################################################
 load(
     "@com_google_googleapis_imports//:imports.bzl",
-    "py_gapic_assembly_pkg",
-    "py_gapic_library",
+    "moved_proto_library",
+    "py_grpc_library",
+    "py_proto_library",
 )
 
-py_gapic_library(
-    name = "{{name}}_py_gapic",
+moved_proto_library(
+    name = "{{name}}_moved_proto",
     srcs = [":{{name}}_proto"],
+    deps = [
+        {{proto_deps}}
+    ],
 )
 
-# Open Source Packages
-py_gapic_assembly_pkg(
-    name = "{{assembly_name}}-{{version}}-py",
-    deps = [
-        ":{{name}}_py_gapic",
-    ],
+py_proto_library(
+    name = "{{name}}_py_proto",
+    deps = [":{{name}}_moved_proto"],
+)
+
+py_grpc_library(
+    name = "{{name}}_py_grpc",
+    srcs = [":{{name}}_moved_proto"],
+    deps = [":{{name}}_py_proto"],
 )
 
 ##############################################################################
