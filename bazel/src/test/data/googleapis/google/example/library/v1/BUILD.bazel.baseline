@@ -37,7 +37,6 @@ proto_library_with_info(
     name = "library_proto_with_info",
     deps = [
         ":library_proto",
-        "//google/cloud/location:location_proto",
         "//google/cloud:common_resources_proto",
     ],
 )
@@ -137,6 +136,7 @@ go_gapic_library(
     deps = [
         ":library_go_proto",
         "//google/api:httpbody_go_proto",
+        "//google/cloud/location:location_go_proto",
     ],
 )
 

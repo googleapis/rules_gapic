@@ -44,9 +44,6 @@ class BazelBuildFileView {
 
     Set<String> extraImports = new TreeSet<>();
     extraImports.add(COMMON_RESOURCES_PROTO);
-    if (bp.hasLocations() && !bp.getProtoPackage().equals("google.cloud.location")) {
-      extraImports.add("//google/cloud/location:location_proto");
-    }
     tokens.put("extra_imports", joinSetWithIndentation(extraImports));
 
     String packPrefix = bp.getProtoPackage().replace(".", "/") + '/';
@@ -127,6 +124,10 @@ class BazelBuildFileView {
 
     // Remove common_resources.proto because it is only needed for the proto_library_with_info target.
     extraImports.remove(COMMON_RESOURCES_PROTO);
+    // Add location_proto dependency for mix-in if individual language rules need it.
+    if (bp.hasLocations() && !bp.getProtoPackage().equals("google.cloud.location")) {
+      extraImports.add("//google/cloud/location:location_proto");
+    }
     actualImports.addAll(extraImports);
 
     tokens.put("java_tests", joinSetWithIndentation(javaTests));
@@ -337,6 +338,8 @@ class BazelBuildFileView {
         goImports.add(replaceLabelName(protoImport, ":monitoredres_go_proto"));
       } else if (protoImport.endsWith(":metric_proto")) {
         goImports.add(replaceLabelName(protoImport, ":metric_go_proto"));
+      } else if (protoImport.endsWith(":location_proto")) {
+        goImports.add(replaceLabelName(protoImport, ":location_go_proto"));
       }
     }
     return goImports;
