@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.6.1](https://www.github.com/googleapis/rules_gapic/compare/v0.6.0...v0.6.1) (2021-08-25)
+
+
+### Bug Fixes
+
+* exclude lcoation mixin from proto input ([#66](https://www.github.com/googleapis/rules_gapic/issues/66)) ([6f9b0c7](https://www.github.com/googleapis/rules_gapic/commit/6f9b0c74e0c14eda1de8e17f21d9d3a746ec41e6))
+
 ## [0.6.0](https://www.github.com/googleapis/rules_gapic/compare/v0.5.5...v0.6.0) (2021-08-19)
 
 
