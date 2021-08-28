@@ -59,7 +59,7 @@ class ApiVersionedDir {
 
   private static String CLOUD_AUTH_SCOPE = "https://www.googleapis.com/auth/cloud-platform";
 
-  private static String LOCATIONS_MIXIN = "google.cloud.location.Locations";
+  private static String LOCATIONS_MIXIN = "name: google.cloud.location.Locations";
 
   private static final String[] PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES = {
     // TypeScript:
@@ -283,7 +283,9 @@ class ApiVersionedDir {
       this.cloudScope = fileBody.contains(CLOUD_AUTH_SCOPE);
 
       // API Serivce config has Locations API.
-      this.containsLocations = fileBody.contains(LOCATIONS_MIXIN);
+      if (fileBody.contains(LOCATIONS_MIXIN)) {
+        this.containsLocations = true;
+      }
     }
   }
 
