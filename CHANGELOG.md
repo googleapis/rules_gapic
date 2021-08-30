@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.6.2](https://www.github.com/googleapis/rules_gapic/compare/v0.6.1...v0.6.2) (2021-08-30)
+
+
+### Bug Fixes
+
+* correct overzealous locations search string ([#68](https://www.github.com/googleapis/rules_gapic/issues/68)) ([80272bb](https://www.github.com/googleapis/rules_gapic/commit/80272bb7f61589804236bbfa624929ce7db8dd62))
+
 ### [0.6.1](https://www.github.com/googleapis/rules_gapic/compare/v0.6.0...v0.6.1) (2021-08-25)
 
 
