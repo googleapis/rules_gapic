@@ -26,10 +26,12 @@ class ApiDir {
       Pattern.compile("_(?<version>[a-zA-Z]+\\d+[\\w]*)\\.yaml");
   private static String CLOUD_AUTH_SCOPE = "https://www.googleapis.com/auth/cloud-platform";
   private static String LOCATIONS_MIXIN = "name: google.cloud.location.Locations";
+  private static String IAM_POLICY_MIXIN = "name: google.iam.v1.IAMPolicy";
 
   private final Map<String, String> serviceYamlPaths = new TreeMap<>();
   private final Map<String, Boolean> cloudScopes = new TreeMap<>();
   private final Map<String, Boolean> containLocations = new TreeMap<>();
+  private final Map<String, Boolean> containIAMPolicy = new TreeMap<>();
 
   Map<String, String> getServiceYamlPaths() {
     return serviceYamlPaths;
@@ -41,6 +43,10 @@ class ApiDir {
 
   Map<String, Boolean> getContainsLocations() {
     return containLocations;
+  }
+
+  Map<String, Boolean> getContainsIAMPolicy() {
+    return containIAMPolicy;
   }
 
   void parseYamlFile(String fileName, String fileBody) {
@@ -56,6 +62,9 @@ class ApiDir {
       }
       if (fileBody.contains(LOCATIONS_MIXIN)) {
         containLocations.put(verKey, true);
+      }
+      if (fileBody.contains(IAM_POLICY_MIXIN)) {
+        containIAMPolicy.put(verKey, true);
       }
     }
   }
