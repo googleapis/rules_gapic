@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.6.3](https://www.github.com/googleapis/rules_gapic/compare/v0.6.2...v0.6.3) (2021-09-14)
+
+
+### Bug Fixes
+
+* **bazel:** include iam Go dep for IAMPolicy mixin ([#71](https://www.github.com/googleapis/rules_gapic/issues/71)) ([55e3a6c](https://www.github.com/googleapis/rules_gapic/commit/55e3a6c875d3d211e2aef070d8c29c7c51bdb355))
+
 ### [0.6.2](https://www.github.com/googleapis/rules_gapic/compare/v0.6.1...v0.6.2) (2021-08-30)
 
 
