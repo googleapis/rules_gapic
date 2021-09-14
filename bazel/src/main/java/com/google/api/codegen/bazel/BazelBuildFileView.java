@@ -136,6 +136,14 @@ class BazelBuildFileView {
         "java_gapic_test_deps", joinSetWithIndentationNl(mapJavaGapicTestDeps(actualImports)));
     tokens.put("extra_imports_java", joinSetWithIndentationNl(mapJavaGapicAssemblyPkgDeps(extraImports)));
 
+    // Add iam_policy_proto dependency for mix-in if individual language rules need it.
+    // Java does not seem to need it for mix-in purposes, so this is added after Java deps
+    // are worked out.
+    if (bp.hasIAMPolicy() && !bp.getProtoPackage().equals("google.iam.v1")) {
+      extraImports.add("//google/iam/v1:iam_policy_proto");
+    }
+    actualImports.addAll(extraImports);
+
     // Construct GAPIC import path & package name based on go_package proto option
     String protoPkg = bp.getProtoPackage();
     boolean isCloud = bp.getCloudScope() || protoPkg.contains("cloud");

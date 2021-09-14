@@ -20,6 +20,7 @@ title: Example Library API
 apis:
 - name: google.example.library.v1.LibraryService
 - name: google.cloud.location.Locations
+- name: google.iam.v1.IAMPolicy
 
 documentation:
   summary: A simple Google Example Library API.
