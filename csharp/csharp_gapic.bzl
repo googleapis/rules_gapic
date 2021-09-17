@@ -39,10 +39,10 @@ def csharp_grpc_library(name, srcs, deps, **kwargs):
         output_type = "grpc",
         output_suffix = ".srcjar",
         extra_args = [
-            "--include_source_info"
+            "--include_source_info",
         ],
         opt_args = [
-            "file_suffix=Grpc.g.cs"
+            "file_suffix=Grpc.g.cs",
         ],
         **kwargs
     )
