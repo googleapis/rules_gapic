@@ -41,6 +41,9 @@ def csharp_grpc_library(name, srcs, deps, **kwargs):
         extra_args = [
             "--include_source_info",
         ],
+        opt_args = [
+            "file_suffix=Grpc.g.cs",
+        ],
         **kwargs
     )
 
