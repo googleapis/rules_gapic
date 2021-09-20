@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0](https://www.github.com/googleapis/rules_gapic/compare/v0.6.3...v0.7.0) (2021-09-20)
+
+
+### Features
+
+* make C# grpc files end with Grpc.g.cs ([#74](https://www.github.com/googleapis/rules_gapic/issues/74)) ([c9dc26c](https://www.github.com/googleapis/rules_gapic/commit/c9dc26c8390523522708885533fb620b376ba03b))
+
 ### [0.6.3](https://www.github.com/googleapis/rules_gapic/compare/v0.6.2...v0.6.3) (2021-09-14)
 
 
