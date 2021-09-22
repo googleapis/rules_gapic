@@ -24,6 +24,9 @@ def csharp_proto_library(name, deps, **kwargs):
         extra_args = [
             "--include_source_info",
         ],
+        opt_args = [
+            "file_extension=.g.cs",
+        ],
         **kwargs
     )
 
