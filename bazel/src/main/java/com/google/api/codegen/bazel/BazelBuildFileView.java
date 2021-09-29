@@ -58,7 +58,7 @@ class BazelBuildFileView {
       String actualImport = imp.replace(".proto", "_proto");
       if (actualImport.startsWith("google/protobuf/")) {
         actualImport = actualImport.replace("google/protobuf/", "@com_google_protobuf//:");
-      } else if (actualImport.equals("google/cloud/common/operation_metadata.proto")) {
+      } else if (actualImport.equals("google/cloud/common/operation_metadata_proto")) {
         actualImport = "//google/cloud/common:common_proto";
       } else {
         actualImport = convertPathToLabel("", actualImport);
