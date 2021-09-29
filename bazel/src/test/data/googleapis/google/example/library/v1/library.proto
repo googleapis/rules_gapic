@@ -22,6 +22,8 @@ import "google/api/client.proto";
 import "google/api/field_behavior.proto";
 import "google/api/resource.proto";
 import "google/api/httpbody.proto";
+import "google/cloud/common/operation_metadata.proto";
+import "google/longrunning/operations.proto";
 import "google/protobuf/empty.proto";
 
 option go_package = "google.golang.org/genproto/googleapis/example/library/v1;library";
@@ -46,6 +48,16 @@ service LibraryService {
       body: "shelf"
     };
     option (google.api.method_signature) = "shelf";
+  }
+
+  rpc DeleteShelf(DeleteShelfRequest) returns (google.longrunning.Operation) {
+    option (google.api.http) = {
+      delete: "/v1/{name=shelves/*}"
+    };
+    option (google.longrunning.operation_info) = {
+      response_type: "google.protobuf.Empty"
+      metadata_type: "google.cloud.common.OperationMetadata"
+    };
   }
 }
 
@@ -72,4 +84,10 @@ message Shelf {
 message CreateShelfRequest {
   // The shelf to create.
   Shelf shelf = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request message for LibraryService.DeleteShelf.
+message DeleteShelfRequest {
+  // The shelf to delete.
+  string name = 1;
 }

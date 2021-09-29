@@ -29,6 +29,8 @@ proto_library(
         "//google/api:field_behavior_proto",
         "//google/api:httpbody_proto",
         "//google/api:resource_proto",
+        "//google/cloud/common:common_proto",
+        "//google/longrunning:operations_proto",
         "@com_google_protobuf//:empty_proto",
     ],
 )
@@ -77,6 +79,7 @@ java_gapic_library(
     deps = [
         ":library_java_proto",
         "//google/api:api_java_proto",
+        "//google/cloud/common:common_java_proto",
         "//google/cloud/location:location_java_grpc",
         "//google/cloud/location:location_java_proto",
     ],
@@ -123,6 +126,8 @@ go_proto_library(
     deps = [
         "//google/api:annotations_go_proto",
         "//google/api:httpbody_go_proto",
+        "//google/cloud/common:common_go_proto",
+        "//google/longrunning:longrunning_go_proto",
     ],
 )
 
@@ -136,8 +141,12 @@ go_gapic_library(
     deps = [
         ":library_go_proto",
         "//google/api:httpbody_go_proto",
+        "//google/cloud/common:common_go_proto",
         "//google/cloud/location:location_go_proto",
         "//google/iam/v1:iam_go_proto",
+        "//google/longrunning:longrunning_go_proto",
+        "@com_google_cloud_go//longrunning/autogen:go_default_library",
+        "@com_google_cloud_go//longrunning:go_default_library",
     ],
 )
 
@@ -250,6 +259,7 @@ nodejs_gapic_assembly_pkg(
     deps = [
         ":library_nodejs_gapic",
         ":library_proto",
+        "//google/cloud/common:common_proto",
     ],
 )
 
