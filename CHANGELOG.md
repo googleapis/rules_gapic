@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0](https://www.github.com/googleapis/rules_gapic/compare/v0.7.0...v0.8.0) (2021-09-29)
+
+
+### Features
+
+* make C# generated proto files end with .g.cs ([#76](https://www.github.com/googleapis/rules_gapic/issues/76)) ([7698d5c](https://www.github.com/googleapis/rules_gapic/commit/7698d5cf6489d385b055869e2721bac54b9d5114))
+
 ## [0.7.0](https://www.github.com/googleapis/rules_gapic/compare/v0.6.3...v0.7.0) (2021-09-20)
 
 
