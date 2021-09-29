@@ -42,6 +42,7 @@ class BazelBuildFileView {
     tokens.put("version", bp.getVersion());
     tokens.put("package", bp.getProtoPackage());
 
+    Set<String> extraProtosNodeJS = new TreeSet<>();
     Set<String> extraImports = new TreeSet<>();
     extraImports.add(COMMON_RESOURCES_PROTO);
     tokens.put("extra_imports", joinSetWithIndentation(extraImports));
@@ -58,12 +59,16 @@ class BazelBuildFileView {
       String actualImport = imp.replace(".proto", "_proto");
       if (actualImport.startsWith("google/protobuf/")) {
         actualImport = actualImport.replace("google/protobuf/", "@com_google_protobuf//:");
+      } else if (actualImport.equals("google/cloud/common/operation_metadata_proto")) {
+        actualImport = "//google/cloud/common:common_proto";
+        extraProtosNodeJS.add(actualImport);
       } else {
         actualImport = convertPathToLabel("", actualImport);
       }
       actualImports.add(actualImport);
     }
     tokens.put("proto_deps", joinSetWithIndentation(actualImports));
+    tokens.put("extra_protos_nodejs", joinSetWithIndentationNl(extraProtosNodeJS));
     tokens.put("go_proto_importpath", bp.getLangProtoPackages().get("go").split(";")[0]);
     tokens.put("go_proto_deps", joinSetWithIndentation(mapGoProtoDeps(actualImports)));
 
@@ -241,6 +246,8 @@ class BazelBuildFileView {
       } else if (protoImport.endsWith(":location_proto")) {
         javaImports.add("//google/cloud/location:location_java_proto");
         javaImports.add("//google/cloud/location:location_java_grpc");
+      } else if (protoImport.endsWith(":common_proto")) {
+        javaImports.add(replaceLabelName(protoImport, ":common_java_proto"));
       }
     }
     return javaImports;
@@ -348,6 +355,8 @@ class BazelBuildFileView {
         goImports.add(replaceLabelName(protoImport, ":metric_go_proto"));
       } else if (protoImport.endsWith(":location_proto")) {
         goImports.add(replaceLabelName(protoImport, ":location_go_proto"));
+      } else if (protoImport.endsWith(":common_proto")) {
+        goImports.add(replaceLabelName(protoImport, ":common_go_proto"));
       }
     }
     return goImports;
