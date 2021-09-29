@@ -42,6 +42,7 @@ class BazelBuildFileView {
     tokens.put("version", bp.getVersion());
     tokens.put("package", bp.getProtoPackage());
 
+    Set<String> extraProtosNodeJS = new TreeSet<>();
     Set<String> extraImports = new TreeSet<>();
     extraImports.add(COMMON_RESOURCES_PROTO);
     tokens.put("extra_imports", joinSetWithIndentation(extraImports));
@@ -60,12 +61,14 @@ class BazelBuildFileView {
         actualImport = actualImport.replace("google/protobuf/", "@com_google_protobuf//:");
       } else if (actualImport.equals("google/cloud/common/operation_metadata_proto")) {
         actualImport = "//google/cloud/common:common_proto";
+        extraProtosNodeJS.add(actualImport);
       } else {
         actualImport = convertPathToLabel("", actualImport);
       }
       actualImports.add(actualImport);
     }
     tokens.put("proto_deps", joinSetWithIndentation(actualImports));
+    tokens.put("extra_protos_nodejs", joinSetWithIndentationNl(extraProtosNodeJS));
     tokens.put("go_proto_importpath", bp.getLangProtoPackages().get("go").split(";")[0]);
     tokens.put("go_proto_deps", joinSetWithIndentation(mapGoProtoDeps(actualImports)));
 
