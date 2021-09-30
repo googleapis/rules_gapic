@@ -1,0 +1,7 @@
+type: google.api.Service
+config_version: 3
+name: library-types.googleapis.com
+title: Library Example types
+
+types:
+- name: google.example.library.types.Shelf

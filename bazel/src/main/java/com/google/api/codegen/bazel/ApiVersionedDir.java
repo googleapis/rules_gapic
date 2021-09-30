@@ -63,6 +63,8 @@ class ApiVersionedDir {
 
   private static String IAM_POLICY_MIXIN = "name: google.iam.v1.IAMPolicy";
 
+  private static String APIS_PROPERTY = "apis:";
+
   private static final String[] PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES = {
     // TypeScript:
     "package_name",
@@ -171,6 +173,8 @@ class ApiVersionedDir {
 
   private boolean containsIAMPolicy;
 
+  private boolean containsApis;
+
   // Names of *_gapic_assembly_* rules (since they may be overridden by the user)
   private final Map<String, String> assemblyPkgRulesNames = new HashMap<>();
 
@@ -258,6 +262,10 @@ class ApiVersionedDir {
     return this.containsIAMPolicy;
   }
 
+  boolean hasApis() {
+    return this.containsApis;
+  }
+
   void parseYamlFile(String fileName, String fileBody) {
     // It is a gapic yaml
     Matcher m = GAPIC_YAML_TYPE.matcher(fileBody);
@@ -287,8 +295,11 @@ class ApiVersionedDir {
     if (m.find()) {
       serviceYamlPath = fileName;
 
-      // API Servic config specifies the use of the Cloud oauth scope.
+      // API Service config specifies the use of the Cloud oauth scope.
       this.cloudScope = fileBody.contains(CLOUD_AUTH_SCOPE);
+
+      // API Service config names at least one API interface exposed.
+      this.containsApis = fileBody.contains(APIS_PROPERTY);
 
       // API Serivce config has Locations API.
       if (fileBody.contains(LOCATIONS_MIXIN)) {
@@ -444,5 +455,8 @@ class ApiVersionedDir {
 
     boolean topLevelContainsIAMPolicy = parent.getContainsIAMPolicy().getOrDefault(version, false);
     containsIAMPolicy = topLevelContainsIAMPolicy ? topLevelContainsIAMPolicy : containsIAMPolicy;
+
+    boolean topLevelContainsApis = parent.getContainsApis().getOrDefault(version, false);
+    containsApis = topLevelContainsApis ? topLevelContainsApis : containsApis;
   }
 }
