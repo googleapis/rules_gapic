@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0](https://www.github.com/googleapis/rules_gapic/compare/v0.8.0...v0.9.0) (2021-09-29)
+
+
+### Features
+
+* **bazel:** map operation_metadata.proto to common_proto ([#77](https://www.github.com/googleapis/rules_gapic/issues/77)) ([f078303](https://www.github.com/googleapis/rules_gapic/commit/f0783031360390d27fbf7f02c854af74b0e31d48))
+
 ## [0.8.0](https://www.github.com/googleapis/rules_gapic/compare/v0.7.0...v0.8.0) (2021-09-29)
 
 
