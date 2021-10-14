@@ -25,6 +25,7 @@ import java.util.regex.Pattern;
 
 class BazelBuildFileView {
   private static final String COMMON_RESOURCES_PROTO = "//google/cloud:common_resources_proto";
+  private static final String CLOUD_COMMON_PROTO = "//google/cloud/common:common_proto";
   private static final Pattern LABEL_NAME = Pattern.compile(":\\w+$");
   private final Map<String, String> tokens = new HashMap<>();
   private final Map<String, Map<String, String>> overriddenStringAttributes = new HashMap<>();
@@ -134,6 +135,9 @@ class BazelBuildFileView {
       extraImports.add("//google/cloud/location:location_proto");
     }
     actualImports.addAll(extraImports);
+    if (actualImports.contains(CLOUD_COMMON_PROTO)) {
+      extraImports.add(CLOUD_COMMON_PROTO);
+    }
 
     tokens.put("java_tests", joinSetWithIndentation(javaTests));
     tokens.put("java_gapic_deps", joinSetWithIndentationNl(mapJavaGapicDeps(actualImports)));
@@ -254,15 +258,18 @@ class BazelBuildFileView {
   }
 
   private Set<String> mapJavaGapicAssemblyPkgDeps(Set<String> protoImports) {
-    Set<String> asemmblyPkgDeps = new TreeSet<>();
+    Set<String> assemblyPkgDeps = new TreeSet<>();
     for (String protoImport : protoImports) {
       if (protoImport.endsWith(":location_proto")) {
-        asemmblyPkgDeps.add("//google/cloud/location:location_java_proto");
-        asemmblyPkgDeps.add("//google/cloud/location:location_java_grpc");
+        assemblyPkgDeps.add("//google/cloud/location:location_java_proto");
+        assemblyPkgDeps.add("//google/cloud/location:location_java_grpc");
+      } else if(protoImport.equals(CLOUD_COMMON_PROTO)) {
+        assemblyPkgDeps.add("//google/cloud/common:common_java_proto");
+        continue;
       }
-      asemmblyPkgDeps.add(protoImport);
+      assemblyPkgDeps.add(protoImport);
     }
-    return asemmblyPkgDeps;
+    return assemblyPkgDeps;
   }
 
   private Set<String> mapJavaGapicTestDeps(Set<String> protoImports) {
