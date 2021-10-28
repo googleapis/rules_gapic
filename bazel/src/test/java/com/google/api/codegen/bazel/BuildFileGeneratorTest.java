@@ -15,6 +15,7 @@
 package com.google.api.codegen.bazel;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -72,10 +73,13 @@ public class BuildFileGeneratorTest {
 
   @Test
   public void testRegeneration() throws IOException, InterruptedException {
-    // In this test we run the generator twice, changing the generated
-    // google/example/library/v1/BUILD.bazel
-    // after the first run, and verifying that some changed values are preserved
-    // (and some are not).
+    // In this test we run the generator multiple times, changing the generated
+    // google/example/library/v1/BUILD.bazel (i.e. GAPIC_VERSIONED) and
+    // google/example/library/BUILD.bazel (i.e. API_ROOT) after the first run.
+    // In the GAPIC_VERSIONED file, we verify that some changed values are
+    // preserved and others are not. In the API_ROOT file, we verify that all
+    // modifications are preserved. Finally, we rerun the generator with
+    // --overwrite to ensure that it properly overwrites all changes.
     Path tempDirPath = getTemporaryDirectory();
 
     // I'm lazy, so let's just "cp -r" stuff.
@@ -134,6 +138,10 @@ public class BuildFileGeneratorTest {
 
     buildozer.commit();
 
+    // Change the content in google/example/library/BUILD.bazel
+    String changedRootContent = "# Hello\n";
+    Files.write(Paths.get(rootBuildFilePath), changedRootContent.getBytes(StandardCharsets.UTF_8));
+
     // Run the generator again
     new BuildFileGenerator()
         .generateBuildFiles(args.createApisVisitor(null, tempDirPath.toString()));
@@ -160,6 +168,9 @@ public class BuildFileGeneratorTest {
     Assert.assertEquals(
         "library_example_grpc_service_config.json",
         buildozer.getAttribute(gapicBuildFilePath, "library_nodejs_gapic", "grpc_service_config"));
+    
+    // Check that the changed root file is preserved
+    Assert.assertEquals(changedRootContent, ApisVisitor.readFile(rootBuildFilePath));
 
     // Now run with overwrite and verify it actually ignores all the changes
     ArgsParser argsOverwrite =

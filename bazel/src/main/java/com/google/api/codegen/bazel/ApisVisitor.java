@@ -135,6 +135,7 @@ class ApisVisitor extends SimpleFileVisitor<Path> {
     String dirStr = dir.toString();
     ApiVersionedDir bp = bazelApiVerPackages.get(dirStr);
     BazelBuildFileTemplate template = null;
+    boolean preserveExisting = false;
     String tmplType = "";
     if (bp.getProtoPackage() != null) {
       boolean isGapicLibrary =
@@ -150,6 +151,7 @@ class ApisVisitor extends SimpleFileVisitor<Path> {
     } else if (bp.getServiceYamlPath() != null) {
       template = this.rootApiTempl;
       tmplType = "API_ROOT";
+      preserveExisting = !overwrite;
     }
 
     if (template == null) {
@@ -159,6 +161,7 @@ class ApisVisitor extends SimpleFileVisitor<Path> {
     String rootDirStr = srcDir.toString();
     String outDirPath = destDir.toString() + dirStr.substring(rootDirStr.length());
     File outDir = new File(outDirPath);
+    Path outFilePath = Paths.get(outDir.toString(), "BUILD.bazel");
 
     if (!outDir.exists()) {
       if (!outDir.mkdirs()) {
@@ -167,11 +170,19 @@ class ApisVisitor extends SimpleFileVisitor<Path> {
       }
     }
 
+    // Currently we avoid overwriting existing root api build files. This is to
+    // preserve such files that may contain manually-added rules for generating
+    // Ruby wrappers, which we cannot generate yet. In the future, we should
+    // expand this tool to generate those rules.
+    if (preserveExisting && outFilePath.toFile().exists()) {
+      return FileVisitResult.CONTINUE;
+    }
+
     System.out.println(
         "Write File [" + tmplType + "]: " + outDir.toString() + File.separator + "BUILD.bazel");
     try {
       BazelBuildFileView bpv = new BazelBuildFileView(bp);
-      fileWriter.write(Paths.get(outDir.toString(), "BUILD.bazel"), template.expand(bpv));
+      fileWriter.write(outFilePath, template.expand(bpv));
     } catch (RuntimeException ex) {
       ex.printStackTrace();
     }
