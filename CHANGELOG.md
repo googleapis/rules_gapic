@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.9.1](https://www.github.com/googleapis/rules_gapic/compare/v0.9.0...v0.9.1) (2021-10-28)
+
+
+### Bug Fixes
+
+* Preserve all manual changes to API_ROOT files for now ([#82](https://www.github.com/googleapis/rules_gapic/issues/82)) ([80fdf50](https://www.github.com/googleapis/rules_gapic/commit/80fdf5070405dcb466952cd7d0d13c15cc3ce147))
+
 ## [0.9.0](https://www.github.com/googleapis/rules_gapic/compare/v0.8.0...v0.9.0) (2021-09-29)
 
 
