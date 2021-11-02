@@ -64,14 +64,17 @@ class ApiVersionedDir {
   private static String IAM_POLICY_MIXIN = "name: google.iam.v1.IAMPolicy";
 
   private static final String[] PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES = {
-    // TypeScript:
+    // Multiple languages:
     "package_name",
+    // TypeScript:
     "main_service",
     "bundle_config",
     "iam_service",
     // Ruby:
     "ruby_cloud_title",
     "ruby_cloud_description",
+    // C#:
+    "generate_nongapic_package",
     // Other languages: add below
   };
 
