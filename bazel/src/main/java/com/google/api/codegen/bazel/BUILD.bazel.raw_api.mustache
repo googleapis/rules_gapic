@@ -158,4 +158,19 @@ csharp_grpc_library(
 ##############################################################################
 # C++
 ##############################################################################
-# Put your C++ code here
+load(
+    "@com_google_googleapis_imports//:imports.bzl",
+    "cc_grpc_library",
+    "cc_proto_library",
+)
+
+cc_proto_library(
+    name = "{{name}}_cc_proto",
+    deps = [":{{name}}_proto"],
+)
+
+cc_grpc_library(
+    name = "{{name}}_cc_grpc",
+    srcs = [":{{name}}_proto"],
+    deps = [":{{name}}_cc_proto"],
+)
