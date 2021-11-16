@@ -39,7 +39,9 @@ proto_library_with_info(
     name = "library_proto_with_info",
     deps = [
         ":library_proto",
+        "//google/cloud/location:location_proto",
         "//google/cloud:common_resources_proto",
+        "//google/iam/v1:iam_policy_proto",
     ],
 )
 
@@ -75,13 +77,14 @@ java_gapic_library(
     test_deps = [
         ":library_java_grpc",
         "//google/cloud/location:location_java_grpc",
+        "//google/iam/v1:iam_java_grpc",
     ],
     deps = [
         ":library_java_proto",
         "//google/api:api_java_proto",
         "//google/cloud/common:common_java_proto",
-        "//google/cloud/location:location_java_grpc",
         "//google/cloud/location:location_java_proto",
+        "//google/iam/v1:iam_java_proto",
     ],
 )
 
@@ -101,9 +104,6 @@ java_gapic_assembly_gradle_pkg(
         ":library_java_grpc",
         ":library_java_proto",
         ":library_proto",
-        "//google/cloud/location:location_java_grpc",
-        "//google/cloud/location:location_java_proto",
-        "//google/cloud/location:location_proto",
     ],
 )
 

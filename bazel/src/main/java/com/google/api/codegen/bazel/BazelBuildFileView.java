@@ -45,7 +45,17 @@ class BazelBuildFileView {
     Set<String> extraProtosNodeJS = new TreeSet<>();
     Set<String> extraImports = new TreeSet<>();
     extraImports.add(COMMON_RESOURCES_PROTO);
+    // Add location_proto dependency for mix-in if individual language rules need it.
+    if (bp.hasLocations() && !bp.getProtoPackage().equals("google.cloud.location")) {
+      extraImports.add("//google/cloud/location:location_proto");
+    }
+    // Add iam_policy_proto dependency for mix-in if individual language rules need it.
+    if (bp.hasIAMPolicy() && !bp.getProtoPackage().equals("google.iam.v1")) {
+      extraImports.add("//google/iam/v1:iam_policy_proto");
+    }
     tokens.put("extra_imports", joinSetWithIndentation(extraImports));
+    // Remove common_resources.proto because it is only needed for the proto_library_with_info target.
+    extraImports.remove(COMMON_RESOURCES_PROTO);
 
     String packPrefix = bp.getProtoPackage().replace(".", "/") + '/';
     Set<String> actualImports = new TreeSet<>();
@@ -127,26 +137,13 @@ class BazelBuildFileView {
       javaTests.add(javaPackage + "." + actualService + "ClientTest");
     }
 
-    // Remove common_resources.proto because it is only needed for the proto_library_with_info target.
-    extraImports.remove(COMMON_RESOURCES_PROTO);
-    // Add location_proto dependency for mix-in if individual language rules need it.
-    if (bp.hasLocations() && !bp.getProtoPackage().equals("google.cloud.location")) {
-      extraImports.add("//google/cloud/location:location_proto");
-    }
     actualImports.addAll(extraImports);
 
     tokens.put("java_tests", joinSetWithIndentation(javaTests));
     tokens.put("java_gapic_deps", joinSetWithIndentationNl(mapJavaGapicDeps(actualImports)));
     tokens.put(
         "java_gapic_test_deps", joinSetWithIndentationNl(mapJavaGapicTestDeps(actualImports)));
-    tokens.put("extra_imports_java", joinSetWithIndentationNl(mapJavaGapicAssemblyPkgDeps(extraImports)));
 
-    // Add iam_policy_proto dependency for mix-in if individual language rules need it.
-    // Java does not seem to need it for mix-in purposes, so this is added after Java deps
-    // are worked out.
-    if (bp.hasIAMPolicy() && !bp.getProtoPackage().equals("google.iam.v1")) {
-      extraImports.add("//google/iam/v1:iam_policy_proto");
-    }
     actualImports.addAll(extraImports);
 
     // Construct GAPIC import path & package name based on go_package proto option
@@ -245,24 +242,11 @@ class BazelBuildFileView {
         javaImports.add(replaceLabelName(protoImport, ":api_java_proto"));
       } else if (protoImport.endsWith(":location_proto")) {
         javaImports.add("//google/cloud/location:location_java_proto");
-        javaImports.add("//google/cloud/location:location_java_grpc");
       } else if (protoImport.endsWith(":common_proto")) {
         javaImports.add(replaceLabelName(protoImport, ":common_java_proto"));
       }
     }
     return javaImports;
-  }
-
-  private Set<String> mapJavaGapicAssemblyPkgDeps(Set<String> protoImports) {
-    Set<String> asemmblyPkgDeps = new TreeSet<>();
-    for (String protoImport : protoImports) {
-      if (protoImport.endsWith(":location_proto")) {
-        asemmblyPkgDeps.add("//google/cloud/location:location_java_proto");
-        asemmblyPkgDeps.add("//google/cloud/location:location_java_grpc");
-      }
-      asemmblyPkgDeps.add(protoImport);
-    }
-    return asemmblyPkgDeps;
   }
 
   private Set<String> mapJavaGapicTestDeps(Set<String> protoImports) {
