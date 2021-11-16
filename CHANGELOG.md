@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.10.0](https://www.github.com/googleapis/rules_gapic/compare/v0.9.1...v0.10.0) (2021-11-02)
+
+
+### Features
+
+* add new C# parameter to the exception list ([#85](https://www.github.com/googleapis/rules_gapic/issues/85)) ([4859a1e](https://www.github.com/googleapis/rules_gapic/commit/4859a1ee806e44fca7bd08d61562d2826171f3bc))
+* remove old ruby and Csharp rules ([#84](https://www.github.com/googleapis/rules_gapic/issues/84)) ([f2e590d](https://www.github.com/googleapis/rules_gapic/commit/f2e590dff5a7f6bf9dcf0c35c55530bed978afa2))
+
+### [0.9.1](https://www.github.com/googleapis/rules_gapic/compare/v0.9.0...v0.9.1) (2021-10-28)
+
+
+### Bug Fixes
+
+* Preserve all manual changes to API_ROOT files for now ([#82](https://www.github.com/googleapis/rules_gapic/issues/82)) ([80fdf50](https://www.github.com/googleapis/rules_gapic/commit/80fdf5070405dcb466952cd7d0d13c15cc3ce147))
+
 ## [0.9.0](https://www.github.com/googleapis/rules_gapic/compare/v0.8.0...v0.9.0) (2021-09-29)
 
 
