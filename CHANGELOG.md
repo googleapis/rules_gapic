@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.11.0](https://www.github.com/googleapis/rules_gapic/compare/v0.10.0...v0.11.0) (2021-11-16)
+
+
+### Features
+
+* generate C++ rules ([#87](https://www.github.com/googleapis/rules_gapic/issues/87)) ([e23c181](https://www.github.com/googleapis/rules_gapic/commit/e23c18143940899e71d23630f303a9325f441767))
+
+
+### Bug Fixes
+
+* **bazel:** iam/location mixin java deps ([#89](https://www.github.com/googleapis/rules_gapic/issues/89)) ([965fe25](https://www.github.com/googleapis/rules_gapic/commit/965fe2530a2340fe262982ebc2f8d6a0a68dbca0))
+
 ## [0.10.0](https://www.github.com/googleapis/rules_gapic/compare/v0.9.1...v0.10.0) (2021-11-02)
 
 
