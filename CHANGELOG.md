@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.11.1](https://www.github.com/googleapis/rules_gapic/compare/v0.11.0...v0.11.1) (2021-11-17)
+
+
+### Bug Fixes
+
+* missing flag in cc_grpc_library ([#90](https://www.github.com/googleapis/rules_gapic/issues/90)) ([940ffd3](https://www.github.com/googleapis/rules_gapic/commit/940ffd32f7a0fc992e44905e88ded674bd777122))
+
 ## [0.11.0](https://www.github.com/googleapis/rules_gapic/compare/v0.10.0...v0.11.0) (2021-11-16)
 
 
