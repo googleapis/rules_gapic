@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.0](https://github.com/googleapis/rules_gapic/compare/v0.11.1...v0.12.0) (2022-02-15)
+
+
+### Features
+
+* Include service_yaml for C# ([1f15280](https://github.com/googleapis/rules_gapic/commit/1f15280c2b5e565ed2c73e90239b40d5ad454783))
+
 ### [0.11.1](https://www.github.com/googleapis/rules_gapic/compare/v0.11.0...v0.11.1) (2021-11-17)
 
 
