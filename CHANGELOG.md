@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.12.1](https://github.com/googleapis/rules_gapic/compare/v0.12.0...v0.12.1) (2022-04-14)
+
+
+### Bug Fixes
+
+* **bazel:** add service_yaml to py_gapic_library ([#97](https://github.com/googleapis/rules_gapic/issues/97)) ([39fad2d](https://github.com/googleapis/rules_gapic/commit/39fad2d73cf6163e38015a8ad9fa29244f8eb6ba))
+
 ## [0.12.0](https://github.com/googleapis/rules_gapic/compare/v0.11.1...v0.12.0) (2022-02-15)
 
 
