@@ -156,6 +156,7 @@ py_gapic_library(
     name = "{{name}}_py_gapic",
     srcs = [":{{name}}_proto"],
     grpc_service_config = {{grpc_service_config}},
+    service_yaml = {{service_yaml}},
 )
 
 # Open Source Packages
