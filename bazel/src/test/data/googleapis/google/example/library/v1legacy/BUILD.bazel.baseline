@@ -172,6 +172,7 @@ py_gapic_library(
     name = "library_py_gapic",
     srcs = [":library_proto"],
     grpc_service_config = "library_example_grpc_service_config.json",
+    service_yaml = "//google/example/library:library_example_v1.yaml",
 )
 
 # Open Source Packages
