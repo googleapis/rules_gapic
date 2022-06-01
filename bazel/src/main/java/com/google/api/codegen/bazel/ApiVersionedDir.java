@@ -66,6 +66,7 @@ class ApiVersionedDir {
   private static final String[] PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES = {
     // Multiple languages:
     "package_name",
+    "transport",
     // TypeScript:
     "main_service",
     "bundle_config",
@@ -404,13 +405,13 @@ class ApiVersionedDir {
         } else if (kind.endsWith("_gapic_library")) {
           this.overriddenStringAttributes.put(name, new HashMap<>());
           this.overriddenListAttributes.put(name, new HashMap<>());
-          for (String attr : ApiVersionedDir.PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES) {
+          for (String attr : PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES) {
             String value = buildozer.getAttribute(file, name, attr);
             if (value != null) {
               this.overriddenStringAttributes.get(name).put(attr, value);
             }
           }
-          for (String attr : ApiVersionedDir.PRESERVED_PROTO_LIBRARY_LIST_ATTRIBUTES) {
+          for (String attr : PRESERVED_PROTO_LIBRARY_LIST_ATTRIBUTES) {
             String value = buildozer.getAttribute(file, name, attr);
             if (value != null && value.startsWith("[") && value.endsWith("]")) {
               value = value.substring(1, value.length() - 1);

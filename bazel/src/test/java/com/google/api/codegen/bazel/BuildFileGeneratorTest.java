@@ -25,6 +25,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class BuildFileGeneratorTest {
+
   private static final String SRC_DIR = Paths.get("googleapis").toString();
   private static final String PATH_PREFIX = Paths.get("bazel", "src", "test", "data").toString();
 
@@ -32,14 +33,15 @@ public class BuildFileGeneratorTest {
   public void testGenerateBuildFiles() throws IOException {
     String buildozerPath = getBuildozerPath();
     ArgsParser args =
-        new ArgsParser(new String[] {"--buildozer=" + buildozerPath, "--src=" + SRC_DIR});
+        new ArgsParser(new String[]{"--buildozer=" + buildozerPath, "--src=" + SRC_DIR});
     FileWriter fw = new FileWriter();
     new BuildFileGenerator().generateBuildFiles(args.createApisVisitor(fw, PATH_PREFIX));
 
     Path fileBodyPathPrefix = Paths.get(PATH_PREFIX, SRC_DIR, "google", "example", "library");
     String gapicBuildFilePath =
         Paths.get(fileBodyPathPrefix.toString(), "v1", "BUILD.bazel").toString();
-    String rawBuildFilePath = Paths.get(fileBodyPathPrefix.toString(), "type", "BUILD.bazel").toString();
+    String rawBuildFilePath = Paths.get(fileBodyPathPrefix.toString(), "type", "BUILD.bazel")
+        .toString();
     String rootBuildFilePath = Paths.get(fileBodyPathPrefix.toString(), "BUILD.bazel").toString();
 
     Assert.assertEquals(4, fw.files.size());
@@ -55,7 +57,7 @@ public class BuildFileGeneratorTest {
   public void testGenerateBuildFiles_legacyJavaLanguageOverrides() throws IOException {
     String buildozerPath = getBuildozerPath();
     ArgsParser args =
-        new ArgsParser(new String[] {"--buildozer=" + buildozerPath, "--src=" + SRC_DIR});
+        new ArgsParser(new String[]{"--buildozer=" + buildozerPath, "--src=" + SRC_DIR});
     FileWriter fw = new FileWriter();
     new BuildFileGenerator().generateBuildFiles(args.createApisVisitor(fw, PATH_PREFIX));
 
@@ -84,14 +86,14 @@ public class BuildFileGeneratorTest {
 
     // I'm lazy, so let's just "cp -r" stuff.
     Path fixturesPath = Paths.get(PATH_PREFIX, SRC_DIR);
-    new ProcessBuilder(new String[] {"cp", "-r", fixturesPath.toString(), tempDirPath.toString()})
+    new ProcessBuilder(new String[]{"cp", "-r", fixturesPath.toString(), tempDirPath.toString()})
         .start()
         .waitFor();
 
     String buildozerPath = getBuildozerPath();
     Path copiedGoogleapis = Paths.get(tempDirPath.toString(), "googleapis");
     ArgsParser args =
-        new ArgsParser(new String[] {"--buildozer=" + buildozerPath, "--src=" + copiedGoogleapis});
+        new ArgsParser(new String[]{"--buildozer=" + buildozerPath, "--src=" + copiedGoogleapis});
     new BuildFileGenerator()
         .generateBuildFiles(args.createApisVisitor(null, tempDirPath.toString()));
 
@@ -128,6 +130,8 @@ public class BuildFileGeneratorTest {
         gapicBuildFilePath, "google-cloud-example-library-v1-java", "name", "renamed_java_rule");
     buildozer.batchSetAttribute(
         gapicBuildFilePath, "library_ruby_gapic", "ruby_cloud_title", "Title with spaces");
+    buildozer.batchSetAttribute(
+        gapicBuildFilePath, "library_java_gapic", "transport", "grpc+rest");
 
     // The following values should NOT be preserved:
     buildozer.batchSetAttribute(
@@ -162,21 +166,25 @@ public class BuildFileGeneratorTest {
         buildozer.getAttribute(gapicBuildFilePath, "%java_gapic_assembly_gradle_pkg", "name"));
     Assert.assertEquals(
         "Title with spaces",
-        buildozer.getAttribute(gapicBuildFilePath, "%ruby_cloud_gapic_library", "ruby_cloud_title"));
+        buildozer.getAttribute(gapicBuildFilePath, "%ruby_cloud_gapic_library",
+            "ruby_cloud_title"));
+    Assert.assertEquals(
+        "grpc+rest",
+        buildozer.getAttribute(gapicBuildFilePath, "%java_gapic_library", "transport"));
 
     // Check that grpc_service_config value is not preserved:
     Assert.assertEquals(
         "library_example_grpc_service_config.json",
         buildozer.getAttribute(gapicBuildFilePath, "library_nodejs_gapic", "grpc_service_config"));
-    
+
     // Check that the changed root file is preserved
     Assert.assertEquals(changedRootContent, ApisVisitor.readFile(rootBuildFilePath));
 
     // Now run with overwrite and verify it actually ignores all the changes
     ArgsParser argsOverwrite =
         new ArgsParser(
-            new String[] {
-              "--overwrite", "--buildozer=" + buildozerPath, "--src=" + copiedGoogleapis
+            new String[]{
+                "--overwrite", "--buildozer=" + buildozerPath, "--src=" + copiedGoogleapis
             });
     new BuildFileGenerator()
         .generateBuildFiles(argsOverwrite.createApisVisitor(null, tempDirPath.toString()));
@@ -240,6 +248,7 @@ public class BuildFileGeneratorTest {
   // Not using mocking libraries to keep this tool as simple as possible (currently it does not use
   // any dependencies). Tests depend only on JUnit.
   private static class FileWriter implements ApisVisitor.FileWriter {
+
     private final Map<String, String> files = new HashMap<>();
 
     @Override
