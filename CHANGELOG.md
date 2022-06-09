@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.13.0](https://github.com/googleapis/rules_gapic/compare/v0.12.1...v0.13.0) (2022-06-09)
+
+
+### Features
+
+* **bazel:** add include_samples to java_gapic_assembly_gradle_pkg ([d1bc568](https://github.com/googleapis/rules_gapic/commit/d1bc56854536541134b24ca6ce5aff8cfdd45937))
+* Treat `transport` parameter as preserved (not overriden by default) parameter ([#100](https://github.com/googleapis/rules_gapic/issues/100)) ([e3a1f12](https://github.com/googleapis/rules_gapic/commit/e3a1f12a61e61e5223f910b31e5c4d1729cd9d4b))
+
+
+### Bug Fixes
+
+* **bazel:** add service_yaml to ruby_cloud_gapic_library ([#99](https://github.com/googleapis/rules_gapic/issues/99)) ([863addb](https://github.com/googleapis/rules_gapic/commit/863addbffb78ef5998e7c24620273bddbad80bb0))
+
 ### [0.12.1](https://github.com/googleapis/rules_gapic/compare/v0.12.0...v0.12.1) (2022-04-14)
 
 
