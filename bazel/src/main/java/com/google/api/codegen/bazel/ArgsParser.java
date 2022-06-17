@@ -60,7 +60,8 @@ class ArgsParser {
             + "Command line options:\n"
             + "  --src=path: location of googleapis directory\n"
             + "  --dest=path: destination folder, defaults to the value of --src\n"
-            + "  --overwrite: do not preserve any of the manually changed values in the generated BUILD.bazel files\n";
+            + "  --overwrite: do not preserve any of the manually changed values in the generated"
+            + " BUILD.bazel files\n";
     System.out.println(helpMessage);
   }
 
@@ -78,6 +79,10 @@ class ArgsParser {
     String overwrite = parsedArgs.get("--overwrite");
     if (overwrite == null) {
       overwrite = "false";
+    }
+    String transport = parsedArgs.get("--transport");
+    if (transport == null) {
+      transport = "grpc+rest";
     }
 
     Path srcPath = Paths.get(parsedArgs.get("--src")).normalize();
@@ -117,6 +122,7 @@ class ArgsParser {
             ? readResource("BUILD.bazel.raw_api.mustache")
             : ApisVisitor.readFile(rawApiTempl),
         overwrite.equals("true"),
+        transport,
         fileWriter);
   }
 

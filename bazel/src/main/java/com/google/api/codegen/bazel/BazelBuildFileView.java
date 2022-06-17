@@ -31,7 +31,7 @@ class BazelBuildFileView {
   private final Map<String, Map<String, List<String>>> overriddenListAttributes = new HashMap<>();
   private final Map<String, String> assemblyPkgRulesNames = new HashMap<>();
 
-  BazelBuildFileView(ApiVersionedDir bp) {
+  BazelBuildFileView(ApiVersionedDir bp, String transport) {
     if (bp.getProtoPackage() == null) {
       return;
     }
@@ -54,7 +54,8 @@ class BazelBuildFileView {
       extraImports.add("//google/iam/v1:iam_policy_proto");
     }
     tokens.put("extra_imports", joinSetWithIndentation(extraImports));
-    // Remove common_resources.proto because it is only needed for the proto_library_with_info target.
+    // Remove common_resources.proto because it is only needed for the proto_library_with_info
+    // target.
     extraImports.remove(COMMON_RESOURCES_PROTO);
 
     String packPrefix = bp.getProtoPackage().replace(".", "/") + '/';
@@ -100,8 +101,9 @@ class BazelBuildFileView {
 
     String serviceYaml = "None";
     if (bp.getServiceYamlPath() != null) {
-      // Wrap the label in quotations, because None doesn't need them, so they can't be in the template.
-      serviceYaml = "\""+convertPathToLabel(bp.getProtoPackage(), bp.getServiceYamlPath())+"\"";
+      // Wrap the label in quotations, because None doesn't need them, so they can't be in the
+      // template.
+      serviceYaml = "\"" + convertPathToLabel(bp.getProtoPackage(), bp.getServiceYamlPath()) + "\"";
     }
     tokens.put("service_yaml", serviceYaml);
 
@@ -110,7 +112,7 @@ class BazelBuildFileView {
     String gapicYaml = "None";
     String gapicYamlPath = bp.getGapicYamlPath();
     if (gapicYamlPath != null && !gapicYamlPath.isEmpty()) {
-      gapicYaml = "\""+convertPathToLabel(bp.getProtoPackage(), gapicYamlPath)+"\"";
+      gapicYaml = "\"" + convertPathToLabel(bp.getProtoPackage(), gapicYamlPath) + "\"";
     }
     tokens.put("gapic_yaml", gapicYaml);
 
@@ -135,6 +137,7 @@ class BazelBuildFileView {
               // Default service name as it appears in the proto.
               : service;
       javaTests.add(javaPackage + "." + actualService + "ClientTest");
+      javaTests.add(javaPackage + "." + actualService + "ClientHttpJsonTest");
     }
 
     actualImports.addAll(extraImports);
@@ -158,6 +161,8 @@ class BazelBuildFileView {
     overriddenStringAttributes.putAll(bp.getOverriddenStringAttributes());
     overriddenListAttributes.putAll(bp.getOverriddenListAttributes());
     assemblyPkgRulesNames.putAll(bp.getAssemblyPkgRulesNames());
+
+    tokens.put("transport", '"' + transport + '"');
   }
 
   private String assembleGoImportPath(boolean isCloud, String protoPkg, String goPkg) {

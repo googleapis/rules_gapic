@@ -442,7 +442,7 @@ class ApiVersionedDir {
 
     boolean topLevelCloudScope = parent.getCloudScopes().getOrDefault(version, false);
     cloudScope = topLevelCloudScope ? topLevelCloudScope : cloudScope;
-    
+
     boolean topLevelContainsLocations = parent.getContainsLocations().getOrDefault(version, false);
     containsLocations = topLevelContainsLocations ? topLevelContainsLocations : containsLocations;
 
