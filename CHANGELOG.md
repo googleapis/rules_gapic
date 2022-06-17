@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.14.1](https://github.com/googleapis/rules_gapic/compare/v0.14.0...v0.14.1) (2022-06-17)
+
+
+### Bug Fixes
+
+* Make HttpJsonTest generation depend on actual transport setting ([#105](https://github.com/googleapis/rules_gapic/issues/105)) ([df8d1f2](https://github.com/googleapis/rules_gapic/commit/df8d1f27088cca54bfe96bf5aed28b3ca21318a1))
+
 ## [0.14.0](https://github.com/googleapis/rules_gapic/compare/v0.13.0...v0.14.0) (2022-06-17)
 
 
