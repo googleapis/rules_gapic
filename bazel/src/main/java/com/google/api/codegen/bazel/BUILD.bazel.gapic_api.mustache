@@ -68,6 +68,7 @@ java_gapic_library(
     test_deps = [
         ":{{name}}_java_grpc",{{java_gapic_test_deps}}
     ],
+    transport = {{transport}},
     deps = [
         ":{{name}}_java_proto",{{java_gapic_deps}}
     ],
@@ -84,6 +85,7 @@ java_gapic_test(
 # Open Source Packages
 java_gapic_assembly_gradle_pkg(
     name = "google-cloud-{{assembly_name}}-{{version}}-java",
+    transport = {{transport}},
     deps = [
         ":{{name}}_java_gapic",
         ":{{name}}_java_grpc",
@@ -119,8 +121,9 @@ go_gapic_library(
     srcs = [":{{name}}_proto_with_info"],
     grpc_service_config = {{grpc_service_config}},
     importpath = "{{go_gapic_importpath}}",
-    service_yaml = {{service_yaml}},
     metadata = True,
+    service_yaml = {{service_yaml}},
+    transport = {{transport}},
     deps = [
         ":{{name}}_go_proto",{{go_gapic_deps}}
     ],
