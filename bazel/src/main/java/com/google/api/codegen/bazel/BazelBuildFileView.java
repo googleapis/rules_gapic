@@ -137,7 +137,9 @@ class BazelBuildFileView {
               // Default service name as it appears in the proto.
               : service;
       javaTests.add(javaPackage + "." + actualService + "ClientTest");
-      javaTests.add(javaPackage + "." + actualService + "ClientHttpJsonTest");
+      if ("grpc+rest".equals(transport)) {
+        javaTests.add(javaPackage + "." + actualService + "ClientHttpJsonTest");
+      }
     }
 
     actualImports.addAll(extraImports);
