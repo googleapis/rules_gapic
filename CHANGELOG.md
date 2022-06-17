@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.14.0](https://github.com/googleapis/rules_gapic/compare/v0.13.0...v0.14.0) (2022-06-17)
+
+
+### Features
+
+* Make `transport = "grpc+rest"` default for java and golang ([#103](https://github.com/googleapis/rules_gapic/issues/103)) ([993109d](https://github.com/googleapis/rules_gapic/commit/993109df0d17cd51164819f4ae5cdc80d335ef74))
+
 ## [0.13.0](https://github.com/googleapis/rules_gapic/compare/v0.12.1...v0.13.0) (2022-06-09)
 
 
