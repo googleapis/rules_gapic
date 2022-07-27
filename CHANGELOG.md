@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.15.0](https://github.com/googleapis/rules_gapic/compare/v0.14.1...v0.15.0) (2022-07-27)
+
+
+### Features
+
+* Add py_test targets generation ([#108](https://github.com/googleapis/rules_gapic/issues/108)) ([f79914a](https://github.com/googleapis/rules_gapic/commit/f79914ab1d024db73e2cbe73c788271f06797130))
+
 ## [0.14.1](https://github.com/googleapis/rules_gapic/compare/v0.14.0...v0.14.1) (2022-06-17)
 
 
