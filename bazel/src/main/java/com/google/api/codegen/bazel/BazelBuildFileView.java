@@ -160,6 +160,8 @@ class BazelBuildFileView {
     tokens.put("go_gapic_test_importpath", goImport.split(";")[0]);
     tokens.put("go_gapic_deps", joinSetWithIndentationNl(mapGoGapicDeps(actualImports)));
 
+    tokens.put("py_gapic_deps", joinSetWithIndentation(mapPyGapicDeps(actualImports)));
+
     overriddenStringAttributes.putAll(bp.getOverriddenStringAttributes());
     overriddenListAttributes.putAll(bp.getOverriddenListAttributes());
     assemblyPkgRulesNames.putAll(bp.getAssemblyPkgRulesNames());
@@ -351,6 +353,18 @@ class BazelBuildFileView {
       }
     }
     return goImports;
+  }
+
+  private Set<String> mapPyGapicDeps(Set<String> protoImports) {
+    Set<String> pyImports = new TreeSet<>();
+    for (String protoImport : protoImports) {
+      if (protoImport.endsWith(":iam_policy_proto")
+          || protoImport.endsWith(":policy_proto")
+          || protoImport.endsWith(":options_proto")) {
+        pyImports.add(replaceLabelName(protoImport, ":iam_policy_py_proto"));
+      }
+    }
+    return pyImports;
   }
 
   Map<String, String> getTokens() {
