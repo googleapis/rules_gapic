@@ -84,6 +84,13 @@ class ArgsParser {
     if (transport == null) {
       transport = "grpc+rest";
     }
+    String numericEnums = parsedArgs.get("--rest_numeric_enums");
+    if (numericEnums == null) {
+      // Note that we set the default to True here, but we only include it in the BUILD file
+      // templates for each language as each language generator's own BUILD rules support the
+      // feature.
+      numericEnums = "True";
+    }
 
     Path srcPath = Paths.get(parsedArgs.get("--src")).normalize();
     Path destPath = srcPath;
@@ -123,6 +130,7 @@ class ArgsParser {
             : ApisVisitor.readFile(rawApiTempl),
         overwrite.equals("true"),
         transport,
+        numericEnums,
         fileWriter);
   }
 

@@ -31,7 +31,7 @@ class BazelBuildFileView {
   private final Map<String, Map<String, List<String>>> overriddenListAttributes = new HashMap<>();
   private final Map<String, String> assemblyPkgRulesNames = new HashMap<>();
 
-  BazelBuildFileView(ApiVersionedDir bp, String transport) {
+  BazelBuildFileView(ApiVersionedDir bp, String transport, String numericEnums) {
     if (bp.getProtoPackage() == null) {
       return;
     }
@@ -167,6 +167,10 @@ class BazelBuildFileView {
     assemblyPkgRulesNames.putAll(bp.getAssemblyPkgRulesNames());
 
     tokens.put("transport", '"' + transport + '"');
+
+    // Ideally, we'd use a slightly more sophisticated templating system, like Mustache, that would
+    // allow us to omit `rest_numeric_enums` when `!transport.contains("rest")`
+    tokens.put("rest_numeric_enums", numericEnums);
   }
 
   private String assembleGoImportPath(boolean isCloud, String protoPkg, String goPkg) {

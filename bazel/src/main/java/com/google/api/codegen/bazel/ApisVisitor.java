@@ -41,6 +41,7 @@ class ApisVisitor extends SimpleFileVisitor<Path> {
   private final Path destDir;
   private final boolean overwrite;
   private final String transport;
+  private final String numericEnums;
   private boolean writerMode;
   private final FileWriter fileWriter;
 
@@ -52,6 +53,7 @@ class ApisVisitor extends SimpleFileVisitor<Path> {
       String rawApiTempl,
       boolean overwrite,
       String transport,
+      String numericEnums,
       FileWriter fileWriter) {
     this.gapicApiTempl = new BazelBuildFileTemplate(gapicApiTempl);
     this.rootApiTempl = new BazelBuildFileTemplate(rootApiTempl);
@@ -60,6 +62,7 @@ class ApisVisitor extends SimpleFileVisitor<Path> {
     this.destDir = destDir.normalize();
     this.overwrite = overwrite;
     this.transport = transport;
+    this.numericEnums = numericEnums;
     this.writerMode = false;
     this.fileWriter =
         (fileWriter != null)
@@ -184,7 +187,7 @@ class ApisVisitor extends SimpleFileVisitor<Path> {
     System.out.println(
         "Write File [" + tmplType + "]: " + outDir.toString() + File.separator + "BUILD.bazel");
     try {
-      BazelBuildFileView bpv = new BazelBuildFileView(bp, transport);
+      BazelBuildFileView bpv = new BazelBuildFileView(bp, transport, numericEnums);
       fileWriter.write(outFilePath, template.expand(bpv));
     } catch (RuntimeException ex) {
       ex.printStackTrace();

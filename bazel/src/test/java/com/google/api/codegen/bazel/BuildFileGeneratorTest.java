@@ -132,6 +132,8 @@ public class BuildFileGeneratorTest {
         gapicBuildFilePath, "library_ruby_gapic", "ruby_cloud_title", "Title with spaces");
     buildozer.batchSetAttribute(
         gapicBuildFilePath, "library_java_gapic", "transport", "grpc+rest");
+    buildozer.batchSetAttribute(
+        gapicBuildFilePath, "library_go_gapic", "rest_numeric_enums", "Apennines");
 
     // The following values should NOT be preserved:
     buildozer.batchSetAttribute(
@@ -171,6 +173,9 @@ public class BuildFileGeneratorTest {
     Assert.assertEquals(
         "grpc+rest",
         buildozer.getAttribute(gapicBuildFilePath, "%java_gapic_library", "transport"));
+    Assert.assertEquals(
+        "Apennines",
+        buildozer.getAttribute(gapicBuildFilePath, "%go_gapic_library", "rest_numeric_enums"));
 
     // Check that grpc_service_config value is not preserved:
     Assert.assertEquals(
@@ -179,6 +184,22 @@ public class BuildFileGeneratorTest {
 
     // Check that the changed root file is preserved
     Assert.assertEquals(changedRootContent, ApisVisitor.readFile(rootBuildFilePath));
+
+
+    //// START section to be consolidated
+    // TODO: Consolidate this test attribute change with the other ones above, so we only run
+    // `buildozer.commit() and the BuildFileGenerator once. To do this, we need to make each change
+    // in a separate language, but at the moment, we're only supporting "rest_numeric_enums" in one
+    // language.
+    buildozer.batchRemoveAttribute(
+        gapicBuildFilePath, "library_go_gapic", "rest_numeric_enums");
+    buildozer.commit();
+    new BuildFileGenerator()
+        .generateBuildFiles(args.createApisVisitor(null, tempDirPath.toString()));
+    Assert.assertEquals(
+        "False",
+        buildozer.getAttribute(gapicBuildFilePath, "%go_gapic_library", "rest_numeric_enums"));
+    //// END section to be consolidated
 
     // Now run with overwrite and verify it actually ignores all the changes
     ArgsParser argsOverwrite =

@@ -143,6 +143,7 @@ go_gapic_library(
     metadata = True,
     service_yaml = "library_example_v1.yaml",
     transport = "grpc+rest",
+    rest_numeric_enums = True,
     deps = [
         ":library_go_proto",
         "//google/api:httpbody_go_proto",

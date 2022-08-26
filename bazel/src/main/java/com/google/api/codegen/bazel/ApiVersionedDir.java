@@ -63,21 +63,16 @@ class ApiVersionedDir {
 
   private static String IAM_POLICY_MIXIN = "name: google.iam.v1.IAMPolicy";
 
-  private static final String[] PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES = {
-    // Multiple languages:
-    "package_name",
-    "transport",
-    // TypeScript:
-    "main_service",
-    "bundle_config",
-    "iam_service",
-    // Ruby:
-    "ruby_cloud_title",
-    "ruby_cloud_description",
-    // C#:
-    "generate_nongapic_package",
-    // Other languages: add below
-  };
+  // Mapping whose keys are the names of string attributes whose pre-existing values, if any, should
+  // override what would otherwise be generated for a brand-new file. Moreover, in some cases, if
+  // we're reading a pre-existing file but the attribute is not found, we want to wind up with a
+  // specific value in the final generated file that is different from what we would use if we were
+  // generating the file for the first time. In that case, we will use the value in this map for
+  // that attribute. (For example, for languages that support numeric enums: in a brand-new BUILD file,
+  // we will generate `rest_numeric_enums=True`, but when updating an existing BUILD file that does
+  // not mention `rest_numeric_enums`, we will generate `rest_numeric_enums=False` for backwards
+  // compatibility, leaving it to humans to change the value explicitly.)
+  private static final Map<String, String> PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES = new HashMap<>();
 
   private static final String[] PRESERVED_PROTO_LIBRARY_LIST_ATTRIBUTES = {
     // All languages:
@@ -178,9 +173,27 @@ class ApiVersionedDir {
   // Names of *_gapic_assembly_* rules (since they may be overridden by the user)
   private final Map<String, String> assemblyPkgRulesNames = new HashMap<>();
 
-  // Attributes of *_gapic_library rules to be overridden
+  // Attributes of *_gapic_library rules to be overridden. The keys for these maps are the names of
+  // the library rules.
   private final Map<String, Map<String, String>> overriddenStringAttributes = new HashMap<>();
   private final Map<String, Map<String, List<String>>> overriddenListAttributes = new HashMap<>();
+
+  ApiVersionedDir() {
+    // Multiple languages:
+    PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES.put("package_name", null);
+    PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES.put("transport", null);
+    PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES.put("rest_numeric_enums", "False");
+    // TypeScript:
+    PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES.put("main_service", null);
+    PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES.put("bundle_config", null);
+    PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES.put("iam_service", null);
+    // Ruby:
+    PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES.put("ruby_cloud_title", null);
+    PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES.put("ruby_cloud_description", null);
+    // C#:
+    PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES.put("generate_nongapic_package", null);
+    // Other languages: add below
+  }
 
   void setParent(ApiDir parent) {
     this.parent = parent;
@@ -373,6 +386,7 @@ class ApiVersionedDir {
     }
   }
 
+  // Parses `file` and stored attributes that will need to be preserved when updating the file.
   void parseBazelBuildFile(Path file) {
     try {
       Buildozer buildozer = Buildozer.getInstance();
@@ -405,10 +419,17 @@ class ApiVersionedDir {
         } else if (kind.endsWith("_gapic_library")) {
           this.overriddenStringAttributes.put(name, new HashMap<>());
           this.overriddenListAttributes.put(name, new HashMap<>());
-          for (String attr : PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES) {
+          for (String attr : PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES.keySet()) {
             String value = buildozer.getAttribute(file, name, attr);
             if (value != null) {
+              // If a pre-existing value exists, override with that.
               this.overriddenStringAttributes.get(name).put(attr, value);
+            } else {
+              // Otherwise, override with the appropriate default for upgraded files
+              String newDefaultValue = PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES.get(attr);
+              if (newDefaultValue != null) {
+                this.overriddenStringAttributes.get(name).put(attr, newDefaultValue);
+              }
             }
           }
           for (String attr : PRESERVED_PROTO_LIBRARY_LIST_ATTRIBUTES) {
