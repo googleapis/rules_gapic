@@ -28,6 +28,7 @@ class BazelBuildFileView {
   private static final Pattern LABEL_NAME = Pattern.compile(":\\w+$");
   private final Map<String, String> tokens = new HashMap<>();
   private final Map<String, Map<String, String>> overriddenStringAttributes = new HashMap<>();
+  private final Map<String, Map<String, String>> overriddenNonStringAttributes = new HashMap<>();
   private final Map<String, Map<String, List<String>>> overriddenListAttributes = new HashMap<>();
   private final Map<String, String> assemblyPkgRulesNames = new HashMap<>();
 
@@ -163,6 +164,7 @@ class BazelBuildFileView {
     tokens.put("py_gapic_deps", joinSetWithIndentation(mapPyGapicDeps(actualImports)));
 
     overriddenStringAttributes.putAll(bp.getOverriddenStringAttributes());
+    overriddenNonStringAttributes.putAll(bp.getOverriddenNonStringAttributes());
     overriddenListAttributes.putAll(bp.getOverriddenListAttributes());
     assemblyPkgRulesNames.putAll(bp.getAssemblyPkgRulesNames());
 
@@ -377,6 +379,10 @@ class BazelBuildFileView {
 
   Map<String, Map<String, String>> getOverriddenStringAttributes() {
     return overriddenStringAttributes;
+  }
+
+  Map<String, Map<String, String>> getOverriddenNonStringAttributes() {
+    return overriddenNonStringAttributes;
   }
 
   Map<String, Map<String, List<String>>> getOverriddenListAttributes() {
