@@ -133,8 +133,8 @@ public class BuildFileGeneratorTest {
         gapicBuildFilePath, "library_ruby_gapic", "ruby_cloud_title", "Title with spaces");
     buildozer.batchSetAttribute(
         gapicBuildFilePath, "library_java_gapic", "transport", "grpc+rest");
-    buildozer.batchSetAttribute(
-        gapicBuildFilePath, "library_go_gapic", "rest_numeric_enums", "Apennines");
+    buildozer.batchRemoveAttribute(
+        gapicBuildFilePath, "library_go_gapic", "rest_numeric_enums");
 
     // The following values should NOT be preserved:
     buildozer.batchSetAttribute(
@@ -175,7 +175,7 @@ public class BuildFileGeneratorTest {
         "grpc+rest",  // vchudnov: already in the baseline
         buildozer.getAttribute(gapicBuildFilePath, "%java_gapic_library", "transport"));
     Assert.assertEquals(
-        "Apennines",
+        "False",
         buildozer.getAttribute(gapicBuildFilePath, "%go_gapic_library", "rest_numeric_enums"));
 
     // Check that grpc_service_config value is not preserved:
@@ -192,13 +192,13 @@ public class BuildFileGeneratorTest {
     // `buildozer.commit() and the BuildFileGenerator once. To do this, we need to make each change
     // in a separate language, but at the moment, we're only supporting "rest_numeric_enums" in one
     // language.
-    buildozer.batchRemoveAttribute(
-        gapicBuildFilePath, "library_go_gapic", "rest_numeric_enums");
+    buildozer.batchSetAttribute(
+        gapicBuildFilePath, "library_go_gapic", "rest_numeric_enums", "Apennines");
     buildozer.commit();
     new BuildFileGenerator()
         .generateBuildFiles(args.createApisVisitor(null, tempDirPath.toString()));
     Assert.assertEquals(
-        "False",
+        "Apennines",
         buildozer.getAttribute(gapicBuildFilePath, "%go_gapic_library", "rest_numeric_enums"));
     //// END section to be consolidated
 

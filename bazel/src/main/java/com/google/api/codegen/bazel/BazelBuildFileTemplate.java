@@ -106,7 +106,7 @@ class BazelBuildFileTemplate {
       for (Map.Entry<String, String> subentry : entry.getValue().entrySet()) {
         String attr = subentry.getKey();
         String value = subentry.getValue();
-        buildozer.batchSetAttribute(buildBazelPath, ruleName, attr, value);
+        buildozer.batchSetNonStringAttribute(buildBazelPath, ruleName, attr, value);
       }
     }
 
