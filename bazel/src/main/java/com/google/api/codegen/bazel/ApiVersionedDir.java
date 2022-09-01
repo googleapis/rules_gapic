@@ -438,14 +438,15 @@ class ApiVersionedDir {
             }
           }
 
-          for (String attr : PRESERVED_PROTO_LIBRARY_NONSTRING_ATTRIBUTES.keySet()) {  // vchudnov:use entrySet
+          for (Map.Entry<String, String> entry : PRESERVED_PROTO_LIBRARY_NONSTRING_ATTRIBUTES.entrySet()) {
+            String attr = entry.getKey();
+            String newDefaultValue = entry.getValue();
             String value = buildozer.getAttribute(file, name, attr);
             if (value != null) {
               // If a pre-existing value exists, override with that.
               this.overriddenNonStringAttributes.get(name).put(attr, value);
             } else {
               // Otherwise, override with the appropriate default for upgraded files
-              String newDefaultValue = PRESERVED_PROTO_LIBRARY_NONSTRING_ATTRIBUTES.get(attr);
               if (newDefaultValue != null) {
                 this.overriddenNonStringAttributes.get(name).put(attr, newDefaultValue);
               }
