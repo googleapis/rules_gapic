@@ -80,7 +80,7 @@ java_gapic_library(
         "//google/cloud/location:location_java_grpc",
         "//google/iam/v1:iam_java_grpc",
     ],
-    transport = "grpc+rest",
+    transport = "lightning",
     deps = [
         ":library_java_proto",
         "//google/api:api_java_proto",
@@ -269,7 +269,7 @@ load(
 
 nodejs_gapic_library(
     name = "library_nodejs_gapic",
-    package_name = "@google-cloud/library",
+    package_name = "@google-cloud/newlibrary",
     src = ":library_proto_with_info",
     extra_protoc_parameters = [
         "param1",

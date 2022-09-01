@@ -115,7 +115,7 @@ public class BuildFileGeneratorTest {
     Buildozer buildozer = Buildozer.getInstance();
     // The following values should be preserved:
     buildozer.batchSetAttribute(
-        gapicBuildFilePath, "library_nodejs_gapic", "package_name", "@google-cloud/library");  // vchudnov: already in baseline
+        gapicBuildFilePath, "library_nodejs_gapic", "package_name", "@google-cloud/newlibrary");
     buildozer.batchRemoveAttribute(
         gapicBuildFilePath, "library_nodejs_gapic", "extra_protoc_parameters");
     buildozer.batchAddAttribute(
@@ -132,7 +132,7 @@ public class BuildFileGeneratorTest {
     buildozer.batchSetAttribute(
         gapicBuildFilePath, "library_ruby_gapic", "ruby_cloud_title", "Title with spaces");
     buildozer.batchSetAttribute(
-        gapicBuildFilePath, "library_java_gapic", "transport", "grpc+rest");
+        gapicBuildFilePath, "library_java_gapic", "transport", "lightning");
     buildozer.batchRemoveAttribute(
         gapicBuildFilePath, "library_go_gapic", "rest_numeric_enums");
 
@@ -155,7 +155,7 @@ public class BuildFileGeneratorTest {
 
     // Check that values are preserved
     Assert.assertEquals(
-        "@google-cloud/library",
+        "@google-cloud/newlibrary",
         buildozer.getAttribute(gapicBuildFilePath, "library_nodejs_gapic", "package_name"));
     Assert.assertEquals(
         "[param1 param2]",
@@ -172,7 +172,7 @@ public class BuildFileGeneratorTest {
         buildozer.getAttribute(gapicBuildFilePath, "%ruby_cloud_gapic_library",
             "ruby_cloud_title"));
     Assert.assertEquals(
-        "grpc+rest",  // vchudnov: already in the baseline
+        "lightning",
         buildozer.getAttribute(gapicBuildFilePath, "%java_gapic_library", "transport"));
     Assert.assertEquals(
         "False",
