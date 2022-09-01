@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.16.0](https://github.com/googleapis/rules_gapic/compare/v0.15.0...v0.16.0) (2022-09-01)
+
+
+### Features
+
+* support numeric enums: BUILD file updates, new Go BUILD files ([#111](https://github.com/googleapis/rules_gapic/issues/111)) ([736334d](https://github.com/googleapis/rules_gapic/commit/736334d1aec1600affe0a1ffe17f19b5d096416e))
+
 ## [0.15.0](https://github.com/googleapis/rules_gapic/compare/v0.14.1...v0.15.0) (2022-07-27)
 
 
