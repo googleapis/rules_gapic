@@ -28,10 +28,11 @@ class BazelBuildFileView {
   private static final Pattern LABEL_NAME = Pattern.compile(":\\w+$");
   private final Map<String, String> tokens = new HashMap<>();
   private final Map<String, Map<String, String>> overriddenStringAttributes = new HashMap<>();
+  private final Map<String, Map<String, String>> overriddenNonStringAttributes = new HashMap<>();
   private final Map<String, Map<String, List<String>>> overriddenListAttributes = new HashMap<>();
   private final Map<String, String> assemblyPkgRulesNames = new HashMap<>();
 
-  BazelBuildFileView(ApiVersionedDir bp, String transport) {
+  BazelBuildFileView(ApiVersionedDir bp, String transport, String numericEnums) {
     if (bp.getProtoPackage() == null) {
       return;
     }
@@ -163,10 +164,15 @@ class BazelBuildFileView {
     tokens.put("py_gapic_deps", joinSetWithIndentation(mapPyGapicDeps(actualImports)));
 
     overriddenStringAttributes.putAll(bp.getOverriddenStringAttributes());
+    overriddenNonStringAttributes.putAll(bp.getOverriddenNonStringAttributes());
     overriddenListAttributes.putAll(bp.getOverriddenListAttributes());
     assemblyPkgRulesNames.putAll(bp.getAssemblyPkgRulesNames());
 
     tokens.put("transport", '"' + transport + '"');
+
+    // Ideally, we'd use a slightly more sophisticated templating system, like Mustache, that would
+    // allow us to omit `rest_numeric_enums` when `!transport.contains("rest")`
+    tokens.put("rest_numeric_enums", numericEnums);
   }
 
   private String assembleGoImportPath(boolean isCloud, String protoPkg, String goPkg) {
@@ -373,6 +379,10 @@ class BazelBuildFileView {
 
   Map<String, Map<String, String>> getOverriddenStringAttributes() {
     return overriddenStringAttributes;
+  }
+
+  Map<String, Map<String, String>> getOverriddenNonStringAttributes() {
+    return overriddenNonStringAttributes;
   }
 
   Map<String, Map<String, List<String>>> getOverriddenListAttributes() {

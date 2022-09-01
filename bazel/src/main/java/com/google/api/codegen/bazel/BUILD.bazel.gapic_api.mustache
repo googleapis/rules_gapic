@@ -124,6 +124,7 @@ go_gapic_library(
     metadata = True,
     service_yaml = {{service_yaml}},
     transport = {{transport}},
+    rest_numeric_enums = {{rest_numeric_enums}},
     deps = [
         ":{{name}}_go_proto",{{go_gapic_deps}}
     ],

@@ -92,14 +92,28 @@ public class Buildozer {
     }
   }
 
-  // Set the value to the given attribute of the given target.
+  // Set the value to the given attribute of the given target. The value is assumed to be a string
+  // and is quoted.
+  //
   // The changes will be applied when the whole batch is committed with .commit().
-  public void batchSetAttribute(Path bazelBuildFile, String target, String attribute, String value)
+  public void batchSetStringAttribute(Path bazelBuildFile, String target, String attribute, String value)
       throws IOException {
     batch.add(
         String.format(
             "set %s \"%s\"|%s:%s",
             attribute, value.replace(" ", "\\ "), bazelBuildFile.toString(), target));
+  }
+
+  // Set the value to the given attribute of the given target. The value is assumed to be a
+  // non-string (and contain no spaces) and will not be quoted.
+  //
+  // The changes will be applied when the whole batch is committed with .commit().
+  public void batchSetNonStringAttribute(Path bazelBuildFile, String target, String attribute, String value)
+      throws IOException {
+    batch.add(
+        String.format(
+            "set %s %s|%s:%s",
+            attribute, value, bazelBuildFile.toString(), target));
   }
 
   // Remove the given attribute of the given target. Apply changes immediately.
@@ -108,9 +122,11 @@ public class Buildozer {
     batch.add(String.format("remove %s|%s:%s", attribute, bazelBuildFile.toString(), target));
   }
 
-  // Add the value to the given list attribute of the given target.
+  // Add the value to the given list attribute of the given target. The value is assumed to be a string
+  // and is quoted.
+  //
   // The changes will be applied when the whole batch is committed with .commit().
-  public void batchAddAttribute(Path bazelBuildFile, String target, String attribute, String value)
+  public void batchAddStringAttribute(Path bazelBuildFile, String target, String attribute, String value)
       throws IOException {
     batch.add(
         String.format(
