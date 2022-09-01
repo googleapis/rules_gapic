@@ -114,30 +114,30 @@ public class BuildFileGeneratorTest {
     Buildozer.setBinaryPath(buildozerPath);
     Buildozer buildozer = Buildozer.getInstance();
     // The following values should be preserved:
-    buildozer.batchSetAttribute(
+    buildozer.batchSetStringAttribute(
         gapicBuildFilePath, "library_nodejs_gapic", "package_name", "@google-cloud/newlibrary");
     buildozer.batchRemoveAttribute(
         gapicBuildFilePath, "library_nodejs_gapic", "extra_protoc_parameters");
-    buildozer.batchAddAttribute(
+    buildozer.batchAddStringAttribute(
         gapicBuildFilePath, "library_nodejs_gapic", "extra_protoc_parameters", "param1");
-    buildozer.batchAddAttribute(
+    buildozer.batchAddStringAttribute(
         gapicBuildFilePath, "library_nodejs_gapic", "extra_protoc_parameters", "param2");
-    buildozer.batchSetAttribute(
+    buildozer.batchSetStringAttribute(
         gapicBuildFilePath,
         "google-cloud-example-library-v1-csharp",
         "name",
         "renamed_csharp_rule");
-    buildozer.batchSetAttribute(
+    buildozer.batchSetStringAttribute(
         gapicBuildFilePath, "google-cloud-example-library-v1-java", "name", "renamed_java_rule");
-    buildozer.batchSetAttribute(
+    buildozer.batchSetStringAttribute(
         gapicBuildFilePath, "library_ruby_gapic", "ruby_cloud_title", "Title with spaces");
-    buildozer.batchSetAttribute(
+    buildozer.batchSetStringAttribute(
         gapicBuildFilePath, "library_java_gapic", "transport", "lightning");
     buildozer.batchRemoveAttribute(
         gapicBuildFilePath, "library_go_gapic", "rest_numeric_enums");
 
     // The following values should NOT be preserved:
-    buildozer.batchSetAttribute(
+    buildozer.batchSetStringAttribute(
         gapicBuildFilePath,
         "library_nodejs_gapic",
         "grpc_service_config",
@@ -192,7 +192,7 @@ public class BuildFileGeneratorTest {
     // `buildozer.commit() and the BuildFileGenerator once. To do this, we need to make each change
     // in a separate language, but at the moment, we're only supporting "rest_numeric_enums" in one
     // language.
-    buildozer.batchSetAttribute(
+    buildozer.batchSetStringAttribute(
         gapicBuildFilePath, "library_go_gapic", "rest_numeric_enums", "Apennines");
     buildozer.commit();
     new BuildFileGenerator()
@@ -249,8 +249,8 @@ public class BuildFileGeneratorTest {
         "[value1 value2]", buildozer.getAttribute(buildBazel, "rule2", "list_attr"));
 
     // Set some attributes and get the result
-    buildozer.batchSetAttribute(buildBazel, "rule1", "attr", "new attr value");
-    buildozer.batchAddAttribute(buildBazel, "rule2", "list_attr", "value3");
+    buildozer.batchSetStringAttribute(buildBazel, "rule1", "attr", "new attr value");
+    buildozer.batchAddStringAttribute(buildBazel, "rule2", "list_attr", "value3");
     buildozer.commit();
     Assert.assertEquals("new attr value", buildozer.getAttribute(buildBazel, "rule1", "attr"));
     Assert.assertEquals(
@@ -263,8 +263,8 @@ public class BuildFileGeneratorTest {
     Assert.assertEquals(null, buildozer.getAttribute(buildBazel, "rule1", "to_be_removed_a"));
 
     // Test batch operations
-    buildozer.batchSetAttribute(buildBazel, "rule1", "attr", "new_batch_attr_value");
-    buildozer.batchAddAttribute(buildBazel, "rule2", "list_attr", "value4");
+    buildozer.batchSetStringAttribute(buildBazel, "rule1", "attr", "new_batch_attr_value");
+    buildozer.batchAddStringAttribute(buildBazel, "rule2", "list_attr", "value4");
     buildozer.batchRemoveAttribute(buildBazel, "rule1", "to_be_removed_b");
     // before commit: old values
     Assert.assertEquals("new attr value", buildozer.getAttribute(buildBazel, "rule1", "attr"));

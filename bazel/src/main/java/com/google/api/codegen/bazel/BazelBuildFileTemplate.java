@@ -85,7 +85,7 @@ class BazelBuildFileTemplate {
       String newName = entry.getValue();
       String currentName = buildozer.getAttribute(buildBazelPath, "%" + kind, "name");
       if (!currentName.equals(newName)) {
-        buildozer.batchSetAttribute(buildBazelPath, currentName, "name", newName);
+        buildozer.batchSetStringAttribute(buildBazelPath, currentName, "name", newName);
       }
     }
     buildozer.commit();
@@ -96,7 +96,7 @@ class BazelBuildFileTemplate {
       for (Map.Entry<String, String> subentry : entry.getValue().entrySet()) {
         String attr = subentry.getKey();
         String value = subentry.getValue();
-        buildozer.batchSetAttribute(buildBazelPath, ruleName, attr, value);
+        buildozer.batchSetStringAttribute(buildBazelPath, ruleName, attr, value);
       }
     }
 
@@ -118,7 +118,7 @@ class BazelBuildFileTemplate {
         List<String> values = subentry.getValue();
         buildozer.batchRemoveAttribute(buildBazelPath, ruleName, attr);
         for (String value : values) {
-          buildozer.batchAddAttribute(buildBazelPath, ruleName, attr, value);
+          buildozer.batchAddStringAttribute(buildBazelPath, ruleName, attr, value);
         }
       }
     }

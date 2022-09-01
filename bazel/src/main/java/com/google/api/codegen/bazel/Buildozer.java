@@ -96,7 +96,7 @@ public class Buildozer {
   // and is quoted.
   //
   // The changes will be applied when the whole batch is committed with .commit().
-  public void batchSetAttribute(Path bazelBuildFile, String target, String attribute, String value)
+  public void batchSetStringAttribute(Path bazelBuildFile, String target, String attribute, String value)
       throws IOException {
     batch.add(
         String.format(
@@ -122,9 +122,11 @@ public class Buildozer {
     batch.add(String.format("remove %s|%s:%s", attribute, bazelBuildFile.toString(), target));
   }
 
-  // Add the value to the given list attribute of the given target.
+  // Add the value to the given list attribute of the given target. The value is assumed to be a string
+  // and is quoted.
+  //
   // The changes will be applied when the whole batch is committed with .commit().
-  public void batchAddAttribute(Path bazelBuildFile, String target, String attribute, String value)
+  public void batchAddStringAttribute(Path bazelBuildFile, String target, String attribute, String value)
       throws IOException {
     batch.add(
         String.format(
