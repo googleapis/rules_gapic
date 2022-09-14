@@ -189,6 +189,7 @@ py_gapic_library(
     srcs = [":library_proto"],
     grpc_service_config = "library_example_grpc_service_config.json",
     service_yaml = "library_example_v1.yaml",
+    transport = "grpc+rest",
     deps = [
         "//google/iam/v1:iam_policy_py_proto",
     ],
