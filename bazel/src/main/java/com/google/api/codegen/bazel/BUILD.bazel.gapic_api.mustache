@@ -163,6 +163,7 @@ py_gapic_library(
     srcs = [":{{name}}_proto"],
     grpc_service_config = {{grpc_service_config}},
     service_yaml = {{service_yaml}},
+    transport = {{transport}},
     deps = [
         {{py_gapic_deps}}
     ],
