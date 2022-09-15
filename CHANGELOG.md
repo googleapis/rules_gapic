@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.17.0](https://github.com/googleapis/rules_gapic/compare/v0.16.0...v0.17.0) (2022-09-14)
+
+
+### Features
+
+* Add transport parameter to py_gapic_library targets ([#113](https://github.com/googleapis/rules_gapic/issues/113)) ([e5ee783](https://github.com/googleapis/rules_gapic/commit/e5ee783a7735bf1c90bfdb8d8287cb69371ad96d))
+
 ## [0.16.0](https://github.com/googleapis/rules_gapic/compare/v0.15.0...v0.16.0) (2022-09-01)
 
 
