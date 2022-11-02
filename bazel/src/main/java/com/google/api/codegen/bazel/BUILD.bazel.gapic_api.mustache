@@ -64,6 +64,7 @@ java_gapic_library(
     srcs = [":{{name}}_proto_with_info"],
     gapic_yaml = {{gapic_yaml}},
     grpc_service_config = {{grpc_service_config}},
+    rest_numeric_enums = {{rest_numeric_enums}},
     service_yaml = {{service_yaml}},
     test_deps = [
         ":{{name}}_java_grpc",{{java_gapic_test_deps}}
@@ -122,9 +123,9 @@ go_gapic_library(
     grpc_service_config = {{grpc_service_config}},
     importpath = "{{go_gapic_importpath}}",
     metadata = True,
+    rest_numeric_enums = {{rest_numeric_enums}},
     service_yaml = {{service_yaml}},
     transport = {{transport}},
-    rest_numeric_enums = {{rest_numeric_enums}},
     deps = [
         ":{{name}}_go_proto",{{go_gapic_deps}}
     ],
@@ -162,6 +163,7 @@ py_gapic_library(
     name = "{{name}}_py_gapic",
     srcs = [":{{name}}_proto"],
     grpc_service_config = {{grpc_service_config}},
+    rest_numeric_enums = {{rest_numeric_enums}},
     service_yaml = {{service_yaml}},
     transport = {{transport}},
     deps = [
@@ -213,6 +215,7 @@ php_gapic_library(
     name = "{{name}}_php_gapic",
     srcs = [":{{name}}_proto_with_info"],
     grpc_service_config = {{grpc_service_config}},
+    rest_numeric_enums = {{rest_numeric_enums}},
     service_yaml = {{service_yaml}},
     deps = [
         ":{{name}}_php_grpc",
@@ -246,6 +249,7 @@ nodejs_gapic_library(
     extra_protoc_parameters = ["metadata"],
     grpc_service_config = {{grpc_service_config}},
     package = "{{package}}",
+    rest_numeric_enums = {{rest_numeric_enums}},
     service_yaml = {{service_yaml}},
     deps = [],
 )
@@ -287,8 +291,8 @@ ruby_cloud_gapic_library(
         "ruby-cloud-gem-name=google-cloud-{{assembly_name}}-{{version}}",
     ],
     grpc_service_config = {{grpc_service_config}},
-    service_yaml = {{service_yaml}},
     rest_numeric_enums = {{rest_numeric_enums}},
+    service_yaml = {{service_yaml}},
     deps = [
         ":{{name}}_ruby_grpc",
         ":{{name}}_ruby_proto",
@@ -332,6 +336,7 @@ csharp_gapic_library(
     srcs = [":{{name}}_proto_with_info"],
     common_resources_config = "@gax_dotnet//:Google.Api.Gax/ResourceNames/CommonResourcesConfig.json",
     grpc_service_config = {{grpc_service_config}},
+    rest_numeric_enums = {{rest_numeric_enums}},
     service_yaml = {{service_yaml}},
     deps = [
         ":{{name}}_csharp_grpc",
