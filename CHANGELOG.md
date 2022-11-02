@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.19.0](https://github.com/googleapis/rules_gapic/compare/v0.18.0...v0.19.0) (2022-11-02)
+
+
+### Features
+
+* Enable `transport = "grpc+rest"` by default for nodejs and php rules ([#118](https://github.com/googleapis/rules_gapic/issues/118)) ([4c04cbb](https://github.com/googleapis/rules_gapic/commit/4c04cbb25602f01ddc379190f6d4d0828b768b48))
+
 ## [0.18.0](https://github.com/googleapis/rules_gapic/compare/v0.17.0...v0.18.0) (2022-11-02)
 
 
