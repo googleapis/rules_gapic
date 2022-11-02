@@ -217,6 +217,7 @@ php_gapic_library(
     grpc_service_config = {{grpc_service_config}},
     rest_numeric_enums = {{rest_numeric_enums}},
     service_yaml = {{service_yaml}},
+    transport = {{transport}},
     deps = [
         ":{{name}}_php_grpc",
         ":{{name}}_php_proto",
@@ -251,6 +252,7 @@ nodejs_gapic_library(
     package = "{{package}}",
     rest_numeric_enums = {{rest_numeric_enums}},
     service_yaml = {{service_yaml}},
+    transport = {{transport}},
     deps = [],
 )
 
