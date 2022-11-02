@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.18.0](https://github.com/googleapis/rules_gapic/compare/v0.17.0...v0.18.0) (2022-11-02)
+
+
+### Features
+
+* Add rest_numeric_enums to Ruby build rule template ([#115](https://github.com/googleapis/rules_gapic/issues/115)) ([5f5ba98](https://github.com/googleapis/rules_gapic/commit/5f5ba98b8ca9f52da604d259e796576a080a5032))
+* Set rest_numeric_enums parameter explicitly for all gapic rules ([#117](https://github.com/googleapis/rules_gapic/issues/117)) ([ca5e3e1](https://github.com/googleapis/rules_gapic/commit/ca5e3e12efe1bb3d1c1f77d7d9a237e8e2a324b7))
+
 ## [0.17.0](https://github.com/googleapis/rules_gapic/compare/v0.16.0...v0.17.0) (2022-09-14)
 
 
