@@ -134,7 +134,9 @@ public class BuildFileGeneratorTest {
     buildozer.batchSetStringAttribute(
         gapicBuildFilePath, "library_java_gapic", "transport", "lightning");
     buildozer.batchRemoveAttribute(
-        gapicBuildFilePath, "library_go_gapic", "rest_numeric_enums");
+        gapicBuildFilePath, "library_py_gapic", "rest_numeric_enums");
+    buildozer.batchSetStringAttribute(
+        gapicBuildFilePath, "library_go_gapic", "rest_numeric_enums", "Apennines");
 
     // The following values should NOT be preserved:
     buildozer.batchSetStringAttribute(
@@ -176,6 +178,9 @@ public class BuildFileGeneratorTest {
         buildozer.getAttribute(gapicBuildFilePath, "%java_gapic_library", "transport"));
     Assert.assertEquals(
         "False",
+        buildozer.getAttribute(gapicBuildFilePath, "%py_gapic_library", "rest_numeric_enums"));
+    Assert.assertEquals(
+        "Apennines",
         buildozer.getAttribute(gapicBuildFilePath, "%go_gapic_library", "rest_numeric_enums"));
 
     // Check that grpc_service_config value is not preserved:
@@ -185,22 +190,6 @@ public class BuildFileGeneratorTest {
 
     // Check that the changed root file is preserved
     Assert.assertEquals(changedRootContent, ApisVisitor.readFile(rootBuildFilePath));
-
-
-    //// START section to be consolidated
-    // TODO: Consolidate this test attribute change with the other ones above, so we only run
-    // `buildozer.commit() and the BuildFileGenerator once. To do this, we need to make each change
-    // in a separate language, but at the moment, we're only supporting "rest_numeric_enums" in one
-    // language.
-    buildozer.batchSetStringAttribute(
-        gapicBuildFilePath, "library_go_gapic", "rest_numeric_enums", "Apennines");
-    buildozer.commit();
-    new BuildFileGenerator()
-        .generateBuildFiles(args.createApisVisitor(null, tempDirPath.toString()));
-    Assert.assertEquals(
-        "Apennines",
-        buildozer.getAttribute(gapicBuildFilePath, "%go_gapic_library", "rest_numeric_enums"));
-    //// END section to be consolidated
 
     // Since buildozer does not differentiate between string and non-string values, we need to
     // compare to a baseline to ensure the updates were coded with or without quotes, as appropriate.
