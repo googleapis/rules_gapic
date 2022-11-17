@@ -71,6 +71,7 @@ class ApiVersionedDir {
     "main_service",
     "bundle_config",
     "iam_service",
+    "mixins",
     // Ruby:
     "ruby_cloud_title",
     "ruby_cloud_description",
