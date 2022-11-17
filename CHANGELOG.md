@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.19.1](https://github.com/googleapis/rules_gapic/compare/v0.19.0...v0.19.1) (2022-11-17)
+
+
+### Bug Fixes
+
+* Preserve the value of `mixins` parameter ([#121](https://github.com/googleapis/rules_gapic/issues/121)) ([3dbcc3e](https://github.com/googleapis/rules_gapic/commit/3dbcc3e326f1d571d9ffb761d5e2d8179cc149d7))
+
 ## [0.19.0](https://github.com/googleapis/rules_gapic/compare/v0.18.0...v0.19.0) (2022-11-02)
 
 
