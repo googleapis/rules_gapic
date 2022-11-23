@@ -175,12 +175,29 @@ class BazelBuildFileView {
     tokens.put("rest_numeric_enums", numericEnums);
   }
 
-  private String assembleGoImportPath(boolean isCloud, String protoPkg, String goPkg) {
+  /**
+   * Returns the import path for a Go GAPIC library package.
+   *
+   * @param isCloud is true if cloud is in the goP
+   * @param protoPkg is the value of `package` in a proto file
+   * @param goPkg is the value of `go_package` option in a proto file
+   */
+  static String assembleGoImportPath(boolean isCloud, String protoPkg, String goPkg) {
+    boolean isMigratedProtoLib = goPkg.startsWith("cloud.google.com/go/");
     goPkg = goPkg.replaceFirst("google\\.golang\\.org\\/genproto\\/googleapis\\/", "");
+    goPkg = goPkg.replaceFirst("cloud\\.google\\.com\\/go\\/", "");
     goPkg = goPkg.replaceFirst("cloud\\/", "");
 
     String goImport = "";
-    if (isCloud) {
+    if (isCloud && isMigratedProtoLib) {
+      goImport = "cloud.google.com/go/";
+      String[] goPkgParts= goPkg.split(";");
+      // Trim the pb off the end
+      String goPkgName = goPkgParts[1].substring(0, goPkgParts[1].length() - 2);
+      // Remove the last path segment, which is the stubs dir
+      goPkg = goPkgParts[0].substring(0, goPkgParts[0].lastIndexOf("/"));
+      goPkg = String.format("%s;%s", goPkg, goPkgName);
+    } else if (isCloud) {
       goImport = "cloud.google.com/go/";
       goPkg = goPkg.replaceFirst("\\/v([a-z0-9]+);", "\\/apiv$1;");
     } else {
