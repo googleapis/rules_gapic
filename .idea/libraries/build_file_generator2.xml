@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="build_file_generator2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bazel-out/k8-fastbuild/bin/bazel/build_file_generator.runfiles/rules_gapic/bazel/build_file_generator.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

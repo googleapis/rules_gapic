@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="all_lcov_merger_tools_deploy">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_coverage_tools/all_lcov_merger_tools_deploy.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

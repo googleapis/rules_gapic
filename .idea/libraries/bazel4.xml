@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="bazel4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/bazel-out/k8-fastbuild/bin/bazel/build_file_generator_deploy-src.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/bazel-out/k8-fastbuild/bin/bazel/build_file_generator-class.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/bazel-out/k8-fastbuild/bin/bazel/build_file_generator-native-header.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/bazel-out/k8-fastbuild/bin/bazel/build_file_generator_test-src.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/bazel-out/k8-fastbuild/bin/bazel/build_file_generator_test-native-header.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/bazel-out/k8-fastbuild/bin/bazel/build_file_generator-src.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/bazel-out/k8-fastbuild/bin/bazel/build_file_generator_test_deploy.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/bazel-out/k8-fastbuild/bin/bazel/build_file_generator_test.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/bazel-out/k8-fastbuild/bin/bazel/build_file_generator_deploy.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/bazel-out/k8-fastbuild/bin/bazel/build_file_generator_test_deploy-src.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/bazel-out/k8-fastbuild/bin/bazel/build_file_generator.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

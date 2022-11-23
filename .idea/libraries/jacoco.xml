@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="jacoco">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/third_party/java/jacoco/asm-tree-9.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/third_party/java/jacoco/jacocoagent-0.8.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/third_party/java/jacoco/org.jacoco.core-0.8.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/third_party/java/jacoco/org.jacoco.agent-0.8.7-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/third_party/java/jacoco/org.jacoco.ant-0.8.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/third_party/java/jacoco/org.jacoco.report-0.8.7-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/third_party/java/jacoco/asm-commons-9.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/third_party/java/jacoco/org.jacoco.core-0.8.7-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/third_party/java/jacoco/org.jacoco.agent-0.8.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/third_party/java/jacoco/org.jacoco.ant-0.8.7-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/third_party/java/jacoco/org.jacoco.report-0.8.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/third_party/java/jacoco/asm-9.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/third_party/java/jacoco/org.jacoco.ant-0.8.7-nodeps.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
