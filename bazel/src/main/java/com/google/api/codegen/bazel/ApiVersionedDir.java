@@ -77,6 +77,8 @@ class ApiVersionedDir {
     "ruby_cloud_description",
     // C#:
     "generate_nongapic_package",
+    // Go:
+    "release_level"
     // Other languages: add below
   };
 
