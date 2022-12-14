@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="TableExample">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remotejdk11_linux/demo/jfc/TableExample/TableExample.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remotejdk11_linux/demo/jfc/TableExample/src.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

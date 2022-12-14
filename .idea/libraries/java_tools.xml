@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="java_tools">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/Runner_deploy.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/java_compiler.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/jdk_compiler.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/JavaBuilder_deploy.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/javac-9+181-r4173-1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/turbine_direct_binary_deploy.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/GenClass_deploy.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/VanillaJavaBuilder_deploy.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remote_java_tools/java_tools/JacocoCoverage_jarjar_deploy.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

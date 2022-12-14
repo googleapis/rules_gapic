@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="J2Ddemo">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remotejdk11_linux/demo/jfc/J2Ddemo/J2Ddemo.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remotejdk11_linux/demo/jfc/J2Ddemo/src.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

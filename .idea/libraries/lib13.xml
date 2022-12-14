@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="lib13">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bazel-bin/bazel/build_file_generator.runfiles/local_jdk/lib/jrt-fs.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-bin/bazel/build_file_generator.runfiles/local_jdk/lib/src.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

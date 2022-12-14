@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="FileChooserDemo">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remotejdk11_linux/demo/jfc/FileChooserDemo/src.zip!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remotejdk11_linux/demo/jfc/FileChooserDemo/FileChooserDemo.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

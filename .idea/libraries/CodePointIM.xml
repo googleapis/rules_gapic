@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="CodePointIM">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remotejdk11_linux/demo/jfc/CodePointIM/CodePointIM.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/remotejdk11_linux/demo/jfc/CodePointIM/src.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

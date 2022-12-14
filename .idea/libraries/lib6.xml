@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="lib6">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/bazel-out/k8-fastbuild/bin/bazel/build_file_generator.runfiles/rules_gapic/external/local_jdk/lib/src.zip!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/bazel-out/k8-fastbuild/bin/bazel/build_file_generator.runfiles/rules_gapic/external/local_jdk/lib/jrt-fs.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

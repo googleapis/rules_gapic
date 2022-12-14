@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="bazel2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bazel-bin/bazel/build_file_generator_test.runfiles/rules_gapic/bazel/build_file_generator_test.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bazel-bin/bazel/build_file_generator_test.runfiles/rules_gapic/bazel/build_file_generator.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
