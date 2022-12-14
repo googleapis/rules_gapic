@@ -178,7 +178,7 @@ class BazelBuildFileView {
   /**
    * Returns the import path for a Go GAPIC library package.
    *
-   * @param isCloud is true if cloud is in the goP
+   * @param isCloud is true if cloud is in the goPkg
    * @param protoPkg is the value of `package` in a proto file
    * @param goPkg is the value of `go_package` option in a proto file
    */
