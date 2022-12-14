@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="platformclasspath1">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/bazel-out/k8-fastbuild/bin/external/bazel_tools/tools/jdk/platformclasspath.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

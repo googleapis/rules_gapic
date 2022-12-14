@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="snapshots.img">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/bazel-rules_gapic/external/bazel_tools/tools/android/emulator/snapshots.img.zip!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

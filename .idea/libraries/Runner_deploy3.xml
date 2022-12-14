@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Runner_deploy3">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/bazel-out/k8-fastbuild/bin/bazel/build_file_generator_test.runfiles/remote_java_tools/java_tools/Runner_deploy.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
