@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.0](https://github.com/googleapis/rules_gapic/compare/v0.19.2...v0.20.0) (2022-12-15)
+
+
+### Features
+
+* Add support for new Go stubs dir locations ([#123](https://github.com/googleapis/rules_gapic/issues/123)) ([4644854](https://github.com/googleapis/rules_gapic/commit/4644854657cbe0b7db88eb317ede207a282ce042))
+
 ## [0.19.2](https://github.com/googleapis/rules_gapic/compare/v0.19.1...v0.19.2) (2022-12-08)
 
 
