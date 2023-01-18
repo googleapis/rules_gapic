@@ -32,7 +32,7 @@ class ApiVersionedDir {
   private static final Pattern PROTO_PACKAGE =
       Pattern.compile("(?m)^package\\s+(?<protoPackage>[\\w+\\.]+)\\s*;\\s*$");
   private static final Pattern IMPORTS =
-      Pattern.compile("(?m)^import\\s+\"(?<import>[\\w+\\\\./]+)\"\\s*;\\s*$");
+      Pattern.compile("(?m)^import\\s+(?:public\\s+)?\"(?<import>[\\w+\\\\./]+)\"\\s*;\\s*$");
   // A proto's language package options.
   private static final Pattern PROTO_LANG_PACKAGE =
       Pattern.compile(
