@@ -31,6 +31,7 @@ proto_library(
         "//google/api:resource_proto",
         "//google/cloud/common:common_proto",
         "//google/longrunning:operations_proto",
+        "@com_google_protobuf//:descriptor_proto",
         "@com_google_protobuf//:empty_proto",
     ],
 )
