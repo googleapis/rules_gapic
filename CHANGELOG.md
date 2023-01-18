@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.1](https://github.com/googleapis/rules_gapic/compare/v0.20.0...v0.20.1) (2023-01-18)
+
+
+### Bug Fixes
+
+* Support public imports in protos ([#127](https://github.com/googleapis/rules_gapic/issues/127)) ([3519a41](https://github.com/googleapis/rules_gapic/commit/3519a419c92a00e9b3ec8f936e39de5f04ae7642))
+
 ## [0.20.0](https://github.com/googleapis/rules_gapic/compare/v0.19.2...v0.20.0) (2022-12-15)
 
 
