@@ -26,3 +26,12 @@ java_test(
     test_class = "com.google.api.codegen.bazel.BuildFileGeneratorTest",
     jvm_flags = ["-Dbuildozer=$(location :buildozer_binary)"],
 )
+
+java_test(
+    name = "bazel_build_file_view_test",
+    srcs = glob(["src/test/java/**/*.java"]),
+    deps = [":build_file_generator"],
+    data = glob(["src/test/data/**/*.*"]) + [":buildozer_binary"],
+    test_class = "com.google.api.codegen.bazel.BazelBuildFileViewTest",
+    jvm_flags = ["-Dbuildozer=$(location :buildozer_binary)"],
+)

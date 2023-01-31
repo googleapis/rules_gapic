@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.20.1](https://github.com/googleapis/rules_gapic/compare/v0.20.0...v0.20.1) (2023-01-18)
+
+
+### Bug Fixes
+
+* Support public imports in protos ([#127](https://github.com/googleapis/rules_gapic/issues/127)) ([3519a41](https://github.com/googleapis/rules_gapic/commit/3519a419c92a00e9b3ec8f936e39de5f04ae7642))
+
+## [0.20.0](https://github.com/googleapis/rules_gapic/compare/v0.19.2...v0.20.0) (2022-12-15)
+
+
+### Features
+
+* Add support for new Go stubs dir locations ([#123](https://github.com/googleapis/rules_gapic/issues/123)) ([4644854](https://github.com/googleapis/rules_gapic/commit/4644854657cbe0b7db88eb317ede207a282ce042))
+
+## [0.19.2](https://github.com/googleapis/rules_gapic/compare/v0.19.1...v0.19.2) (2022-12-08)
+
+
+### Bug Fixes
+
+* **bazel:** Depend on new Go LRO submod ([#124](https://github.com/googleapis/rules_gapic/issues/124)) ([fe45e5f](https://github.com/googleapis/rules_gapic/commit/fe45e5f9a5d9d76a0c25dbae4e20cb59b9145cc5))
+
 ## [0.19.1](https://github.com/googleapis/rules_gapic/compare/v0.19.0...v0.19.1) (2022-11-17)
 
 
