@@ -14,6 +14,7 @@
 
 package com.google.api.codegen.bazel;
 
+import java.lang.String;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -42,6 +43,10 @@ class BazelBuildFileView {
     tokens.put("proto_srcs", joinSetWithIndentation(bp.getProtos()));
     tokens.put("version", bp.getVersion());
     tokens.put("package", bp.getProtoPackage());
+
+    // For regeneration of Java rules, we are particularly interestd in what the saved transport value was,
+    // if there was one, in order to correctly generate, or not, the rest/grpc specific targets and labels.
+    String javaTransport = bp.getJavaTransportOverride() != null ? bp.getJavaTransportOverride() : transport;
 
     Set<String> extraProtosNodeJS = new TreeSet<>();
     Set<String> extraImports = new TreeSet<>();
@@ -137,8 +142,10 @@ class BazelBuildFileView {
                   .getOrDefault(bp.getProtoPackage() + "." + service, service)
               // Default service name as it appears in the proto.
               : service;
-      javaTests.add(javaPackage + "." + actualService + "ClientTest");
-      if ("grpc+rest".equals(transport)) {
+      if (javaTransport.contains("grpc")) {
+        javaTests.add(javaPackage + "." + actualService + "ClientTest");
+      }
+      if (javaTransport.contains("rest")) {
         javaTests.add(javaPackage + "." + actualService + "ClientHttpJsonTest");
       }
     }
@@ -148,7 +155,15 @@ class BazelBuildFileView {
     tokens.put("java_tests", joinSetWithIndentation(javaTests));
     tokens.put("java_gapic_deps", joinSetWithIndentationNl(mapJavaGapicDeps(actualImports)));
     tokens.put(
-        "java_gapic_test_deps", joinSetWithIndentationNl(mapJavaGapicTestDeps(actualImports)));
+        "java_gapic_test_deps", joinSetWithIndentation(mapJavaGapicTestDeps(actualImports, javaTransport, bp.getName())));
+    tokens.put("java_gapic_assembly_gradle_pkg_deps", joinSetWithIndentation(javaGapicAssemblyDeps(javaTransport, bp.getName())));
+    tokens.put("java_loads", joinSetWithCustomIndentation(javaLoadStatements(javaTransport), 4));
+    String javaGrpcTarget = "";
+    if (javaTransport.contains("grpc")) {
+      javaGrpcTarget = javaGrpc(bp.getName());
+    }
+    tokens.put("java_grpc", javaGrpcTarget);
+    tokens.put("java_transport", '"' + javaTransport + '"');
 
     actualImports.addAll(extraImports);
 
@@ -233,6 +248,14 @@ class BazelBuildFileView {
     return sb.toString();
   }
 
+  private String joinSetWithCustomIndentation(Set<String> set, int numSpaces) {
+    String indent = "";
+    for (int i = 0; i < numSpaces; i++) {
+      indent += " ";
+    }
+    return set.isEmpty() ? "" : indent + '"' + String.join("\",\n"+indent+"\"", set) + "\",";
+  }
+
   private String joinSetWithIndentation(Set<String> set) {
     return set.isEmpty() ? "" : '"' + String.join("\",\n        \"", set) + "\",";
   }
@@ -244,6 +267,38 @@ class BazelBuildFileView {
 
   private String replaceLabelName(String labelPathAndName, String newLabelName) {
     return LABEL_NAME.matcher(labelPathAndName).replaceAll(newLabelName);
+  }
+
+  private String javaGrpc(String name) {
+    return "java_grpc_library(\n"
+      + String.format("    name = \"%s_java_grpc\",\n", name)
+      + String.format("    srcs = [\":%s_proto\"],\n", name)
+      + String.format("    deps = [\":%s_java_proto\"],\n", name)
+      + ")";
+  }
+
+  private Set<String> javaGapicAssemblyDeps(String transport, String name) {
+    Set<String> deps = new TreeSet<>();
+    if (transport.contains("grpc")) {
+      deps.add(String.format(":%s_java_grpc", name));
+    }
+    deps.add(String.format(":%s_java_gapic", name));
+    deps.add(String.format(":%s_java_proto", name));
+    deps.add(String.format(":%s_proto", name));
+    return deps;
+  }
+
+  private Set<String> javaLoadStatements(String transport) {
+    Set<String> loads = new TreeSet<>();
+    if (transport.contains("grpc")) {
+      loads.add("java_grpc_library");
+    }
+    loads.add("@com_google_googleapis_imports//:imports.bzl");
+    loads.add("java_gapic_assembly_gradle_pkg");
+    loads.add("java_gapic_library");
+    loads.add("java_gapic_test");
+    loads.add("java_proto_library");
+    return loads;
   }
 
   private Set<String> mapJavaGapicDeps(Set<String> protoImports) {
@@ -264,17 +319,24 @@ class BazelBuildFileView {
     return javaImports;
   }
 
-  private Set<String> mapJavaGapicTestDeps(Set<String> protoImports) {
+  private Set<String> mapJavaGapicTestDeps(Set<String> protoImports, String transport, String name) {
     Set<String> javaImports = new TreeSet<>();
+    if (transport.contains("grpc")) {
+      javaImports.add(String.format(":%s_java_grpc", name));
+    }
+
     for (String protoImport : protoImports) {
-      if (protoImport.endsWith(":iam_policy_proto")
-          || protoImport.endsWith(":policy_proto")
-          || protoImport.endsWith(":options_proto")) {
+      boolean iamDep = protoImport.endsWith(":iam_policy_proto")
+        || protoImport.endsWith(":policy_proto")
+        || protoImport.endsWith(":options_proto");
+
+      if (iamDep && transport.contains("grpc")) {
         javaImports.add(replaceLabelName(protoImport, ":iam_java_grpc"));
-      } else if (protoImport.endsWith(":location_proto")) {
+      } else if (protoImport.endsWith(":location_proto") && transport.contains("grpc")) {
         javaImports.add("//google/cloud/location:location_java_grpc");
       }
     }
+
     return javaImports;
   }
 

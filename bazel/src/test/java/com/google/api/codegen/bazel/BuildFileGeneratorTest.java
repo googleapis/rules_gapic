@@ -132,7 +132,7 @@ public class BuildFileGeneratorTest {
     buildozer.batchSetStringAttribute(
         gapicBuildFilePath, "library_ruby_gapic", "ruby_cloud_title", "Title with spaces");
     buildozer.batchSetStringAttribute(
-        gapicBuildFilePath, "library_java_gapic", "transport", "lightning");
+        gapicBuildFilePath, "library_java_gapic", "transport", "rest");
     buildozer.batchRemoveAttribute(
         gapicBuildFilePath, "library_py_gapic", "rest_numeric_enums");
     buildozer.batchSetStringAttribute(
@@ -174,7 +174,7 @@ public class BuildFileGeneratorTest {
         buildozer.getAttribute(gapicBuildFilePath, "%ruby_cloud_gapic_library",
             "ruby_cloud_title"));
     Assert.assertEquals(
-        "lightning",
+        "rest",
         buildozer.getAttribute(gapicBuildFilePath, "%java_gapic_library", "transport"));
     Assert.assertEquals(
         "False",
