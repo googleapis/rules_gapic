@@ -338,7 +338,8 @@ class BazelBuildFileView {
 
   private Set<String> mapJavaGapicTestDeps(Set<String> protoImports, String transport, String name) {
     Set<String> javaImports = new TreeSet<>();
-    if (transport.contains("grpc")) {
+    boolean grpcEnabled = transport.contains("grpc");
+    if (grpcEnabled) {
       javaImports.add(String.format(":%s_java_grpc", name));
     }
 
@@ -347,9 +348,9 @@ class BazelBuildFileView {
         || protoImport.endsWith(":policy_proto")
         || protoImport.endsWith(":options_proto");
 
-      if (iamDep && transport.contains("grpc")) {
+      if (iamDep && grpcEnabled) {
         javaImports.add(replaceLabelName(protoImport, ":iam_java_grpc"));
-      } else if (protoImport.endsWith(":location_proto") && transport.contains("grpc")) {
+      } else if (protoImport.endsWith(":location_proto") && grpcEnabled) {
         javaImports.add("//google/cloud/location:location_java_grpc");
       }
     }
