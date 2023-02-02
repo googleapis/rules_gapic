@@ -158,12 +158,15 @@ class BazelBuildFileView {
         "java_gapic_test_deps", joinSetWithIndentation(mapJavaGapicTestDeps(actualImports, javaTransport, bp.getName())));
     tokens.put("java_gapic_assembly_gradle_pkg_deps", joinSetWithIndentation(javaGapicAssemblyDeps(javaTransport, bp.getName())));
     tokens.put("java_loads", joinSetWithCustomIndentation(javaLoadStatements(javaTransport), 4));
+    tokens.put("java_transport", '"' + javaTransport + '"');
+    
+    // Posting an empty string for the java_grpc token is necessary so that the template
+    // doesn't render the template variable instead when grpc isn't requested.
     String javaGrpcTarget = "";
     if (javaTransport.contains("grpc")) {
       javaGrpcTarget = javaGrpc(bp.getName());
     }
     tokens.put("java_grpc", javaGrpcTarget);
-    tokens.put("java_transport", '"' + javaTransport + '"');
 
     actualImports.addAll(extraImports);
 
