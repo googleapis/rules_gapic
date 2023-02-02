@@ -44,7 +44,7 @@ class BazelBuildFileView {
     tokens.put("version", bp.getVersion());
     tokens.put("package", bp.getProtoPackage());
 
-    // For regeneration of Java rules, we are particularly interestd in what the saved transport value was,
+    // For regeneration of Java rules, we are particularly interested in what the saved transport value was,
     // if there was one, in order to correctly generate, or not, the rest/grpc specific targets and labels.
     String javaTransport = bp.getJavaTransportOverride() != null ? bp.getJavaTransportOverride() : transport;
 
