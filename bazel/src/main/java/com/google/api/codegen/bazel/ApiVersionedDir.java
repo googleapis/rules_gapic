@@ -209,6 +209,9 @@ class ApiVersionedDir {
     // Specific languages: add below
   }
 
+  // Returns the value saved from the existing BUILD.bazel file's java_gapic_library target
+  // `transport` attribute. This will be unset when generating for the first time, or when
+  // the --transport flag is used to force generation with a specific transport.
   String getJavaTransportOverride() {
     Map<String, String> javaGapicOverrides = this.overriddenStringAttributes.get(name + "_java_gapic");
     return javaGapicOverrides != null ? javaGapicOverrides.get("transport") : null;
