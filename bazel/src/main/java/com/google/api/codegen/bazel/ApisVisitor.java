@@ -54,6 +54,7 @@ class ApisVisitor extends SimpleFileVisitor<Path> {
       String rawApiTempl,
       boolean overwrite,
       String transport,
+      Boolean forceTransport,
       String numericEnums,
       FileWriter fileWriter) {
     this.gapicApiTempl = new BazelBuildFileTemplate(gapicApiTempl);
@@ -64,11 +65,7 @@ class ApisVisitor extends SimpleFileVisitor<Path> {
     this.overwrite = overwrite;
     // Indicates a transport was supplied via command line and it should be respected.
     // If false, any existing transport value pulled by buildozer will take precedent.
-    this.forceTransport = transport != null && !transport.isEmpty();
-    // Default to dual transport if command line did not indicate.
-    if (transport == null) {
-      transport = "grpc+rest";
-    }
+    this.forceTransport = forceTransport;
     this.transport = transport;
     this.numericEnums = numericEnums;
     this.writerMode = false;

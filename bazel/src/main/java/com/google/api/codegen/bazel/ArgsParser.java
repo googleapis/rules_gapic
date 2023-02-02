@@ -80,7 +80,12 @@ class ArgsParser {
     if (overwrite == null) {
       overwrite = "false";
     }
-    String transport = parsedArgs.get("--transport"); // Let ApiVisitor decide how to default.
+    String transport = parsedArgs.get("--transport");
+    boolean forceTransport = transport != null && !transport.isBlank();
+    if (!forceTransport) {
+      // If --transport is not provided, default to grpc+rest.
+      transport = "grpc+rest";
+    }
     String numericEnums = parsedArgs.get("--rest_numeric_enums");
     if (numericEnums == null) {
       // Note that we set the default to True here, but we only include it in the BUILD file
@@ -127,6 +132,7 @@ class ArgsParser {
             : ApisVisitor.readFile(rawApiTempl),
         overwrite.equals("true"),
         transport,
+        forceTransport,
         numericEnums,
         fileWriter);
   }
