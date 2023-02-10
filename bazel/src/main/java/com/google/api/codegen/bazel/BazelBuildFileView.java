@@ -46,7 +46,10 @@ class BazelBuildFileView {
 
     // For regeneration of Java rules, we are particularly interested in what the saved transport value was,
     // if there was one, in order to correctly generate, or not, the rest/grpc specific targets and labels.
-    String javaTransport = bp.getJavaTransportOverride() != null ? bp.getJavaTransportOverride() : transport;
+    String javaTransport = bp.getJavaTransportOverride();
+    if (javaTransport == null) {
+      javaTransport = transport;
+    }
 
     Set<String> extraProtosNodeJS = new TreeSet<>();
     Set<String> extraImports = new TreeSet<>();
