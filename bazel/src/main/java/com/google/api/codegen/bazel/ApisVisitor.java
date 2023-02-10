@@ -41,6 +41,7 @@ class ApisVisitor extends SimpleFileVisitor<Path> {
   private final Path destDir;
   private final boolean overwrite;
   private final String transport;
+  private final boolean forceTransport;
   private final String numericEnums;
   private boolean writerMode;
   private final FileWriter fileWriter;
@@ -53,6 +54,7 @@ class ApisVisitor extends SimpleFileVisitor<Path> {
       String rawApiTempl,
       boolean overwrite,
       String transport,
+      Boolean forceTransport,
       String numericEnums,
       FileWriter fileWriter) {
     this.gapicApiTempl = new BazelBuildFileTemplate(gapicApiTempl);
@@ -61,6 +63,9 @@ class ApisVisitor extends SimpleFileVisitor<Path> {
     this.srcDir = srcDir.normalize();
     this.destDir = destDir.normalize();
     this.overwrite = overwrite;
+    // Indicates a transport was supplied via command line and it should be respected.
+    // If false, any existing transport value pulled by buildozer will take precedent.
+    this.forceTransport = forceTransport;
     this.transport = transport;
     this.numericEnums = numericEnums;
     this.writerMode = false;
@@ -83,7 +88,7 @@ class ApisVisitor extends SimpleFileVisitor<Path> {
 
     String dirStr = dir.toString();
 
-    ApiVersionedDir bp = new ApiVersionedDir();
+    ApiVersionedDir bp = new ApiVersionedDir(this.forceTransport);
     bazelApiVerPackages.put(dirStr, bp);
     ApiDir bap = new ApiDir();
     bazelApiPackages.put(dirStr, bap);

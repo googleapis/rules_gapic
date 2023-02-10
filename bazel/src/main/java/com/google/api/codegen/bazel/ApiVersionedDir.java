@@ -189,6 +189,10 @@ class ApiVersionedDir {
 
   private boolean containsIAMPolicy;
 
+  // If the user provided the transport flag on the command line, it should be respected,
+  // regardless of a preexisting value.
+  private boolean forceTransport;
+
   // Names of *_gapic_assembly_* rules (since they may be overridden by the user)
   private final Map<String, String> assemblyPkgRulesNames = new HashMap<>();
 
@@ -198,10 +202,19 @@ class ApiVersionedDir {
   private final Map<String, Map<String, String>> overriddenNonStringAttributes = new HashMap<>();
   private final Map<String, Map<String, List<String>>> overriddenListAttributes = new HashMap<>();
 
-  ApiVersionedDir() {
+  ApiVersionedDir(boolean forceTransport) {
+    this.forceTransport = forceTransport;
     // Multiple languages:
     PRESERVED_PROTO_LIBRARY_NONSTRING_ATTRIBUTES.put("rest_numeric_enums", "False");
     // Specific languages: add below
+  }
+
+  // Returns the value saved from the existing BUILD.bazel file's java_gapic_library target
+  // `transport` attribute. This will be unset when generating for the first time, or when
+  // the --transport flag is used to force generation with a specific transport.
+  String getJavaTransportOverride() {
+    Map<String, String> javaGapicOverrides = this.overriddenStringAttributes.get(name + "_java_gapic");
+    return javaGapicOverrides != null ? javaGapicOverrides.get("transport") : null;
   }
 
   void setParent(ApiDir parent) {
@@ -435,6 +448,10 @@ class ApiVersionedDir {
           this.overriddenListAttributes.put(name, new HashMap<>());
 
           for (String attr : PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES) {
+            // Do not preserve the transport attribute, because the command line is forcing it.
+            if (attr.equals("transport") && this.forceTransport) {
+              continue;
+            }
             String value = buildozer.getAttribute(file, name, attr);
             if (value != null) {
               this.overriddenStringAttributes.get(name).put(attr, value);

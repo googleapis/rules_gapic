@@ -81,7 +81,9 @@ class ArgsParser {
       overwrite = "false";
     }
     String transport = parsedArgs.get("--transport");
-    if (transport == null) {
+    boolean forceTransport = transport != null && !transport.isBlank();
+    if (!forceTransport) {
+      // If --transport is not provided, default to grpc+rest.
       transport = "grpc+rest";
     }
     String numericEnums = parsedArgs.get("--rest_numeric_enums");
@@ -130,6 +132,7 @@ class ArgsParser {
             : ApisVisitor.readFile(rawApiTempl),
         overwrite.equals("true"),
         transport,
+        forceTransport,
         numericEnums,
         fileWriter);
   }

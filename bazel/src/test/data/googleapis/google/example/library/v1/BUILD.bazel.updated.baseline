@@ -54,19 +54,12 @@ load(
     "java_gapic_assembly_gradle_pkg",
     "java_gapic_library",
     "java_gapic_test",
-    "java_grpc_library",
     "java_proto_library",
 )
 
 java_proto_library(
     name = "library_java_proto",
     deps = [":library_proto"],
-)
-
-java_grpc_library(
-    name = "library_java_grpc",
-    srcs = [":library_proto"],
-    deps = [":library_java_proto"],
 )
 
 java_gapic_library(
@@ -77,11 +70,8 @@ java_gapic_library(
     rest_numeric_enums = True,
     service_yaml = "library_example_v1.yaml",
     test_deps = [
-        ":library_java_grpc",
-        "//google/cloud/location:location_java_grpc",
-        "//google/iam/v1:iam_java_grpc",
     ],
-    transport = "lightning",
+    transport = "rest",
     deps = [
         ":library_java_proto",
         "//google/api:api_java_proto",
@@ -95,7 +85,6 @@ java_gapic_test(
     name = "library_java_gapic_test_suite",
     test_classes = [
         "com.google.example.library.v1.LibraryServiceClientHttpJsonTest",
-        "com.google.example.library.v1.LibraryServiceClientTest",
     ],
     runtime_deps = [":library_java_gapic_test"],
 )
@@ -104,10 +93,9 @@ java_gapic_test(
 java_gapic_assembly_gradle_pkg(
     name = "renamed_java_rule",
     include_samples = True,
-    transport = "grpc+rest",
+    transport = "rest",
     deps = [
         ":library_java_gapic",
-        ":library_java_grpc",
         ":library_java_proto",
         ":library_proto",
     ],
