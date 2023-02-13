@@ -40,12 +40,7 @@ proto_library_with_info(
 # Java
 ##############################################################################
 load(
-    "@com_google_googleapis_imports//:imports.bzl",
-    "java_gapic_assembly_gradle_pkg",
-    "java_gapic_library",
-    "java_gapic_test",
-    "java_grpc_library",
-    "java_proto_library",
+{{java_loads}}
 )
 
 java_proto_library(
@@ -53,22 +48,19 @@ java_proto_library(
     deps = [":{{name}}_proto"],
 )
 
-java_grpc_library(
-    name = "{{name}}_java_grpc",
-    srcs = [":{{name}}_proto"],
-    deps = [":{{name}}_java_proto"],
-)
+{{java_grpc}}
 
 java_gapic_library(
     name = "{{name}}_java_gapic",
     srcs = [":{{name}}_proto_with_info"],
     gapic_yaml = {{gapic_yaml}},
     grpc_service_config = {{grpc_service_config}},
+    rest_numeric_enums = {{rest_numeric_enums}},
     service_yaml = {{service_yaml}},
     test_deps = [
-        ":{{name}}_java_grpc",{{java_gapic_test_deps}}
+        {{java_gapic_test_deps}}
     ],
-    transport = {{transport}},
+    transport = {{java_transport}},
     deps = [
         ":{{name}}_java_proto",{{java_gapic_deps}}
     ],
@@ -85,12 +77,9 @@ java_gapic_test(
 # Open Source Packages
 java_gapic_assembly_gradle_pkg(
     name = "google-cloud-{{assembly_name}}-{{version}}-java",
-    transport = {{transport}},
+    transport = {{java_transport}},
     deps = [
-        ":{{name}}_java_gapic",
-        ":{{name}}_java_grpc",
-        ":{{name}}_java_proto",
-        ":{{name}}_proto",
+        {{java_gapic_assembly_gradle_pkg_deps}}
     ],
     include_samples = True,
 )
@@ -122,6 +111,8 @@ go_gapic_library(
     grpc_service_config = {{grpc_service_config}},
     importpath = "{{go_gapic_importpath}}",
     metadata = True,
+    release_level = "beta",
+    rest_numeric_enums = {{rest_numeric_enums}},
     service_yaml = {{service_yaml}},
     transport = {{transport}},
     deps = [
@@ -161,7 +152,9 @@ py_gapic_library(
     name = "{{name}}_py_gapic",
     srcs = [":{{name}}_proto"],
     grpc_service_config = {{grpc_service_config}},
+    rest_numeric_enums = {{rest_numeric_enums}},
     service_yaml = {{service_yaml}},
+    transport = {{transport}},
     deps = [
         {{py_gapic_deps}}
     ],
@@ -211,7 +204,9 @@ php_gapic_library(
     name = "{{name}}_php_gapic",
     srcs = [":{{name}}_proto_with_info"],
     grpc_service_config = {{grpc_service_config}},
+    rest_numeric_enums = {{rest_numeric_enums}},
     service_yaml = {{service_yaml}},
+    transport = {{transport}},
     deps = [
         ":{{name}}_php_grpc",
         ":{{name}}_php_proto",
@@ -244,7 +239,9 @@ nodejs_gapic_library(
     extra_protoc_parameters = ["metadata"],
     grpc_service_config = {{grpc_service_config}},
     package = "{{package}}",
+    rest_numeric_enums = {{rest_numeric_enums}},
     service_yaml = {{service_yaml}},
+    transport = {{transport}},
     deps = [],
 )
 
@@ -285,6 +282,7 @@ ruby_cloud_gapic_library(
         "ruby-cloud-gem-name=google-cloud-{{assembly_name}}-{{version}}",
     ],
     grpc_service_config = {{grpc_service_config}},
+    rest_numeric_enums = {{rest_numeric_enums}},
     service_yaml = {{service_yaml}},
     deps = [
         ":{{name}}_ruby_grpc",
@@ -329,6 +327,7 @@ csharp_gapic_library(
     srcs = [":{{name}}_proto_with_info"],
     common_resources_config = "@gax_dotnet//:Google.Api.Gax/ResourceNames/CommonResourcesConfig.json",
     grpc_service_config = {{grpc_service_config}},
+    rest_numeric_enums = {{rest_numeric_enums}},
     service_yaml = {{service_yaml}},
     deps = [
         ":{{name}}_csharp_grpc",

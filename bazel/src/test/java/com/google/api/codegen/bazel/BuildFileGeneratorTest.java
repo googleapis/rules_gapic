@@ -29,6 +29,7 @@ public class BuildFileGeneratorTest {
   private static final String SRC_DIR = Paths.get("googleapis").toString();
   private static final String PATH_PREFIX = Paths.get("bazel", "src", "test", "data").toString();
 
+
   @Test
   public void testGenerateBuildFiles() throws IOException {
     String buildozerPath = getBuildozerPath();
@@ -113,28 +114,32 @@ public class BuildFileGeneratorTest {
     Buildozer.setBinaryPath(buildozerPath);
     Buildozer buildozer = Buildozer.getInstance();
     // The following values should be preserved:
-    buildozer.batchSetAttribute(
-        gapicBuildFilePath, "library_nodejs_gapic", "package_name", "@google-cloud/library");
+    buildozer.batchSetStringAttribute(
+        gapicBuildFilePath, "library_nodejs_gapic", "package_name", "@google-cloud/newlibrary");
     buildozer.batchRemoveAttribute(
         gapicBuildFilePath, "library_nodejs_gapic", "extra_protoc_parameters");
-    buildozer.batchAddAttribute(
+    buildozer.batchAddStringAttribute(
         gapicBuildFilePath, "library_nodejs_gapic", "extra_protoc_parameters", "param1");
-    buildozer.batchAddAttribute(
+    buildozer.batchAddStringAttribute(
         gapicBuildFilePath, "library_nodejs_gapic", "extra_protoc_parameters", "param2");
-    buildozer.batchSetAttribute(
+    buildozer.batchSetStringAttribute(
         gapicBuildFilePath,
         "google-cloud-example-library-v1-csharp",
         "name",
         "renamed_csharp_rule");
-    buildozer.batchSetAttribute(
+    buildozer.batchSetStringAttribute(
         gapicBuildFilePath, "google-cloud-example-library-v1-java", "name", "renamed_java_rule");
-    buildozer.batchSetAttribute(
+    buildozer.batchSetStringAttribute(
         gapicBuildFilePath, "library_ruby_gapic", "ruby_cloud_title", "Title with spaces");
-    buildozer.batchSetAttribute(
-        gapicBuildFilePath, "library_java_gapic", "transport", "grpc+rest");
+    buildozer.batchSetStringAttribute(
+        gapicBuildFilePath, "library_java_gapic", "transport", "rest");
+    buildozer.batchRemoveAttribute(
+        gapicBuildFilePath, "library_py_gapic", "rest_numeric_enums");
+    buildozer.batchSetStringAttribute(
+        gapicBuildFilePath, "library_go_gapic", "rest_numeric_enums", "Apennines");
 
     // The following values should NOT be preserved:
-    buildozer.batchSetAttribute(
+    buildozer.batchSetStringAttribute(
         gapicBuildFilePath,
         "library_nodejs_gapic",
         "grpc_service_config",
@@ -152,7 +157,7 @@ public class BuildFileGeneratorTest {
 
     // Check that values are preserved
     Assert.assertEquals(
-        "@google-cloud/library",
+        "@google-cloud/newlibrary",
         buildozer.getAttribute(gapicBuildFilePath, "library_nodejs_gapic", "package_name"));
     Assert.assertEquals(
         "[param1 param2]",
@@ -169,8 +174,14 @@ public class BuildFileGeneratorTest {
         buildozer.getAttribute(gapicBuildFilePath, "%ruby_cloud_gapic_library",
             "ruby_cloud_title"));
     Assert.assertEquals(
-        "grpc+rest",
+        "rest",
         buildozer.getAttribute(gapicBuildFilePath, "%java_gapic_library", "transport"));
+    Assert.assertEquals(
+        "False",
+        buildozer.getAttribute(gapicBuildFilePath, "%py_gapic_library", "rest_numeric_enums"));
+    Assert.assertEquals(
+        "Apennines",
+        buildozer.getAttribute(gapicBuildFilePath, "%go_gapic_library", "rest_numeric_enums"));
 
     // Check that grpc_service_config value is not preserved:
     Assert.assertEquals(
@@ -179,6 +190,19 @@ public class BuildFileGeneratorTest {
 
     // Check that the changed root file is preserved
     Assert.assertEquals(changedRootContent, ApisVisitor.readFile(rootBuildFilePath));
+
+    // Since buildozer does not differentiate between string and non-string values, we need to
+    // compare to a baseline to ensure the updates were coded with or without quotes, as appropriate.
+    ArgsParser argsUpdate =
+        new ArgsParser(new String[]{"--buildozer=" + buildozerPath, "--src=" + copiedGoogleapis});
+    new BuildFileGenerator()
+        .generateBuildFiles(argsUpdate.createApisVisitor(null, tempDirPath.toString()));
+    System.out.printf("==== Updated baseline: %s\n", gapicBuildFilePath.toString() + ".updated.baseline");
+    System.out.printf("==== Updated file: %s\n", gapicBuildFilePath.toString());
+    Assert.assertEquals(
+        ApisVisitor.readFile(gapicBuildFilePath.toString() + ".updated.baseline"),
+        ApisVisitor.readFile(gapicBuildFilePath.toString()));
+
 
     // Now run with overwrite and verify it actually ignores all the changes
     ArgsParser argsOverwrite =
@@ -214,10 +238,10 @@ public class BuildFileGeneratorTest {
         "[value1 value2]", buildozer.getAttribute(buildBazel, "rule2", "list_attr"));
 
     // Set some attributes and get the result
-    buildozer.batchSetAttribute(buildBazel, "rule1", "attr", "new_attr_value");
-    buildozer.batchAddAttribute(buildBazel, "rule2", "list_attr", "value3");
+    buildozer.batchSetStringAttribute(buildBazel, "rule1", "attr", "new attr value");
+    buildozer.batchAddStringAttribute(buildBazel, "rule2", "list_attr", "value3");
     buildozer.commit();
-    Assert.assertEquals("new_attr_value", buildozer.getAttribute(buildBazel, "rule1", "attr"));
+    Assert.assertEquals("new attr value", buildozer.getAttribute(buildBazel, "rule1", "attr"));
     Assert.assertEquals(
         "[value1 value2 value3]", buildozer.getAttribute(buildBazel, "rule2", "list_attr"));
 
@@ -228,11 +252,11 @@ public class BuildFileGeneratorTest {
     Assert.assertEquals(null, buildozer.getAttribute(buildBazel, "rule1", "to_be_removed_a"));
 
     // Test batch operations
-    buildozer.batchSetAttribute(buildBazel, "rule1", "attr", "new_batch_attr_value");
-    buildozer.batchAddAttribute(buildBazel, "rule2", "list_attr", "value4");
+    buildozer.batchSetStringAttribute(buildBazel, "rule1", "attr", "new_batch_attr_value");
+    buildozer.batchAddStringAttribute(buildBazel, "rule2", "list_attr", "value4");
     buildozer.batchRemoveAttribute(buildBazel, "rule1", "to_be_removed_b");
     // before commit: old values
-    Assert.assertEquals("new_attr_value", buildozer.getAttribute(buildBazel, "rule1", "attr"));
+    Assert.assertEquals("new attr value", buildozer.getAttribute(buildBazel, "rule1", "attr"));
     Assert.assertEquals(
         "[value1 value2 value3]", buildozer.getAttribute(buildBazel, "rule2", "list_attr"));
     Assert.assertEquals("remove_b", buildozer.getAttribute(buildBazel, "rule1", "to_be_removed_b"));

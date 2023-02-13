@@ -1,5 +1,62 @@
 # Changelog
 
+## [0.20.1](https://github.com/googleapis/rules_gapic/compare/v0.20.0...v0.20.1) (2023-01-18)
+
+
+### Bug Fixes
+
+* Support public imports in protos ([#127](https://github.com/googleapis/rules_gapic/issues/127)) ([3519a41](https://github.com/googleapis/rules_gapic/commit/3519a419c92a00e9b3ec8f936e39de5f04ae7642))
+
+## [0.20.0](https://github.com/googleapis/rules_gapic/compare/v0.19.2...v0.20.0) (2022-12-15)
+
+
+### Features
+
+* Add support for new Go stubs dir locations ([#123](https://github.com/googleapis/rules_gapic/issues/123)) ([4644854](https://github.com/googleapis/rules_gapic/commit/4644854657cbe0b7db88eb317ede207a282ce042))
+
+## [0.19.2](https://github.com/googleapis/rules_gapic/compare/v0.19.1...v0.19.2) (2022-12-08)
+
+
+### Bug Fixes
+
+* **bazel:** Depend on new Go LRO submod ([#124](https://github.com/googleapis/rules_gapic/issues/124)) ([fe45e5f](https://github.com/googleapis/rules_gapic/commit/fe45e5f9a5d9d76a0c25dbae4e20cb59b9145cc5))
+
+## [0.19.1](https://github.com/googleapis/rules_gapic/compare/v0.19.0...v0.19.1) (2022-11-17)
+
+
+### Bug Fixes
+
+* Preserve the value of `mixins` parameter ([#121](https://github.com/googleapis/rules_gapic/issues/121)) ([3dbcc3e](https://github.com/googleapis/rules_gapic/commit/3dbcc3e326f1d571d9ffb761d5e2d8179cc149d7))
+
+## [0.19.0](https://github.com/googleapis/rules_gapic/compare/v0.18.0...v0.19.0) (2022-11-02)
+
+
+### Features
+
+* Enable `transport = "grpc+rest"` by default for nodejs and php rules ([#118](https://github.com/googleapis/rules_gapic/issues/118)) ([4c04cbb](https://github.com/googleapis/rules_gapic/commit/4c04cbb25602f01ddc379190f6d4d0828b768b48))
+
+## [0.18.0](https://github.com/googleapis/rules_gapic/compare/v0.17.0...v0.18.0) (2022-11-02)
+
+
+### Features
+
+* Add rest_numeric_enums to Ruby build rule template ([#115](https://github.com/googleapis/rules_gapic/issues/115)) ([5f5ba98](https://github.com/googleapis/rules_gapic/commit/5f5ba98b8ca9f52da604d259e796576a080a5032))
+* Set rest_numeric_enums parameter explicitly for all gapic rules ([#117](https://github.com/googleapis/rules_gapic/issues/117)) ([ca5e3e1](https://github.com/googleapis/rules_gapic/commit/ca5e3e12efe1bb3d1c1f77d7d9a237e8e2a324b7))
+
+## [0.17.0](https://github.com/googleapis/rules_gapic/compare/v0.16.0...v0.17.0) (2022-09-14)
+
+
+### Features
+
+* Add transport parameter to py_gapic_library targets ([#113](https://github.com/googleapis/rules_gapic/issues/113)) ([e5ee783](https://github.com/googleapis/rules_gapic/commit/e5ee783a7735bf1c90bfdb8d8287cb69371ad96d))
+
+## [0.16.0](https://github.com/googleapis/rules_gapic/compare/v0.15.0...v0.16.0) (2022-09-01)
+
+
+### Features
+
+* support numeric enums: BUILD file updates, new Go BUILD files ([#111](https://github.com/googleapis/rules_gapic/issues/111)) ([736334d](https://github.com/googleapis/rules_gapic/commit/736334d1aec1600affe0a1ffe17f19b5d096416e))
+
 ## [0.15.0](https://github.com/googleapis/rules_gapic/compare/v0.14.1...v0.15.0) (2022-07-27)
 
 

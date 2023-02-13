@@ -71,11 +71,12 @@ java_gapic_library(
     srcs = [":library_proto_with_info"],
     gapic_yaml = "library_example_gapic.yaml",
     grpc_service_config = "library_example_grpc_service_config.json",
+    rest_numeric_enums = True,
     service_yaml = "//google/example/library:library_example_v1.yaml",
     test_deps = [
-        ":library_java_grpc",
         "//google/cloud/location:location_java_grpc",
         "//google/iam/v1:iam_java_grpc",
+        ":library_java_grpc",
     ],
     transport = "grpc+rest",
     deps = [
@@ -136,6 +137,8 @@ go_gapic_library(
     grpc_service_config = "library_example_grpc_service_config.json",
     importpath = "cloud.google.com/go/example/library/apiv1;library",
     metadata = True,
+    release_level = "beta",
+    rest_numeric_enums = True,
     service_yaml = "//google/example/library:library_example_v1.yaml",
     transport = "grpc+rest",
     deps = [
@@ -178,7 +181,9 @@ py_gapic_library(
     name = "library_py_gapic",
     srcs = [":library_proto"],
     grpc_service_config = "library_example_grpc_service_config.json",
+    rest_numeric_enums = True,
     service_yaml = "//google/example/library:library_example_v1.yaml",
+    transport = "grpc+rest",
     deps = [
         "//google/iam/v1:iam_policy_py_proto",
     ],
@@ -228,7 +233,9 @@ php_gapic_library(
     name = "library_php_gapic",
     srcs = [":library_proto_with_info"],
     grpc_service_config = "library_example_grpc_service_config.json",
+    rest_numeric_enums = True,
     service_yaml = "//google/example/library:library_example_v1.yaml",
+    transport = "grpc+rest",
     deps = [
         ":library_php_grpc",
         ":library_php_proto",
@@ -261,7 +268,9 @@ nodejs_gapic_library(
     extra_protoc_parameters = ["metadata"],
     grpc_service_config = "library_example_grpc_service_config.json",
     package = "google.example.library.v1",
+    rest_numeric_enums = True,
     service_yaml = "//google/example/library:library_example_v1.yaml",
+    transport = "grpc+rest",
     deps = [],
 )
 
@@ -302,6 +311,7 @@ ruby_cloud_gapic_library(
         "ruby-cloud-gem-name=google-cloud-example-library-v1",
     ],
     grpc_service_config = "library_example_grpc_service_config.json",
+    rest_numeric_enums = True,
     service_yaml = "//google/example/library:library_example_v1.yaml",
     deps = [
         ":library_ruby_grpc",
@@ -346,6 +356,7 @@ csharp_gapic_library(
     srcs = [":library_proto_with_info"],
     common_resources_config = "@gax_dotnet//:Google.Api.Gax/ResourceNames/CommonResourcesConfig.json",
     grpc_service_config = "library_example_grpc_service_config.json",
+    rest_numeric_enums = True,
     service_yaml = "//google/example/library:library_example_v1.yaml",
     deps = [
         ":library_csharp_grpc",
