@@ -15,11 +15,11 @@ jobs:
     # 'Cache Bazel files' - unfortunately it cannot accept variables at this
     # time.
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Cache Bazel files
       id: cache-bazel
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/.cache/bazel
         key: ${{ runner.os }}-bazel-20210105-${{ secrets.CACHE_VERSION }}
