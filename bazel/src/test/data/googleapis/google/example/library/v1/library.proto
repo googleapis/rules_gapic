@@ -17,6 +17,8 @@ syntax = "proto3";
 
 package google.example.library.v1;
 
+import public "google/protobuf/descriptor.proto";
+
 import "google/api/annotations.proto";
 import "google/api/client.proto";
 import "google/api/field_behavior.proto";

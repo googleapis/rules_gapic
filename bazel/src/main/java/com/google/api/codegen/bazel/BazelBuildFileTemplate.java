@@ -58,10 +58,13 @@ class BazelBuildFileTemplate {
     // Apply overrides
     Map<String, Map<String, String>> overriddenStringAttributes =
         bpv.getOverriddenStringAttributes();
+    Map<String, Map<String, String>> overriddenNonStringAttributes =
+        bpv.getOverriddenNonStringAttributes();
     Map<String, Map<String, List<String>>> overriddenListAttributes =
         bpv.getOverriddenListAttributes();
     Map<String, String> assemblyPkgRulesNames = bpv.getAssemblyPkgRulesNames();
     if (overriddenStringAttributes.size() == 0
+        && overriddenNonStringAttributes.size() == 0
         && overriddenListAttributes.size() == 0
         && assemblyPkgRulesNames.size() == 0) {
       // nothing to override
@@ -82,7 +85,7 @@ class BazelBuildFileTemplate {
       String newName = entry.getValue();
       String currentName = buildozer.getAttribute(buildBazelPath, "%" + kind, "name");
       if (!currentName.equals(newName)) {
-        buildozer.batchSetAttribute(buildBazelPath, currentName, "name", newName);
+        buildozer.batchSetStringAttribute(buildBazelPath, currentName, "name", newName);
       }
     }
     buildozer.commit();
@@ -93,9 +96,20 @@ class BazelBuildFileTemplate {
       for (Map.Entry<String, String> subentry : entry.getValue().entrySet()) {
         String attr = subentry.getKey();
         String value = subentry.getValue();
-        buildozer.batchSetAttribute(buildBazelPath, ruleName, attr, value);
+        buildozer.batchSetStringAttribute(buildBazelPath, ruleName, attr, value);
       }
     }
+
+    // Apply preserved non-string attribute values
+    for (Map.Entry<String, Map<String, String>> entry : overriddenNonStringAttributes.entrySet()) {
+      String ruleName = entry.getKey();
+      for (Map.Entry<String, String> subentry : entry.getValue().entrySet()) {
+        String attr = subentry.getKey();
+        String value = subentry.getValue();
+        buildozer.batchSetNonStringAttribute(buildBazelPath, ruleName, attr, value);
+      }
+    }
+
     // Apply preserved list attribute values
     for (Map.Entry<String, Map<String, List<String>>> entry : overriddenListAttributes.entrySet()) {
       String ruleName = entry.getKey();
@@ -104,7 +118,7 @@ class BazelBuildFileTemplate {
         List<String> values = subentry.getValue();
         buildozer.batchRemoveAttribute(buildBazelPath, ruleName, attr);
         for (String value : values) {
-          buildozer.batchAddAttribute(buildBazelPath, ruleName, attr, value);
+          buildozer.batchAddStringAttribute(buildBazelPath, ruleName, attr, value);
         }
       }
     }
