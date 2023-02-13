@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.21.0](https://github.com/googleapis/rules_gapic/compare/v0.20.1...v0.21.0) (2023-02-13)
+
+
+### Features
+
+* Holistic transport-based java target generation ([#129](https://github.com/googleapis/rules_gapic/issues/129)) ([4ff5606](https://github.com/googleapis/rules_gapic/commit/4ff560646bc3d4b6d4bd0f8e53ee0c022434b06f))
+
 ## [0.20.1](https://github.com/googleapis/rules_gapic/compare/v0.20.0...v0.20.1) (2023-01-18)
 
 
