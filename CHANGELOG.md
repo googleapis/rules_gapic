@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.21.1](https://github.com/googleapis/rules_gapic/compare/v0.21.0...v0.21.1) (2023-02-15)
+
+
+### Bug Fixes
+
+* **bazel:** Handle single transport java test gen ([#132](https://github.com/googleapis/rules_gapic/issues/132)) ([2cf966d](https://github.com/googleapis/rules_gapic/commit/2cf966dc39f30d19ea1c9029717875c88af37978))
+
 ## [0.21.0](https://github.com/googleapis/rules_gapic/compare/v0.20.1...v0.21.0) (2023-02-13)
 
 
