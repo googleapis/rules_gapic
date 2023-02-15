@@ -145,10 +145,15 @@ class BazelBuildFileView {
                   .getOrDefault(bp.getProtoPackage() + "." + service, service)
               // Default service name as it appears in the proto.
               : service;
-      if (javaTransport.contains("grpc")) {
+      
+      // Single transport OR grpc+rest results in test file names omitting the
+      // transport that the test applies to.
+      if (javaTransport.contains("grpc") || javaTransport.equals("rest")) {
         javaTests.add(javaPackage + "." + actualService + "ClientTest");
       }
-      if (javaTransport.contains("rest")) {
+      // Double transport (i.e. both grpc and rest) results in rest tests being
+      // named as the transport variant.
+      if (javaTransport.contains("rest") && javaTransport.contains("grpc")) {
         javaTests.add(javaPackage + "." + actualService + "ClientHttpJsonTest");
       }
     }
