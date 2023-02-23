@@ -17,14 +17,19 @@ package com.google.api.codegen.bazel;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 class ArgsParser {
   private final Map<String, String> parsedArgs = new HashMap<>();
+  private static final Set<String> allowedTransports = 
+    new HashSet<>(Arrays.asList("grpc", "rest", "grpc+rest"));
 
   ArgsParser(String[] args) {
     for (String arg : args) {
@@ -61,6 +66,7 @@ class ArgsParser {
             + "  --src=path: location of googleapis directory\n"
             + "  --dest=path: destination folder, defaults to the value of --src\n"
             + "  --overwrite: do not preserve any of the manually changed values in the generated"
+            + "  --transport=("+ String.join("|", allowedTransports) +"): specify the transport to generate clients for"
             + " BUILD.bazel files\n";
     System.out.println(helpMessage);
   }
@@ -86,6 +92,11 @@ class ArgsParser {
       // If --transport is not provided, default to grpc+rest.
       transport = "grpc+rest";
     }
+    if (!allowedTransports.contains(transport)) {
+      ArgsParser.printUsage();
+      throw new IllegalArgumentException("Unsupported value for --transport: " + transport);
+    }
+
     String numericEnums = parsedArgs.get("--rest_numeric_enums");
     if (numericEnums == null) {
       // Note that we set the default to True here, but we only include it in the BUILD file
