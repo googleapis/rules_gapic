@@ -276,7 +276,7 @@ public class BuildFileGeneratorTest {
         new ArgsParser(new String[]{
             "--buildozer=" + buildozerPath,
             "--src=" + SRC_DIR,
-            // This is an unsupport transport option.
+            // This is an unsupported transport option.
             "--transport=invalid"});
     FileWriter fw = new FileWriter();
 
