@@ -269,6 +269,21 @@ public class BuildFileGeneratorTest {
     Assert.assertEquals(null, buildozer.getAttribute(buildBazel, "rule1", "to_be_removed_b"));
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void testGenerateBuildFiles_invalidTransport() throws IOException {
+    String buildozerPath = getBuildozerPath();
+    ArgsParser args =
+        new ArgsParser(new String[]{
+            "--buildozer=" + buildozerPath,
+            "--src=" + SRC_DIR,
+            // This is an unsupported transport option.
+            "--transport=invalid"});
+    FileWriter fw = new FileWriter();
+
+    // This should throw an exception.
+    args.createApisVisitor(fw, PATH_PREFIX);
+  }
+
   // Not using mocking libraries to keep this tool as simple as possible (currently it does not use
   // any dependencies). Tests depend only on JUnit.
   private static class FileWriter implements ApisVisitor.FileWriter {
