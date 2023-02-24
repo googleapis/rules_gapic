@@ -30,6 +30,7 @@ proto_library(
         "//google/api:httpbody_proto",
         "//google/api:resource_proto",
         "//google/cloud/common:common_proto",
+        "//google/cloud/kms/v1:kms_proto",
         "//google/longrunning:operations_proto",
         "@com_google_protobuf//:descriptor_proto",
         "@com_google_protobuf//:empty_proto",
@@ -86,6 +87,7 @@ java_gapic_library(
         ":library_java_proto",
         "//google/api:api_java_proto",
         "//google/cloud/common:common_java_proto",
+        "//google/cloud/kms/v1:kms_java_proto",
         "//google/cloud/location:location_java_proto",
         "//google/iam/v1:iam_java_proto",
     ],
@@ -133,6 +135,7 @@ go_proto_library(
         "//google/api:annotations_go_proto",
         "//google/api:httpbody_go_proto",
         "//google/cloud/common:common_go_proto",
+        "//google/cloud/kms/v1:kms_go_proto",
         "//google/longrunning:longrunning_go_proto",
     ],
 )
@@ -151,6 +154,7 @@ go_gapic_library(
         ":library_go_proto",
         "//google/api:httpbody_go_proto",
         "//google/cloud/common:common_go_proto",
+        "//google/cloud/kms/v1:kms_go_proto",
         "//google/cloud/location:location_go_proto",
         "//google/iam/v1:iam_go_proto",
         "//google/longrunning:longrunning_go_proto",
@@ -206,7 +210,9 @@ py_test(
         "library_py_gapic_test.py",
     ],
     legacy_create_init = False,
-    deps = [":library_py_gapic"],
+    deps = [
+        ":library_py_gapic",
+    ],
 )
 
 # Open Source Packages

@@ -196,7 +196,10 @@ py_test(
         "library_py_gapic_test.py",
     ],
     legacy_create_init = False,
-    deps = [":library_py_gapic"],
+    deps = [
+        ":library_py_gapic",
+        "//google/cloud/kms/v1:kms_py_proto",
+    ],
 )
 
 # Open Source Packages
