@@ -198,7 +198,6 @@ py_test(
     legacy_create_init = False,
     deps = [
         ":library_py_gapic",
-        "//google/cloud/kms/v1:kms_py_proto",
     ],
 )
 

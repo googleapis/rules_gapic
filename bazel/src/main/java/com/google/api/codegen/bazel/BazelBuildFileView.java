@@ -490,8 +490,9 @@ class BazelBuildFileView {
     pyImports.add(":"+name+"_py_gapic");
     
     // This is specifically for X-API depenedencies.
+    // Ignore IAM deps, unnecessary for tests.
     for (String protoImport : protoImports) {
-      if (protoImport.matches(PACKAGE_AND_VERSION.toString())) {
+      if (protoImport.matches(PACKAGE_AND_VERSION.toString()) && !protoImport.contains("iam/v1")) {
         pyImports.add(protoImport.replaceAll("_proto", "_py_proto"));
       }
     }
