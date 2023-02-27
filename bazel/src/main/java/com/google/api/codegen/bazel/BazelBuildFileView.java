@@ -92,8 +92,9 @@ class BazelBuildFileView {
     tokens.put("go_proto_importpath", bp.getLangProtoPackages().get("go").split(";")[0]);
     tokens.put("go_proto_deps", joinSetWithIndentation(mapGoProtoDeps(actualImports)));
 
-    boolean isGapicLibrary =
-        bp.getServiceYamlPath() != null || bp.getServiceConfigJsonPath() != null;
+    // If there are no proto services, then there is no reason to generate GAPIC library targets. This is a
+    // simple proto type directory with no API definitions.
+    boolean isGapicLibrary = !bp.getServices().isEmpty();
     if (!isGapicLibrary) {
       tokens.put("type_only_assmebly_name", typeOnlyAssemblyName(bp.getProtoPackage()));
       return;
