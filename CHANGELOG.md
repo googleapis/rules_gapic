@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.22.0](https://github.com/googleapis/rules_gapic/compare/v0.21.1...v0.22.0) (2023-02-27)
+
+
+### Features
+
+* **bazel:** Type-only Go assembly_pkg ([#139](https://github.com/googleapis/rules_gapic/issues/139)) ([953116d](https://github.com/googleapis/rules_gapic/commit/953116d6d4b30a261437417c942df98ef788439e))
+
+
+### Bug Fixes
+
+* **bazel:** Validate transport flag ([#136](https://github.com/googleapis/rules_gapic/issues/136)) ([75643b1](https://github.com/googleapis/rules_gapic/commit/75643b1b326bdbfc0c4a7fe32e0510834abb1d7a))
+
 ## [0.21.1](https://github.com/googleapis/rules_gapic/compare/v0.21.0...v0.21.1) (2023-02-15)
 
 
