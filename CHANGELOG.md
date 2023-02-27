@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.22.1](https://github.com/googleapis/rules_gapic/compare/v0.22.0...v0.22.1) (2023-02-27)
+
+
+### Bug Fixes
+
+* **bazel:** Missing go_gapic_assembly_pkg load ([#140](https://github.com/googleapis/rules_gapic/issues/140)) ([3547096](https://github.com/googleapis/rules_gapic/commit/3547096ec577031c891892310c40e72969be315d))
+
 ## [0.22.0](https://github.com/googleapis/rules_gapic/compare/v0.21.1...v0.22.0) (2023-02-27)
 
 
