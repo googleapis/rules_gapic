@@ -20,6 +20,8 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import java.util.Arrays;
+import java.util.List;
 
 public class BazelBuildFileViewTest {
   @Test
@@ -52,6 +54,22 @@ public class BazelBuildFileViewTest {
       String want = testCase.get(2);
 
       String got = BazelBuildFileView.convertPathToLabel(pkg, path);
+      Assert.assertEquals(want, got);
+    }
+  }
+
+  @Test 
+  public void testTypeOnlyAssemblyName() {
+    List<List<String>> tests = Arrays.asList(
+      Arrays.asList("type", "type"),  
+      Arrays.asList("google.type", "google-type"),
+      Arrays.asList("google.geo.type", "geo-type")
+    );
+    for (List<String> testCase : tests) {
+      String pkg = testCase.get(0);
+      String want = testCase.get(1);
+
+      String got = BazelBuildFileView.typeOnlyAssemblyName(pkg);
       Assert.assertEquals(want, got);
     }
   }

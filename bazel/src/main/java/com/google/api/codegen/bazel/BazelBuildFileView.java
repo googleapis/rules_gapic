@@ -102,6 +102,7 @@ class BazelBuildFileView {
     boolean isGapicLibrary =
         bp.getServiceYamlPath() != null || bp.getServiceConfigJsonPath() != null;
     if (!isGapicLibrary) {
+      tokens.put("type_only_assmebly_name", typeOnlyAssemblyName(bp.getProtoPackage()));
       return;
     }
 
@@ -497,6 +498,20 @@ class BazelBuildFileView {
       }
     }
     return pyImports;
+  }
+
+  // Simply take the last two segments of the package to use as the assembly name.
+  public static String typeOnlyAssemblyName(String pkg) {
+    String[] parts = pkg.split("\\.");
+    if (parts.length < 2) {
+      return pkg;
+    }
+
+    // google.type --> google-type
+    // google.cloud.foo.type --> foo-type
+    int last = parts.length - 1;
+    int penultimate = parts.length - 2;
+    return parts[penultimate]+"-"+parts[last];
   }
 
   Map<String, String> getTokens() {
