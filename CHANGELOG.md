@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.23.0](https://github.com/googleapis/rules_gapic/compare/v0.22.1...v0.23.0) (2023-03-07)
+
+
+### Features
+
+* **bazel:** Change GAPIC check to service count ([#142](https://github.com/googleapis/rules_gapic/issues/142)) ([34c2750](https://github.com/googleapis/rules_gapic/commit/34c2750dff31b95609a209859d63efd0f4b60772))
+
+
+### Bug Fixes
+
+* Keep the code compatible with Java 8 ([#145](https://github.com/googleapis/rules_gapic/issues/145)) ([9e2b2ba](https://github.com/googleapis/rules_gapic/commit/9e2b2babf750b20e71eafedc725f56cc75965410))
+
 ## [0.22.1](https://github.com/googleapis/rules_gapic/compare/v0.22.0...v0.22.1) (2023-02-27)
 
 
