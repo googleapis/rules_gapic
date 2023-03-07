@@ -87,7 +87,7 @@ class ArgsParser {
       overwrite = "false";
     }
     String transport = parsedArgs.get("--transport");
-    boolean forceTransport = transport != null && !transport.isBlank();
+    boolean forceTransport = transport != null && !transport.trim().isEmpty();
     if (!forceTransport) {
       // If --transport is not provided, default to grpc+rest.
       transport = "grpc+rest";
