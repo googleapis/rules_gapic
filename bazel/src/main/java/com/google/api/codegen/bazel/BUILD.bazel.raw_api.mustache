@@ -98,6 +98,7 @@ py_grpc_library(
 ##############################################################################
 load(
     "@com_google_googleapis_imports//:imports.bzl",
+    "php_gapic_assembly_pkg",
     "php_grpc_library",
     "php_proto_library",
 )
@@ -111,6 +112,13 @@ php_grpc_library(
     name = "{{name}}_php_grpc",
     srcs = [":{{name}}_proto"],
     deps = [":{{name}}_php_proto"],
+)
+
+php_gapic_assembly_pkg(
+    name = "{{type_only_assmebly_name}}-php",
+    deps = [
+        ":{{name}}_php_proto",
+    ],
 )
 
 ##############################################################################
