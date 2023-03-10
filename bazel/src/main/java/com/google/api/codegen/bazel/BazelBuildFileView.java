@@ -96,7 +96,7 @@ class BazelBuildFileView {
     // simple proto type directory with no API definitions.
     boolean isGapicLibrary = !bp.getServices().isEmpty();
     if (!isGapicLibrary) {
-      tokens.put("type_only_assmebly_name", typeOnlyAssemblyName(bp.getProtoPackage()));
+      tokens.put("type_only_assembly_name", typeOnlyAssemblyName(bp.getProtoPackage()));
       return;
     }
 

@@ -58,7 +58,7 @@ go_proto_library(
 )
 
 go_gapic_assembly_pkg(
-    name = "{{type_only_assmebly_name}}-go",
+    name = "{{type_only_assembly_name}}-go",
     deps = [
         ":{{name}}_go_proto",
     ],
@@ -115,7 +115,7 @@ php_grpc_library(
 )
 
 php_gapic_assembly_pkg(
-    name = "{{type_only_assmebly_name}}-php",
+    name = "{{type_only_assembly_name}}-php",
     deps = [
         ":{{name}}_php_proto",
     ],
