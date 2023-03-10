@@ -63,6 +63,8 @@ class ApiVersionedDir {
 
   private static String IAM_POLICY_MIXIN = "name: google.iam.v1.IAMPolicy";
 
+  private static String LRO_MIXIN = "name: google.longrunning.Operations";
+
   private static final String[] PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES = {
     // Multiple languages:
     "package_name",
@@ -189,6 +191,8 @@ class ApiVersionedDir {
 
   private boolean containsIAMPolicy;
 
+  private boolean containsLRO;
+
   // If the user provided the transport flag on the command line, it should be respected,
   // regardless of a preexisting value.
   private boolean forceTransport;
@@ -301,6 +305,10 @@ class ApiVersionedDir {
     return this.containsIAMPolicy;
   }
 
+  boolean hasLRO() {
+    return this.containsLRO;
+  }
+
   void parseYamlFile(String fileName, String fileBody) {
     // It is a gapic yaml
     Matcher m = GAPIC_YAML_TYPE.matcher(fileBody);
@@ -341,6 +349,11 @@ class ApiVersionedDir {
       // API Serivce config has IAMPolicy API.
       if (fileBody.contains(IAM_POLICY_MIXIN)) {
         this.containsIAMPolicy = true;
+      }
+
+      // API Serivce config has LRO API.
+      if (fileBody.contains(LRO_MIXIN)) {
+        this.containsLRO = true;
       }
     }
   }
