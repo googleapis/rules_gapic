@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.23.1](https://github.com/googleapis/rules_gapic/compare/v0.23.0...v0.23.1) (2023-03-13)
+
+
+### Bug Fixes
+
+* **bazel:** Add lro dep for mixin only ([#149](https://github.com/googleapis/rules_gapic/issues/149)) ([e0521ef](https://github.com/googleapis/rules_gapic/commit/e0521efb4337578e7ecef6c0b70daf6455ebb46d))
+* **bazel:** Php_gapic_assembly_pkg for type-only pkg ([#147](https://github.com/googleapis/rules_gapic/issues/147)) ([b952d05](https://github.com/googleapis/rules_gapic/commit/b952d052afeae1cd501faaca83e2b80de3979656))
+
 ## [0.23.0](https://github.com/googleapis/rules_gapic/compare/v0.22.1...v0.23.0) (2023-03-07)
 
 
