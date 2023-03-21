@@ -56,23 +56,8 @@ class BazelBuildFileView {
       javaTransport = transport;
     }
 
-    Set<String> extraProtosNodeJS = new TreeSet<>();
-    Set<String> extraImports = new TreeSet<>();
-    extraImports.add(COMMON_RESOURCES_PROTO);
-    // Add location_proto dependency for mix-in if individual language rules need it.
-    if (bp.hasLocations() && !bp.getProtoPackage().equals("google.cloud.location")) {
-      extraImports.add("//google/cloud/location:location_proto");
-    }
-    // Add iam_policy_proto dependency for mix-in if individual language rules need it.
-    if (bp.hasIAMPolicy() && !bp.getProtoPackage().equals("google.iam.v1")) {
-      extraImports.add("//google/iam/v1:iam_policy_proto");
-    }
-    tokens.put("extra_imports", joinSetWithIndentation(extraImports));
-    // Remove common_resources.proto because it is only needed for the proto_library_with_info
-    // target.
-    extraImports.remove(COMMON_RESOURCES_PROTO);
-
     String packPrefix = bp.getProtoPackage().replace(".", "/") + '/';
+    Set<String> extraProtosNodeJS = new TreeSet<>();
     Set<String> actualImports = new TreeSet<>();
     for (String imp : bp.getImports()) {
       if (imp.startsWith(packPrefix) && imp.indexOf('/', packPrefix.length()) == -1) {
@@ -94,16 +79,40 @@ class BazelBuildFileView {
       }
       actualImports.add(actualImport);
     }
+
+    Set<String> extraImports = new TreeSet<>();
+    extraImports.add(COMMON_RESOURCES_PROTO);
+    // Add location_proto dependency for mix-in if individual language rules need it.
+    if (bp.hasLocations() && !bp.getProtoPackage().equals("google.cloud.location")) {
+      extraImports.add("//google/cloud/location:location_proto");
+    }
+    // Add iam_policy_proto dependency for mix-in if individual language rules need it.
+    if (bp.hasIAMPolicy() && !bp.getProtoPackage().equals("google.iam.v1")) {
+      extraImports.add("//google/iam/v1:iam_policy_proto");
+    }
+    // Add operations_proto dependency for mix-in if individual language rules need it.
+    // Typically, the dependency is already there because the protos depend on it. In
+    // some cases though, the mixin may declared when the protos do not depend on it.
+    if (bp.hasLRO() && !bp.getProtoPackage().equals("google.longrunning")) {
+      // Using actualImports is important, we want to spoof the dependency as if the
+      // proto depended on it, like most do.
+      actualImports.add("//google/longrunning:operations_proto");
+    }
+    tokens.put("extra_imports", joinSetWithIndentation(extraImports));
     tokens.put("proto_deps", joinSetWithIndentation(actualImports));
     tokens.put("extra_protos_nodejs", joinSetWithIndentationNl(extraProtosNodeJS));
     tokens.put("go_proto_importpath", bp.getLangProtoPackages().get("go").split(";")[0]);
     tokens.put("go_proto_deps", joinSetWithIndentation(mapGoProtoDeps(actualImports)));
 
+    // Remove common_resources.proto because it is only needed for the proto_library_with_info
+    // target.
+    extraImports.remove(COMMON_RESOURCES_PROTO);
+
     // If there are no proto services, then there is no reason to generate GAPIC library targets. This is a
     // simple proto type directory with no API definitions.
     boolean isGapicLibrary = !bp.getServices().isEmpty();
     if (!isGapicLibrary) {
-      tokens.put("type_only_assmebly_name", typeOnlyAssemblyName(bp.getProtoPackage()));
+      tokens.put("type_only_assembly_name", typeOnlyAssemblyName(bp.getProtoPackage()));
       return;
     }
 
