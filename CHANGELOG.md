@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.24.0](https://github.com/googleapis/rules_gapic/compare/v0.23.1...v0.24.0) (2023-04-03)
+
+
+### Features
+
+* **bazel:** Add Go snippets srcjar to BUILD.bazel.gapic_api.mustache ([#150](https://github.com/googleapis/rules_gapic/issues/150)) ([4b6e419](https://github.com/googleapis/rules_gapic/commit/4b6e4199a7f6b4ff91717662547e7514c904013b))
+
 ## [0.23.1](https://github.com/googleapis/rules_gapic/compare/v0.23.0...v0.23.1) (2023-03-13)
 
 
