@@ -6,7 +6,6 @@ This repository contains Bazel rules for generating Google Cloud client
 libraries using the corresponding generators:
 
 - [C#](https://github.com/googleapis/gapic-generator-csharp)
-- [Go](https://github.com/googleapis/gapic-generator-go)
 - [Java](https://github.com/googleapis/gapic-generator-java)
 - [PHP](https://github.com/googleapis/gapic-generator-php)
 - [Python](https://github.com/googleapis/gapic-generator-python)
@@ -24,7 +23,7 @@ Example of generating a client library for Language API:
 git clone https://github.com/googleapis/googleapis
 cd googleapis
 bazel build //google/cloud/language/v1:google-cloud-language-v1-java
-bazel build //google/cloud/language/v1:language_go_gapic
+bazel build //google/cloud/language/v1:gapi-cloud-language-v1-go
 bazel build //google/cloud/language/v1:language-v1-py
 bazel build //google/cloud/language/v1:google-cloud-language-v1-php
 bazel build //google/cloud/language/v1:language-v1-nodejs
