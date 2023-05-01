@@ -137,6 +137,8 @@ public class BuildFileGeneratorTest {
         gapicBuildFilePath, "library_py_gapic", "rest_numeric_enums");
     buildozer.batchSetStringAttribute(
         gapicBuildFilePath, "library_go_gapic", "rest_numeric_enums", "Apennines");
+    buildozer.batchSetStringAttribute(
+        gapicBuildFilePath, "library_php_gapic", "migration_mode", "NEW_SURFACE_ONLY");
 
     // The following values should NOT be preserved:
     buildozer.batchSetStringAttribute(
