@@ -314,6 +314,7 @@ ruby_cloud_gapic_library(
     grpc_service_config = "library_example_grpc_service_config.json",
     rest_numeric_enums = True,
     service_yaml = "//google/example/library:library_example_v1.yaml",
+    transport = "grpc+rest",
     deps = [
         ":library_ruby_grpc",
         ":library_ruby_proto",
