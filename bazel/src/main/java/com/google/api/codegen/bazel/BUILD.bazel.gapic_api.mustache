@@ -206,7 +206,7 @@ php_gapic_library(
     srcs = [":{{name}}_proto_with_info"],
     grpc_service_config = {{grpc_service_config}},
     rest_numeric_enums = {{rest_numeric_enums}},
-    migration_mode = "{{migration_mode}}",
+    migration_mode = {{migration_mode}},
     service_yaml = {{service_yaml}},
     transport = {{transport}},
     deps = [

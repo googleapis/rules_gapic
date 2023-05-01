@@ -43,7 +43,7 @@ class BazelBuildFileView {
     tokens.put("proto_srcs", joinSetWithIndentation(bp.getProtos()));
     tokens.put("version", bp.getVersion());
     tokens.put("package", bp.getProtoPackage());
-    tokens.put("migration_mode", bp.getPhpMigrationMode());
+    tokens.put("migration_mode", '"' + bp.getPhpMigrationMode() + '"');
 
 
     // For regeneration of Java rules, we are particularly interested in what the saved transport value was,

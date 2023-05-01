@@ -229,7 +229,11 @@ class ApiVersionedDir {
   // https://github.com/googleapis/gapic-generator-php/blob/main/src/Utils/MigrationMode.php.
   String getPhpMigrationMode() {
     Map<String, String> phpGapicOverrides = this.overriddenStringAttributes.get(name + "_php_gapic");
-    return phpGapicOverrides != null ? phpGapicOverrides.get("migration_mode") : "PRE_MIGRATION_SURFACE_ONLY";
+    String migrationMode = "PRE_MIGRATION_SURFACE_ONLY";
+    if (phpGapicOverrides != null && phpGapicOverrides.get("migration_mode") != null) {
+      migrationMode = phpGapicOverrides.get("migration_mode");
+    }
+    return migrationMode;
   }
 
   void setParent(ApiDir parent) {
