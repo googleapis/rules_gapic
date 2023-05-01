@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.25.0](https://github.com/googleapis/rules_gapic/compare/v0.24.0...v0.25.0) (2023-05-01)
+
+
+### Features
+
+* **bazel:** Add transport to Ruby rule generation ([#153](https://github.com/googleapis/rules_gapic/issues/153)) ([86df9e5](https://github.com/googleapis/rules_gapic/commit/86df9e5744356d926bb3bb6b781ee3834fd26fed))
+* **bazel:** Generate/retain php migration_mode ([#155](https://github.com/googleapis/rules_gapic/issues/155)) ([c1eaa69](https://github.com/googleapis/rules_gapic/commit/c1eaa69004a91d6e01ca5daf0a5e1713a651549f))
+
 ## [0.24.0](https://github.com/googleapis/rules_gapic/compare/v0.23.1...v0.24.0) (2023-04-03)
 
 
