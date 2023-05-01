@@ -43,6 +43,8 @@ class BazelBuildFileView {
     tokens.put("proto_srcs", joinSetWithIndentation(bp.getProtos()));
     tokens.put("version", bp.getVersion());
     tokens.put("package", bp.getProtoPackage());
+    tokens.put("migration_mode", bp.getPhpMigrationMode());
+
 
     // For regeneration of Java rules, we are particularly interested in what the saved transport value was,
     // if there was one, in order to correctly generate, or not, the rest/grpc specific targets and labels.
@@ -50,7 +52,6 @@ class BazelBuildFileView {
     if (javaTransport == null) {
       javaTransport = transport;
     }
-
     String packPrefix = bp.getProtoPackage().replace(".", "/") + '/';
     Set<String> extraProtosNodeJS = new TreeSet<>();
     Set<String> actualImports = new TreeSet<>();

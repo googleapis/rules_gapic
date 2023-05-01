@@ -80,7 +80,9 @@ class ApiVersionedDir {
     // C#:
     "generate_nongapic_package",
     // Go:
-    "release_level"
+    "release_level",
+    // PHP:
+    "migration_mode",
     // Other languages: add below
   };
 
@@ -219,6 +221,15 @@ class ApiVersionedDir {
   String getJavaTransportOverride() {
     Map<String, String> javaGapicOverrides = this.overriddenStringAttributes.get(name + "_java_gapic");
     return javaGapicOverrides != null ? javaGapicOverrides.get("transport") : null;
+  }
+
+  // Returns the value saved from the existing BUILD.bazel file's php_gapic_library target
+  // `migration_mode` attribute. This will default to PRE_MIGRATION_SURFACE_ONLY to start.
+  // The allowed values are defined in
+  // https://github.com/googleapis/gapic-generator-php/blob/main/src/Utils/MigrationMode.php.
+  String getPhpMigrationMode() {
+    Map<String, String> phpGapicOverrides = this.overriddenStringAttributes.get(name + "_php_gapic");
+    return phpGapicOverrides != null ? phpGapicOverrides.get("migration_mode") : "PRE_MIGRATION_SURFACE_ONLY";
   }
 
   void setParent(ApiDir parent) {
