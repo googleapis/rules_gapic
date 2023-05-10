@@ -14,7 +14,7 @@
 
 load("//:gapic.bzl", "GapicInfo", "gapic_srcjar", "proto_custom_library")
 
-def csharp_proto_library(name, deps, **kwargs):
+def csharp_proto_library(name, deps, extra_opts = [], **kwargs):
     srcjar_target_name = name
     proto_custom_library(
         name = srcjar_target_name,
@@ -26,11 +26,11 @@ def csharp_proto_library(name, deps, **kwargs):
         ],
         opt_args = [
             "file_extension=.g.cs",
-        ],
+        ] + extra_opts,
         **kwargs
     )
 
-def csharp_grpc_library(name, srcs, deps, **kwargs):
+def csharp_grpc_library(name, srcs, deps, extra_opts = [], **kwargs):
     srcjar_target_name = name
 
     # `deps` is not used now but may be used if csharp_grpc_library ever tries to "compile" its
@@ -46,6 +46,6 @@ def csharp_grpc_library(name, srcs, deps, **kwargs):
         ],
         opt_args = [
             "file_suffix=Grpc.g.cs",
-        ],
+        ] + extra_opts,
         **kwargs
     )
