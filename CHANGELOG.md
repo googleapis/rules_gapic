@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.26.0](https://github.com/googleapis/rules_gapic/compare/v0.25.0...v0.26.0) (2023-05-10)
+
+
+### Features
+
+* Add extra_opts for C# proto generation ([#156](https://github.com/googleapis/rules_gapic/issues/156)) ([d412924](https://github.com/googleapis/rules_gapic/commit/d412924f1499dbb289f26fbf0a85471d141a1f68))
+
 ## [0.25.0](https://github.com/googleapis/rules_gapic/compare/v0.24.0...v0.25.0) (2023-05-01)
 
 
