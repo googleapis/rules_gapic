@@ -186,19 +186,12 @@ load(
     "@com_google_googleapis_imports//:imports.bzl",
     "php_gapic_assembly_pkg",
     "php_gapic_library",
-    "php_grpc_library",
     "php_proto_library",
 )
 
 php_proto_library(
     name = "{{name}}_php_proto",
     deps = [":{{name}}_proto"],
-)
-
-php_grpc_library(
-    name = "{{name}}_php_grpc",
-    srcs = [":{{name}}_proto"],
-    deps = [":{{name}}_php_proto"],
 )
 
 php_gapic_library(
@@ -210,7 +203,6 @@ php_gapic_library(
     service_yaml = {{service_yaml}},
     transport = {{transport}},
     deps = [
-        ":{{name}}_php_grpc",
         ":{{name}}_php_proto",
     ],
 )
@@ -220,7 +212,6 @@ php_gapic_assembly_pkg(
     name = "google-cloud-{{assembly_name}}-{{version}}-php",
     deps = [
         ":{{name}}_php_gapic",
-        ":{{name}}_php_grpc",
         ":{{name}}_php_proto",
     ],
 )
