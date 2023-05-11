@@ -224,13 +224,22 @@ class ApiVersionedDir {
   }
 
   // Returns the value saved from the existing BUILD.bazel file's php_gapic_library target
-  // `migration_mode` attribute. This will default to PRE_MIGRATION_SURFACE_ONLY to start.
+  // `migration_mode` attribute. This will default to PRE_MIGRATION_SURFACE_ONLY for existing libraries and
+  // NEW_SURFACE_ONLY for new libraries.
   // The allowed values are defined in
   // https://github.com/googleapis/gapic-generator-php/blob/main/src/Utils/MigrationMode.php.
   String getPhpMigrationMode() {
     Map<String, String> phpGapicOverrides = this.overriddenStringAttributes.get(name + "_php_gapic");
-    String migrationMode = "PRE_MIGRATION_SURFACE_ONLY";
-    if (phpGapicOverrides != null && phpGapicOverrides.get("migration_mode") != null) {
+    
+    // If the BUILD.bazel didn't have a php_gapic_library before OR it's a new
+    // BUILD.bazel file altogether, it should be NEW_SURFACE_ONLY. Existing php_gapic_library
+    // targets will use PRE_MIGRATION_SURFACE_ONLY or their existing value.
+    if (phpGapicOverrides == null) {
+      return "NEW_SURFACE_ONLY";
+    }
+
+    String migrationMode = "PRE_MIGRATION_SURFACE_ONLY"; 
+    if (phpGapicOverrides.get("migration_mode") != null) {
       migrationMode = phpGapicOverrides.get("migration_mode");
     }
     return migrationMode;
