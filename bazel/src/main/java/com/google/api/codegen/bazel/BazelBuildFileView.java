@@ -16,6 +16,7 @@ package com.google.api.codegen.bazel;
 
 import java.lang.String;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +45,6 @@ class BazelBuildFileView {
     tokens.put("version", bp.getVersion());
     tokens.put("package", bp.getProtoPackage());
     tokens.put("migration_mode", '"' + bp.getPhpMigrationMode() + '"');
-
 
     // For regeneration of Java rules, we are particularly interested in what the saved transport value was,
     // if there was one, in order to correctly generate, or not, the rest/grpc specific targets and labels.
@@ -213,6 +213,18 @@ class BazelBuildFileView {
     // Ideally, we'd use a slightly more sophisticated templating system, like Mustache, that would
     // allow us to omit `rest_numeric_enums` when `!transport.contains("rest")`
     tokens.put("rest_numeric_enums", numericEnums);
+
+    // Again, ideally we wouldn't emit extra_opts for C# at all unless we had some...
+    Map<String, List<String>> csharpListAttributes = bp.getOverriddenListAttributes().get("csharp");
+    if (csharpListAttributes != null) {
+      List<String> csharpProtoExtraOpts = csharpListAttributes.get("extra_opts");    
+      if (csharpProtoExtraOpts != null) {
+        tokens.put("csharp_proto_extra_opts", joinCollectionWithIndentation(csharpProtoExtraOpts));
+      }
+    }
+    if (!tokens.containsKey("csharp_proto_extra_opts")) {
+      tokens.put("csharp_proto_extra_opts", "");
+    }
   }
 
   /**
@@ -299,7 +311,11 @@ class BazelBuildFileView {
   }
 
   private String joinSetWithIndentation(Set<String> set) {
-    return set.isEmpty() ? "" : '"' + String.join("\",\n        \"", set) + "\",";
+    return joinCollectionWithIndentation(set);
+  }
+
+  private String joinCollectionWithIndentation(Collection<String> collection) {
+    return collection.isEmpty() ? "" : '"' + String.join("\",\n        \"", collection) + "\",";
   }
 
   private String joinSetWithIndentationNl(Set<String> set) {

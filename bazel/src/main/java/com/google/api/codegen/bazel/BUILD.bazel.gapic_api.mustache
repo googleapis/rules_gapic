@@ -316,6 +316,7 @@ load(
 
 csharp_proto_library(
     name = "{{name}}_csharp_proto",
+    extra_opts = [{{csharp_proto_extra_opts}}],
     deps = [":{{name}}_proto"],
 )
 
