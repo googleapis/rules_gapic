@@ -80,6 +80,7 @@ class ApiVersionedDir {
     // C#:
     "generate_nongapic_package",
     // Go:
+    "importpath",
     "release_level",
     // PHP:
     "migration_mode",
@@ -213,6 +214,13 @@ class ApiVersionedDir {
     // Multiple languages:
     PRESERVED_PROTO_LIBRARY_NONSTRING_ATTRIBUTES.put("rest_numeric_enums", "False");
     // Specific languages: add below
+  }
+
+  // Returns the value saved from the existing BUILD.bazel file's go_gapic_library target
+  // `importpath` attribute. This will be unset when generating for the first time.
+  String getGoImportpathOverride() {
+    Map<String, String> goGapicOverrides = this.overriddenStringAttributes.get(name + "_go_gapic");
+    return goGapicOverrides != null ? goGapicOverrides.get("importpath") : null;
   }
 
   // Returns the value saved from the existing BUILD.bazel file's java_gapic_library target
