@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 // A class representing versioned API directory.
 // For example: google/example/library/v1
@@ -65,7 +66,7 @@ class ApiVersionedDir {
 
   private static String LRO_MIXIN = "name: google.longrunning.Operations";
 
-  private static final String[] PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES = {
+  private static final String[] PRESERVED_GAPIC_LIBRARY_STRING_ATTRIBUTES = {
     // Multiple languages:
     "package_name",
     "transport",
@@ -96,14 +97,20 @@ class ApiVersionedDir {
   // we will generate `rest_numeric_enums=True`, but when updating an existing BUILD file that does
   // not mention `rest_numeric_enums`, we will generate `rest_numeric_enums=False` for backwards
   // compatibility, leaving it to humans to change the value explicitly.)
-  private static final Map<String, String> PRESERVED_PROTO_LIBRARY_NONSTRING_ATTRIBUTES = new HashMap<>();
+  private static final Map<String, String> PRESERVED_GAPIC_LIBRARY_NONSTRING_ATTRIBUTES = new HashMap<>();
 
-  private static final String[] PRESERVED_PROTO_LIBRARY_LIST_ATTRIBUTES = {
+  private static final String[] PRESERVED_GAPIC_LIBRARY_LIST_ATTRIBUTES = {
     // All languages:
     "extra_protoc_parameters",
     "extra_protoc_file_parameters",
     // Python:
     "opt_args",
+    // Other languages: add below
+  };
+
+  private static final String[] PRESERVED_PROTO_LIBRARY_LIST_ATTRIBUTES = {
+    // C#:
+    "extra_opts",
     // Other languages: add below
   };
 
@@ -212,7 +219,7 @@ class ApiVersionedDir {
   ApiVersionedDir(boolean forceTransport) {
     this.forceTransport = forceTransport;
     // Multiple languages:
-    PRESERVED_PROTO_LIBRARY_NONSTRING_ATTRIBUTES.put("rest_numeric_enums", "False");
+    PRESERVED_GAPIC_LIBRARY_NONSTRING_ATTRIBUTES.put("rest_numeric_enums", "False");
     // Specific languages: add below
   }
 
@@ -492,7 +499,7 @@ class ApiVersionedDir {
           this.overriddenNonStringAttributes.put(name, new HashMap<>());
           this.overriddenListAttributes.put(name, new HashMap<>());
 
-          for (String attr : PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES) {
+          for (String attr : PRESERVED_GAPIC_LIBRARY_STRING_ATTRIBUTES) {
             // Do not preserve the transport attribute, because the command line is forcing it.
             if (attr.equals("transport") && this.forceTransport) {
               continue;
@@ -503,7 +510,7 @@ class ApiVersionedDir {
             }
           }
 
-          for (Map.Entry<String, String> entry : PRESERVED_PROTO_LIBRARY_NONSTRING_ATTRIBUTES.entrySet()) {
+          for (Map.Entry<String, String> entry : PRESERVED_GAPIC_LIBRARY_NONSTRING_ATTRIBUTES.entrySet()) {
             String attr = entry.getKey();
             String newDefaultValue = entry.getValue();
             String value = buildozer.getAttribute(file, name, attr);
@@ -517,6 +524,17 @@ class ApiVersionedDir {
               }
             }
           }
+
+          for (String attr : PRESERVED_GAPIC_LIBRARY_LIST_ATTRIBUTES) {
+            String value = buildozer.getAttribute(file, name, attr);
+            if (value != null && value.startsWith("[") && value.endsWith("]")) {
+              value = value.substring(1, value.length() - 1);
+              String[] values = value.split(" ");
+              this.overriddenListAttributes.get(name).put(attr, Arrays.asList(values));
+            }
+          }
+        } else if (kind.endsWith("_proto_library")) {
+          this.overriddenListAttributes.put(name, new HashMap<>());
 
           for (String attr : PRESERVED_PROTO_LIBRARY_LIST_ATTRIBUTES) {
             String value = buildozer.getAttribute(file, name, attr);

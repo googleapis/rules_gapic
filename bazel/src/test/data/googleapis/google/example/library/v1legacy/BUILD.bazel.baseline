@@ -345,6 +345,7 @@ load(
 
 csharp_proto_library(
     name = "library_csharp_proto",
+    extra_opts = [],
     deps = [":library_proto"],
 )
 

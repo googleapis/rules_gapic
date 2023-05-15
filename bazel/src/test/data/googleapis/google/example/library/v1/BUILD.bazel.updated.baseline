@@ -346,6 +346,7 @@ load(
 
 csharp_proto_library(
     name = "library_csharp_proto",
+    extra_opts = ["base_namespace=Google.Cloud.Example.V1"],
     deps = [":library_proto"],
 )
 
