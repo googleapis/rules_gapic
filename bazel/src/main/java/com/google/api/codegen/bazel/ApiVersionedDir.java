@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 // A class representing versioned API directory.
 // For example: google/example/library/v1
@@ -65,7 +66,7 @@ class ApiVersionedDir {
 
   private static String LRO_MIXIN = "name: google.longrunning.Operations";
 
-  private static final String[] PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES = {
+  private static final String[] PRESERVED_GAPIC_LIBRARY_STRING_ATTRIBUTES = {
     // Multiple languages:
     "package_name",
     "transport",
@@ -80,6 +81,7 @@ class ApiVersionedDir {
     // C#:
     "generate_nongapic_package",
     // Go:
+    "importpath",
     "release_level",
     // PHP:
     "migration_mode",
@@ -95,14 +97,20 @@ class ApiVersionedDir {
   // we will generate `rest_numeric_enums=True`, but when updating an existing BUILD file that does
   // not mention `rest_numeric_enums`, we will generate `rest_numeric_enums=False` for backwards
   // compatibility, leaving it to humans to change the value explicitly.)
-  private static final Map<String, String> PRESERVED_PROTO_LIBRARY_NONSTRING_ATTRIBUTES = new HashMap<>();
+  private static final Map<String, String> PRESERVED_GAPIC_LIBRARY_NONSTRING_ATTRIBUTES = new HashMap<>();
 
-  private static final String[] PRESERVED_PROTO_LIBRARY_LIST_ATTRIBUTES = {
+  private static final String[] PRESERVED_GAPIC_LIBRARY_LIST_ATTRIBUTES = {
     // All languages:
     "extra_protoc_parameters",
     "extra_protoc_file_parameters",
     // Python:
     "opt_args",
+    // Other languages: add below
+  };
+
+  private static final String[] PRESERVED_PROTO_LIBRARY_LIST_ATTRIBUTES = {
+    // C#:
+    "extra_opts",
     // Other languages: add below
   };
 
@@ -211,8 +219,15 @@ class ApiVersionedDir {
   ApiVersionedDir(boolean forceTransport) {
     this.forceTransport = forceTransport;
     // Multiple languages:
-    PRESERVED_PROTO_LIBRARY_NONSTRING_ATTRIBUTES.put("rest_numeric_enums", "False");
+    PRESERVED_GAPIC_LIBRARY_NONSTRING_ATTRIBUTES.put("rest_numeric_enums", "False");
     // Specific languages: add below
+  }
+
+  // Returns the value saved from the existing BUILD.bazel file's go_gapic_library target
+  // `importpath` attribute. This will be unset when generating for the first time.
+  String getGoImportpathOverride() {
+    Map<String, String> goGapicOverrides = this.overriddenStringAttributes.get(name + "_go_gapic");
+    return goGapicOverrides != null ? goGapicOverrides.get("importpath") : null;
   }
 
   // Returns the value saved from the existing BUILD.bazel file's java_gapic_library target
@@ -224,13 +239,22 @@ class ApiVersionedDir {
   }
 
   // Returns the value saved from the existing BUILD.bazel file's php_gapic_library target
-  // `migration_mode` attribute. This will default to PRE_MIGRATION_SURFACE_ONLY to start.
+  // `migration_mode` attribute. This will default to PRE_MIGRATION_SURFACE_ONLY for existing libraries and
+  // NEW_SURFACE_ONLY for new libraries.
   // The allowed values are defined in
   // https://github.com/googleapis/gapic-generator-php/blob/main/src/Utils/MigrationMode.php.
   String getPhpMigrationMode() {
     Map<String, String> phpGapicOverrides = this.overriddenStringAttributes.get(name + "_php_gapic");
-    String migrationMode = "PRE_MIGRATION_SURFACE_ONLY";
-    if (phpGapicOverrides != null && phpGapicOverrides.get("migration_mode") != null) {
+    
+    // If the BUILD.bazel didn't have a php_gapic_library before OR it's a new
+    // BUILD.bazel file altogether, it should be NEW_SURFACE_ONLY. Existing php_gapic_library
+    // targets will use PRE_MIGRATION_SURFACE_ONLY or their existing value.
+    if (phpGapicOverrides == null) {
+      return "NEW_SURFACE_ONLY";
+    }
+
+    String migrationMode = "PRE_MIGRATION_SURFACE_ONLY"; 
+    if (phpGapicOverrides.get("migration_mode") != null) {
       migrationMode = phpGapicOverrides.get("migration_mode");
     }
     return migrationMode;
@@ -475,7 +499,7 @@ class ApiVersionedDir {
           this.overriddenNonStringAttributes.put(name, new HashMap<>());
           this.overriddenListAttributes.put(name, new HashMap<>());
 
-          for (String attr : PRESERVED_PROTO_LIBRARY_STRING_ATTRIBUTES) {
+          for (String attr : PRESERVED_GAPIC_LIBRARY_STRING_ATTRIBUTES) {
             // Do not preserve the transport attribute, because the command line is forcing it.
             if (attr.equals("transport") && this.forceTransport) {
               continue;
@@ -486,7 +510,7 @@ class ApiVersionedDir {
             }
           }
 
-          for (Map.Entry<String, String> entry : PRESERVED_PROTO_LIBRARY_NONSTRING_ATTRIBUTES.entrySet()) {
+          for (Map.Entry<String, String> entry : PRESERVED_GAPIC_LIBRARY_NONSTRING_ATTRIBUTES.entrySet()) {
             String attr = entry.getKey();
             String newDefaultValue = entry.getValue();
             String value = buildozer.getAttribute(file, name, attr);
@@ -500,6 +524,17 @@ class ApiVersionedDir {
               }
             }
           }
+
+          for (String attr : PRESERVED_GAPIC_LIBRARY_LIST_ATTRIBUTES) {
+            String value = buildozer.getAttribute(file, name, attr);
+            if (value != null && value.startsWith("[") && value.endsWith("]")) {
+              value = value.substring(1, value.length() - 1);
+              String[] values = value.split(" ");
+              this.overriddenListAttributes.get(name).put(attr, Arrays.asList(values));
+            }
+          }
+        } else if (kind.endsWith("_proto_library")) {
+          this.overriddenListAttributes.put(name, new HashMap<>());
 
           for (String attr : PRESERVED_PROTO_LIBRARY_LIST_ATTRIBUTES) {
             String value = buildozer.getAttribute(file, name, attr);

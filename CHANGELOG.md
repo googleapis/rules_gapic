@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.27.0](https://github.com/googleapis/rules_gapic/compare/v0.26.0...v0.27.0) (2023-05-15)
+
+
+### Features
+
+* **bazel:** New php libs use new_surface_only ([#158](https://github.com/googleapis/rules_gapic/issues/158)) ([4ff5a21](https://github.com/googleapis/rules_gapic/commit/4ff5a21e42498787cb2e0f83eb4752f58a0b5019))
+* **bazel:** Retain importpath in Go rules ([#162](https://github.com/googleapis/rules_gapic/issues/162)) ([2786503](https://github.com/googleapis/rules_gapic/commit/27865036d6396ec84514931193affbbe914deb50))
+
 ## [0.26.0](https://github.com/googleapis/rules_gapic/compare/v0.25.0...v0.26.0) (2023-05-10)
 
 

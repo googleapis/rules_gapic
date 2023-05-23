@@ -136,9 +136,13 @@ public class BuildFileGeneratorTest {
     buildozer.batchRemoveAttribute(
         gapicBuildFilePath, "library_py_gapic", "rest_numeric_enums");
     buildozer.batchSetStringAttribute(
+        gapicBuildFilePath, "library_go_gapic", "importpath", "cloud.google.com/go/foo/bar/apiv1beta;bar");
+    buildozer.batchSetStringAttribute(
         gapicBuildFilePath, "library_go_gapic", "rest_numeric_enums", "Apennines");
     buildozer.batchSetStringAttribute(
-        gapicBuildFilePath, "library_php_gapic", "migration_mode", "NEW_SURFACE_ONLY");
+        gapicBuildFilePath, "library_php_gapic", "migration_mode", "MIGRATING");
+    buildozer.batchAddStringAttribute(
+        gapicBuildFilePath, "library_csharp_proto", "extra_opts", "base_namespace=Google.Cloud.Example.V1");
 
     // The following values should NOT be preserved:
     buildozer.batchSetStringAttribute(
@@ -184,6 +188,9 @@ public class BuildFileGeneratorTest {
     Assert.assertEquals(
         "Apennines",
         buildozer.getAttribute(gapicBuildFilePath, "%go_gapic_library", "rest_numeric_enums"));
+    Assert.assertEquals(
+        "cloud.google.com/go/foo/bar/apiv1beta;bar",
+        buildozer.getAttribute(gapicBuildFilePath, "%go_gapic_library", "importpath"));
 
     // Check that grpc_service_config value is not preserved:
     Assert.assertEquals(
