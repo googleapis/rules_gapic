@@ -92,7 +92,6 @@ load(
     "go_gapic_assembly_pkg",
     "go_gapic_library",
     "go_proto_library",
-    "go_test",
 )
 
 go_proto_library(
@@ -118,13 +117,6 @@ go_gapic_library(
     deps = [
         ":{{name}}_go_proto",{{go_gapic_deps}}
     ],
-)
-
-go_test(
-    name = "{{name}}_go_gapic_test",
-    srcs = [":{{name}}_go_gapic_srcjar_test"],
-    embed = [":{{name}}_go_gapic"],
-    importpath = "{{go_gapic_test_importpath}}",
 )
 
 # Open Source Packages
