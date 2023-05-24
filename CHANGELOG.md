@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.28.0](https://github.com/googleapis/rules_gapic/compare/v0.27.0...v0.28.0) (2023-05-24)
+
+
+### Features
+
+* **bazel:** Retain extra_opts in C# rule ([c6da643](https://github.com/googleapis/rules_gapic/commit/c6da6435bcb29c8e7a820f3dff425dc0eb6cd0c8))
+* **bazel:** Stop generating go_test ([#164](https://github.com/googleapis/rules_gapic/issues/164)) ([2ab9a9f](https://github.com/googleapis/rules_gapic/commit/2ab9a9f844b59184290f3fcb771f74701886b529))
+* **bazel:** Stop generating php_grpc_library ([#159](https://github.com/googleapis/rules_gapic/issues/159)) ([f92b4f9](https://github.com/googleapis/rules_gapic/commit/f92b4f9bcf25462d3d34931ff41c22bf356b44e9))
+
 ## [0.27.0](https://github.com/googleapis/rules_gapic/compare/v0.26.0...v0.27.0) (2023-05-15)
 
 
