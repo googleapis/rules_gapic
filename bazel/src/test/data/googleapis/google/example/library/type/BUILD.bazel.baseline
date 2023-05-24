@@ -103,19 +103,12 @@ py_grpc_library(
 load(
     "@com_google_googleapis_imports//:imports.bzl",
     "php_gapic_assembly_pkg",
-    "php_grpc_library",
     "php_proto_library",
 )
 
 php_proto_library(
     name = "types_php_proto",
     deps = [":types_proto"],
-)
-
-php_grpc_library(
-    name = "types_php_grpc",
-    srcs = [":types_proto"],
-    deps = [":types_php_proto"],
 )
 
 php_gapic_assembly_pkg(
