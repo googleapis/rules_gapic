@@ -70,6 +70,7 @@ class ApiVersionedDir {
     // Multiple languages:
     "package_name",
     "transport",
+    "handwritten_layer",
     // TypeScript:
     "main_service",
     "bundle_config",
