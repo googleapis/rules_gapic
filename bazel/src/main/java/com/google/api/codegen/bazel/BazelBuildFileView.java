@@ -23,10 +23,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class BazelBuildFileView {
   private static final String COMMON_RESOURCES_PROTO = "//google/cloud:common_resources_proto";
+  private static final String API_PACKAGE_GROUP = "apiPackage";
+  private static final String API_VERSION_GROUP = "version";
+  private static final Pattern PACKAGE_AND_VERSION =
+    Pattern.compile("[a-z0-9/]+/(?<"+API_PACKAGE_GROUP+">[a-z0-9]+)/(?<"+API_VERSION_GROUP+">v[a-z0-9]+)[/:][_a-z0-9]+");
   private static final Pattern LABEL_NAME = Pattern.compile(":\\w+$");
   private final Map<String, String> tokens = new HashMap<>();
   private final Map<String, Map<String, String>> overriddenStringAttributes = new HashMap<>();
@@ -69,6 +74,8 @@ class BazelBuildFileView {
         actualImport = "//google/cloud/common:common_proto";
         extraProtosNodeJS.add(actualImport);
       } else {
+        // This is handles X-API depenedencies, converting the proto file-specific import
+        // into the package-level import label.
         actualImport = convertPathToLabel("", actualImport);
       }
       actualImports.add(actualImport);
@@ -202,6 +209,7 @@ class BazelBuildFileView {
     tokens.put("go_gapic_deps", joinSetWithIndentationNl(mapGoGapicDeps(actualImports)));
 
     tokens.put("py_gapic_deps", joinSetWithIndentation(mapPyGapicDeps(actualImports)));
+    tokens.put("py_test_deps", joinSetWithIndentation(mapPyTestDeps(bp.getName(), actualImports)));
 
     overriddenStringAttributes.putAll(bp.getOverriddenStringAttributes());
     overriddenNonStringAttributes.putAll(bp.getOverriddenNonStringAttributes());
@@ -265,7 +273,7 @@ class BazelBuildFileView {
     return goImport + goPkg;
   }
 
-  private String convertPathToLabel(String pkg, String path) {
+  public static String convertPathToLabel(String pkg, String path) {
     if (path == null) {
       return path;
     }
@@ -298,6 +306,15 @@ class BazelBuildFileView {
     }
     int lastSlashIndex = sb.lastIndexOf("/");
     sb.replace(lastSlashIndex, lastSlashIndex + 1, ":");
+    
+    // Handle x-API dependencies by changing the per-proto-file dependency
+    // into a package-level dependency label.
+    int protoLabel = sb.indexOf("_proto");
+    Matcher m = PACKAGE_AND_VERSION.matcher(sb);
+    if (m.matches() && protoLabel != -1) {
+      String apiPackage = m.group(API_PACKAGE_GROUP);
+      sb.replace(lastSlashIndex+1, protoLabel, apiPackage);
+    }
 
     return sb.toString();
   }
@@ -372,6 +389,8 @@ class BazelBuildFileView {
         javaImports.add("//google/cloud/location:location_java_proto");
       } else if (protoImport.endsWith(":common_proto")) {
         javaImports.add(replaceLabelName(protoImport, ":common_java_proto"));
+      } else if (protoImport.matches(PACKAGE_AND_VERSION.toString())) {
+        javaImports.add(protoImport.replaceAll("_proto", "_java_proto"));
       }
     }
     return javaImports;
@@ -477,6 +496,8 @@ class BazelBuildFileView {
         goImports.add(replaceLabelName(protoImport, ":location_go_proto"));
       } else if (protoImport.endsWith(":common_proto")) {
         goImports.add(replaceLabelName(protoImport, ":common_go_proto"));
+      } else if (protoImport.matches(PACKAGE_AND_VERSION.toString())) {
+        goImports.add(protoImport.replaceAll("_proto", "_go_proto"));
       }
     }
     return goImports;
@@ -489,6 +510,20 @@ class BazelBuildFileView {
           || protoImport.endsWith(":policy_proto")
           || protoImport.endsWith(":options_proto")) {
         pyImports.add(replaceLabelName(protoImport, ":iam_policy_py_proto"));
+      }
+    }
+    return pyImports;
+  }
+
+  private Set<String> mapPyTestDeps(String name, Set<String> protoImports) {
+    Set<String> pyImports = new TreeSet<>();
+    pyImports.add(":"+name+"_py_gapic");
+    
+    // This is specifically for X-API depenedencies.
+    // Ignore IAM deps, unnecessary for tests.
+    for (String protoImport : protoImports) {
+      if (protoImport.matches(PACKAGE_AND_VERSION.toString()) && !protoImport.contains("iam/v1")) {
+        pyImports.add(protoImport.replaceAll("_proto", "_py_proto"));
       }
     }
     return pyImports;

@@ -160,7 +160,9 @@ py_test(
         "{{name}}_py_gapic_test.py",
     ],
     legacy_create_init = False,
-    deps = [":{{name}}_py_gapic"],
+    deps = [
+        {{py_test_deps}}
+    ],
 )
 
 # Open Source Packages

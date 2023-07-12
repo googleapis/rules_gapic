@@ -15,6 +15,9 @@
 package com.google.api.codegen.bazel;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import java.util.Arrays;
@@ -37,6 +40,25 @@ public class BazelBuildFileViewTest {
   }
 
   @Test
+  public void testConvertPathToLabel() {
+    // Proto imports aren't actually evaluated with a package while converting them.
+    String emptyPkg = "";
+    List<List<String>> tests = Arrays.asList(
+      Arrays.asList(emptyPkg, "google/type/interval_proto", "//google/type:interval_proto"),
+      // X-API dependency.
+      Arrays.asList(emptyPkg, "google/cloud/foo/v1/bar_proto", "//google/cloud/foo/v1:foo_proto")
+    );
+    for (List<String> testCase : tests) {
+      String pkg = testCase.get(0);
+      String path = testCase.get(1);
+      String want = testCase.get(2);
+
+      String got = BazelBuildFileView.convertPathToLabel(pkg, path);
+      Assert.assertEquals(want, got);
+    }
+  }
+
+  @Test 
   public void testTypeOnlyAssemblyName() {
     List<List<String>> tests = Arrays.asList(
       Arrays.asList("type", "type"),  
