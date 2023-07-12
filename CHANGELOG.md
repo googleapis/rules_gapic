@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.28.1](https://github.com/googleapis/rules_gapic/compare/v0.28.0...v0.28.1) (2023-07-12)
+
+
+### Bug Fixes
+
+* Avoid emitting an empty string when no list attributes are specified ([62f4c96](https://github.com/googleapis/rules_gapic/commit/62f4c9663d2554bbd076034614ead5d6f679d5a0))
+
 ## [0.28.0](https://github.com/googleapis/rules_gapic/compare/v0.27.0...v0.28.0) (2023-05-24)
 
 
