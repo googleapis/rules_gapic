@@ -540,7 +540,7 @@ class ApiVersionedDir {
             String value = buildozer.getAttribute(file, name, attr);
             if (value != null && value.startsWith("[") && value.endsWith("]")) {
               value = value.substring(1, value.length() - 1);
-              String[] values = value.split(" ");
+              String[] values = value.length() == 0 ? new String[0] : value.split(" ");
               this.overriddenListAttributes.get(name).put(attr, Arrays.asList(values));
             }
           }
