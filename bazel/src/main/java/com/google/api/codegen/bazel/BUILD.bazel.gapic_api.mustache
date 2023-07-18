@@ -163,6 +163,16 @@ py_test(
     deps = [":{{name}}_py_gapic"],
 )
 
+py_test(
+    name = "{{name}}_py_gapic_docstest",
+    srcs = [
+        "{{name}}_py_gapic_pydocstest.py",
+        "{{name}}_py_gapic_docstest.py",
+    ],
+    legacy_create_init = False,
+    deps = [":{{name}}_py_gapic"],
+)
+
 # Open Source Packages
 py_gapic_assembly_pkg(
     name = "{{assembly_name}}-{{version}}-py",
