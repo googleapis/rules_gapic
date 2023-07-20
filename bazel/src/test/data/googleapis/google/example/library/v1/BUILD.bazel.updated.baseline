@@ -190,6 +190,16 @@ py_test(
     deps = [":library_py_gapic"],
 )
 
+py_test(
+    name = "library_py_gapic_docstest",
+    srcs = [
+        "library_py_gapic_docstest.py",
+        "library_py_gapic_pydocstest.py",
+    ],
+    legacy_create_init = False,
+    deps = [":library_py_gapic"],
+)
+
 # Open Source Packages
 py_gapic_assembly_pkg(
     name = "example-library-v1-py",

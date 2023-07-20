@@ -205,8 +205,8 @@ py_test(
 py_test(
     name = "library_py_gapic_docstest",
     srcs = [
-        "library_py_gapic_pydocstest.py",
         "library_py_gapic_docstest.py",
+        "library_py_gapic_pydocstest.py",
     ],
     legacy_create_init = False,
     deps = [":library_py_gapic"],

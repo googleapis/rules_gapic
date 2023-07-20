@@ -166,8 +166,8 @@ py_test(
 py_test(
     name = "{{name}}_py_gapic_docstest",
     srcs = [
-        "{{name}}_py_gapic_pydocstest.py",
         "{{name}}_py_gapic_docstest.py",
+        "{{name}}_py_gapic_pydocstest.py",
     ],
     legacy_create_init = False,
     deps = [":{{name}}_py_gapic"],
