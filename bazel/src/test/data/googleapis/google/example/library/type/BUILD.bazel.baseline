@@ -155,7 +155,7 @@ csharp_proto_library(
 
 # Open Source Packages
 csharp_gapic_assembly_pkg(
-    name = "library-types-csharp",
+    name = "google-example-library-types-csharp",
     generate_nongapic_package = True,
     deps = [
         ":types_csharp_proto",
