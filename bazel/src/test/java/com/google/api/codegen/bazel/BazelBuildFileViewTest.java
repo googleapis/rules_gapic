@@ -35,20 +35,4 @@ public class BazelBuildFileViewTest {
     actual = BazelBuildFileView.assembleGoImportPath(true, "google.cloud.foo.v1", "cloud.google.com/go/foo/apiv1/foopb;foopb");
     Assert.assertEquals("cloud.google.com/go/foo/apiv1;foo", actual);
   }
-
-  @Test
-  public void testTypeOnlyAssemblyName() {
-    List<List<String>> tests = Arrays.asList(
-      Arrays.asList("type", "type"),  
-      Arrays.asList("google.type", "google-type"),
-      Arrays.asList("google.geo.type", "geo-type")
-    );
-    for (List<String> testCase : tests) {
-      String pkg = testCase.get(0);
-      String want = testCase.get(1);
-
-      String got = BazelBuildFileView.typeOnlyAssemblyName(pkg);
-      Assert.assertEquals(want, got);
-    }
-  }
 }

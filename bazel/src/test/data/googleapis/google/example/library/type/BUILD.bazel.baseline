@@ -35,7 +35,7 @@ java_proto_library(
 
 # Open Source Packages
 java_gapic_assembly_gradle_pkg(
-    name = "library-types-java",
+    name = "google-example-library-types-java",
     deps = [
         ":types_proto",
         ":types_java_proto",
@@ -62,7 +62,7 @@ go_proto_library(
 )
 
 go_gapic_assembly_pkg(
-    name = "library-types-go",
+    name = "google-example-library-types-go",
     deps = [
         ":types_go_proto",
     ],
@@ -114,7 +114,7 @@ php_proto_library(
 )
 
 php_gapic_assembly_pkg(
-    name = "library-types-php",
+    name = "google-example-library-types-php",
     deps = [
         ":types_php_proto",
     ],
