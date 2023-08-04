@@ -139,7 +139,6 @@ ruby_grpc_library(
 ##############################################################################
 load(
     "@com_google_googleapis_imports//:imports.bzl",
-    "csharp_grpc_library",
     "csharp_proto_library",
 )
 
@@ -148,10 +147,13 @@ csharp_proto_library(
     deps = [":{{name}}_proto"],
 )
 
-csharp_grpc_library(
-    name = "{{name}}_csharp_grpc",
-    srcs = [":{{name}}_proto"],
-    deps = [":{{name}}_csharp_proto"],
+# Open Source Packages
+csharp_gapic_assembly_pkg(
+    name = "{{type_only_assembly_name}}-csharp",
+    generate_nongapic_package = True,
+    deps = [
+        ":{{name}}_csharp_proto",
+    ],
 )
 
 ##############################################################################
