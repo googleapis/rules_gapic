@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.28.2](https://github.com/googleapis/rules_gapic/compare/v0.28.1...v0.28.2) (2023-08-07)
+
+
+### Bug Fixes
+
+* **bazel:** Generate java assembly for type-only ([#169](https://github.com/googleapis/rules_gapic/issues/169)) ([764f778](https://github.com/googleapis/rules_gapic/commit/764f77804194778ce344884a770023c287a2be3a))
+* **bazel:** Type-only csharp assembly pkg ([#171](https://github.com/googleapis/rules_gapic/issues/171)) ([b9fa7da](https://github.com/googleapis/rules_gapic/commit/b9fa7da2c8162c70368ad60c5785ac19c54b7d60))
+* **bazel:** Use entire proto pkg for type assembly name ([#173](https://github.com/googleapis/rules_gapic/issues/173)) ([d028bf6](https://github.com/googleapis/rules_gapic/commit/d028bf64d51d7ad572fa8e643e717849fca92b57))
+
 ## [0.28.1](https://github.com/googleapis/rules_gapic/compare/v0.28.0...v0.28.1) (2023-07-12)
 
 
