@@ -190,12 +190,8 @@ class ApisVisitor extends SimpleFileVisitor<Path> {
 
     System.out.println(
         "Write File [" + tmplType + "]: " + outDir.toString() + File.separator + "BUILD.bazel");
-    try {
-      BazelBuildFileView bpv = new BazelBuildFileView(bp, transport, numericEnums);
-      fileWriter.write(outFilePath, template.expand(bpv));
-    } catch (RuntimeException ex) {
-      ex.printStackTrace();
-    }
+    BazelBuildFileView bpv = new BazelBuildFileView(bp, transport, numericEnums);
+    fileWriter.write(outFilePath, template.expand(bpv));
 
     return FileVisitResult.CONTINUE;
   }
