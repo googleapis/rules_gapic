@@ -107,6 +107,7 @@ class BazelBuildFileView {
     boolean isGapicLibrary = !bp.getServices().isEmpty();
     if (!isGapicLibrary) {
       tokens.put("type_only_assembly_name", bp.getProtoPackage().replaceAll("\\.", "-"));
+      tokens.put("csharp_namespace", bp.getLangProtoPackages().get("csharp"));
       return;
     }
 

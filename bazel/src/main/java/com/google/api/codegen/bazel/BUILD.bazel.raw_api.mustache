@@ -154,6 +154,7 @@ csharp_proto_library(
 # Open Source Packages
 csharp_gapic_assembly_pkg(
     name = "{{type_only_assembly_name}}-csharp",
+    package_name = "{{csharp_namespace}}",
     generate_nongapic_package = True,
     deps = [
         ":{{name}}_csharp_proto",
