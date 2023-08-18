@@ -25,6 +25,7 @@ option go_package = "google.golang.org/genproto/googleapis/example/library/types
 option java_multiple_files = true;
 option java_outer_classname = "LibraryTypesProto";
 option java_package = "com.google.example.library.types";
+option csharp_namespace = "Google.Example.Library.Types";
 
 // A Shelf contains a collection of books with a theme.
 message Shelf {
