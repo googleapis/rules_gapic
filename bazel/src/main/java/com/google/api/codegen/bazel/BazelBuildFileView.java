@@ -108,7 +108,7 @@ class BazelBuildFileView {
     if (!isGapicLibrary) {
       tokens.put("type_only_assembly_name", bp.getProtoPackage().replaceAll("\\.", "-"));
       if (!bp.getLangProtoPackages().containsKey("csharp")) {
-        throw new RuntimeException("Missing required option chsarp_namespace: https://google.aip.dev/191#packaging-annotations");
+        throw new RuntimeException("Missing required option csharp_namespace: https://google.aip.dev/191#packaging-annotations");
       }
       tokens.put("csharp_namespace", bp.getLangProtoPackages().get("csharp"));
       return;
