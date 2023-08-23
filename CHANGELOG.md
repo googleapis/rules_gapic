@@ -7,7 +7,7 @@
 
 * **bazel:** Include package_name for type-only csharp ([#176](https://github.com/googleapis/rules_gapic/issues/176)) ([49fd5ac](https://github.com/googleapis/rules_gapic/commit/49fd5acb8e87c7d5058cb13a3c630161fb2aad0d))
 * **bazel:** Missing loads in type-only template ([#174](https://github.com/googleapis/rules_gapic/issues/174)) ([6f470d6](https://github.com/googleapis/rules_gapic/commit/6f470d695696cb6e6ebf53349af9f2142f10ba41))
-* **bazel:** Throw RuntimeExceptions, including missing type-only chsarp_namespace ([#177](https://github.com/googleapis/rules_gapic/issues/177)) ([ee90649](https://github.com/googleapis/rules_gapic/commit/ee90649aa300c22aa11d76e0db7f231106b9b4ef))
+* **bazel:** Throw RuntimeExceptions, including missing type-only csharp_namespace ([#177](https://github.com/googleapis/rules_gapic/issues/177)) ([ee90649](https://github.com/googleapis/rules_gapic/commit/ee90649aa300c22aa11d76e0db7f231106b9b4ef))
 
 ## [0.28.2](https://github.com/googleapis/rules_gapic/compare/v0.28.1...v0.28.2) (2023-08-07)
 
