@@ -111,7 +111,7 @@ py_gapic_library(
 
 # Open Source Packages
 py_gapic_assembly_pkg(
-    name = "google-example-library-types",
+    name = "google-example-library-types-py",
     deps = [
         ":types_py_gapic",
     ],
