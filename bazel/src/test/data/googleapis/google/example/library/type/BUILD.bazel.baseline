@@ -77,6 +77,8 @@ load(
     "moved_proto_library",
     "py_grpc_library",
     "py_proto_library",
+    "py_gapic_library",
+    "py_gapic_assembly_pkg",
 )
 
 moved_proto_library(
@@ -98,6 +100,21 @@ py_grpc_library(
     name = "types_py_grpc",
     srcs = [":types_moved_proto"],
     deps = [":types_py_proto"],
+)
+
+py_gapic_library(
+    name = "types_py_gapic",
+    srcs = [":types_proto"],
+    rest_numeric_enums = False,
+    transport = "grpc+rest",
+)
+
+# Open Source Packages
+py_gapic_assembly_pkg(
+    name = "google-example-library-types",
+    deps = [
+        ":types_py_gapic",
+    ],
 )
 
 ##############################################################################

@@ -75,6 +75,8 @@ load(
     "moved_proto_library",
     "py_grpc_library",
     "py_proto_library",
+    "py_gapic_library",
+    "py_gapic_assembly_pkg",
 )
 
 moved_proto_library(
@@ -94,6 +96,21 @@ py_grpc_library(
     name = "{{name}}_py_grpc",
     srcs = [":{{name}}_moved_proto"],
     deps = [":{{name}}_py_proto"],
+)
+
+py_gapic_library(
+    name = "{{name}}_py_gapic",
+    srcs = [":{{name}}_proto"],
+    rest_numeric_enums = False,
+    transport = "grpc+rest",
+)
+
+# Open Source Packages
+py_gapic_assembly_pkg(
+    name = "{{type_only_assembly_name}}",
+    deps = [
+        ":{{name}}_py_gapic",
+    ],
 )
 
 ##############################################################################
