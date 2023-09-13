@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.29.0](https://github.com/googleapis/rules_gapic/compare/v0.28.3...v0.29.0) (2023-09-13)
+
+
+### Features
+
+* **bazel:** Python type-only gapic assembly targets ([#179](https://github.com/googleapis/rules_gapic/issues/179)) ([2f7a03a](https://github.com/googleapis/rules_gapic/commit/2f7a03aa26e8f5a8eed2bdfd688c134d91b63257))
+
 ## [0.28.3](https://github.com/googleapis/rules_gapic/compare/v0.28.2...v0.28.3) (2023-08-18)
 
 
