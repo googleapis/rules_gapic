@@ -39,6 +39,7 @@ class BazelBuildFileView {
     // annotations package
     entry("//google/api:client_proto", "//google/api:annotations_go_proto"),
     entry("//google/api:field_behavior_proto", "//google/api:annotations_go_proto"),
+    entry("//google/api:field_proto", "//google/api:annotations_go_proto"),
     entry("//google/api:http_proto", "//google/api:annotations_go_proto"),
     entry("//google/api:resource_proto", "//google/api:annotations_go_proto"),
     entry("//google/api:routing_proto", "//google/api:annotations_go_proto"),
