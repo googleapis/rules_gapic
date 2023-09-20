@@ -25,6 +25,8 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 
+import static java.util.Map.entry;
+
 class BazelBuildFileView {
   private static final String COMMON_RESOURCES_PROTO = "//google/cloud:common_resources_proto";
   private static final Pattern LABEL_NAME = Pattern.compile(":\\w+$");
@@ -33,6 +35,42 @@ class BazelBuildFileView {
   private final Map<String, Map<String, String>> overriddenNonStringAttributes = new HashMap<>();
   private final Map<String, Map<String, List<String>>> overriddenListAttributes = new HashMap<>();
   private final Map<String, String> assemblyPkgRulesNames = new HashMap<>();
+  private final Map<String, String> goProtoDepMapping = Map.ofEntries(
+    // annotations package
+    entry("//google/api:client_proto", "//google/api:annotations_go_proto"),
+    entry("//google/api:field_behavior_proto", "//google/api:annotations_go_proto"),
+    entry("//google/api:http_proto", "//google/api:annotations_go_proto"),
+    entry("//google/api:resource_proto", "//google/api:annotations_go_proto"),
+    entry("//google/api:routing_proto", "//google/api:annotations_go_proto"),
+    // iam package
+    entry("//google/iam/v1:iam_policy_proto", "//google/iam/v1:iam_go_proto"),
+    entry("//google/iam/v1:policy_proto", "//google/iam/v1:iam_go_proto"),
+    entry("//google/iam/v1:options_proto", "//google/iam/v1:iam_go_proto") ,
+    // serviceconfig package
+    entry("//google/api:auth_proto", "//google/api/serviceconfig_go_proto"),
+    entry("//google/api:backend_proto", "//google/api/serviceconfig_go_proto"),
+    entry("//google/api:billing_proto", "//google/api/serviceconfig_go_proto"),
+    entry("//google/api:context_proto", "//google/api/serviceconfig_go_proto"),
+    entry("//google/api:control_proto", "//google/api/serviceconfig_go_proto"),
+    entry("//google/api:documentation_proto", "//google/api/serviceconfig_go_proto"),
+    entry("//google/api:endpoint_proto", "//google/api/serviceconfig_go_proto"),
+    entry("//google/api:log_proto", "//google/api/serviceconfig_go_proto"),
+    entry("//google/api:logging_proto", "//google/api/serviceconfig_go_proto"),
+    entry("//google/api:monitoring_proto", "//google/api/serviceconfig_go_proto"),
+    entry("//google/api:policy_proto", "//google/api/serviceconfig_go_proto"),
+    entry("//google/api:quota_proto", "//google/api/serviceconfig_go_proto"),
+    entry("//google/api:service_proto", "//google/api/serviceconfig_go_proto"),
+    entry("//google/api:source_info_proto", "//google/api/serviceconfig_go_proto"),
+    entry("//google/api:system_parameter_proto", "//google/api/serviceconfig_go_proto"),
+    entry("//google/api:usage_proto", "//google/api/serviceconfig_go_proto"),
+    // single proto remappings
+    entry("//google/api:config_change_proto", "//google/api:configchange_go_proto"),
+    entry("//google/api:monitored_resource_proto", "//google/api:monitoredres_go_proto"),
+    entry("//google/api:launch_stage_proto", "//google/api:api_go_proto"),
+    entry("//google/longrunning:operations_proto", "//google/longrunning:longrunning_go_proto"),
+    entry("//google/type:postal_address_proto", "//google/type:postaladdress_go_proto"),
+    entry("//google/rpc:error_details_proto", "//google/rpc:errdetails_go_proto")
+  );
 
   BazelBuildFileView(ApiVersionedDir bp, String transport, String numericEnums) {
     if (bp.getProtoPackage() == null) {
@@ -410,30 +448,8 @@ class BazelBuildFileView {
       if (protoImport.startsWith("@com_google_protobuf//")) {
         continue;
       }
-
-      if (protoImport.endsWith(":resource_proto")
-          || protoImport.endsWith(":client_proto")
-          || protoImport.endsWith(":field_behavior_proto")
-          || protoImport.endsWith(":http_proto")) {
-        goImports.add(replaceLabelName(protoImport, ":annotations_go_proto"));
-      } else if (protoImport.endsWith(":operations_proto")) {
-        goImports.add(replaceLabelName(protoImport, ":longrunning_go_proto"));
-      } else if (protoImport.endsWith(":iam_policy_proto")
-          || protoImport.endsWith(":policy_proto")
-          || protoImport.endsWith(":options_proto")) {
-        goImports.add(replaceLabelName(protoImport, ":iam_go_proto"));
-      } else if (protoImport.endsWith(":config_change_proto")) {
-        goImports.add(replaceLabelName(protoImport, ":configchange_go_proto"));
-      } else if (protoImport.endsWith(":service_proto") || protoImport.endsWith(":quota_proto")) {
-        goImports.add(replaceLabelName(protoImport, ":serviceconfig_go_proto"));
-      } else if (protoImport.endsWith(":postal_address_proto")) {
-        goImports.add(replaceLabelName(protoImport, ":postaladdress_go_proto"));
-      } else if (protoImport.endsWith(":monitored_resource_proto")) {
-        goImports.add(replaceLabelName(protoImport, ":monitoredres_go_proto"));
-      } else if (protoImport.endsWith(":launch_stage_proto")) {
-        goImports.add(replaceLabelName(protoImport, ":api_go_proto"));
-      } else if (protoImport.endsWith(":error_details_proto")) {
-        goImports.add(replaceLabelName(protoImport, ":errdetails_go_proto"));
+      if (goProtoDepMapping.containsKey(protoImport)) {
+        goImports.add(goProtoDepMapping.get(protoImport));
       } else {
         goImports.add(protoImport.replaceAll("_proto$", "_go_proto"));
       }
