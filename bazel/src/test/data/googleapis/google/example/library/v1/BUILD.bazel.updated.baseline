@@ -29,6 +29,7 @@ proto_library(
         "//google/api:field_behavior_proto",
         "//google/api:httpbody_proto",
         "//google/api:resource_proto",
+        "//google/api:usage_proto",
         "//google/cloud/common:common_proto",
         "//google/longrunning:operations_proto",
         "@com_google_protobuf//:descriptor_proto",
@@ -119,6 +120,7 @@ go_proto_library(
     deps = [
         "//google/api:annotations_go_proto",
         "//google/api:httpbody_go_proto",
+        "//google/api:serviceconfig_go_proto",
         "//google/cloud/common:common_go_proto",
         "//google/longrunning:longrunning_go_proto",
     ],

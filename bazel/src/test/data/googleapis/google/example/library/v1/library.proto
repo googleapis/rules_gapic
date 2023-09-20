@@ -24,6 +24,7 @@ import "google/api/client.proto";
 import "google/api/field_behavior.proto";
 import "google/api/resource.proto";
 import "google/api/httpbody.proto";
+import "google/api/usage.proto";
 import "google/cloud/common/operation_metadata.proto";
 import "google/longrunning/operations.proto";
 import "google/protobuf/empty.proto";
