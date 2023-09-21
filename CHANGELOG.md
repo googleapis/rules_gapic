@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.29.1](https://github.com/googleapis/rules_gapic/compare/v0.29.0...v0.29.1) (2023-09-21)
+
+
+### Bug Fixes
+
+* **bazel:** Add field_proto go proto mapping ([#185](https://github.com/googleapis/rules_gapic/issues/185)) ([cca6521](https://github.com/googleapis/rules_gapic/commit/cca65213b730a0c1a80795de5e3aad59a4473535))
+* **bazel:** Simplify proto group go deps ([#182](https://github.com/googleapis/rules_gapic/issues/182)) ([c786632](https://github.com/googleapis/rules_gapic/commit/c786632d31eab88f85d65f47f1eda55732409adb))
+
 ## [0.29.0](https://github.com/googleapis/rules_gapic/compare/v0.28.3...v0.29.0) (2023-09-13)
 
 
