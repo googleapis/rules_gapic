@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.29.2](https://github.com/googleapis/rules_gapic/compare/v0.29.1...v0.29.2) (2023-09-27)
+
+
+### Bug Fixes
+
+* **bazel:** Rename field to field_info ([#186](https://github.com/googleapis/rules_gapic/issues/186)) ([fcdab07](https://github.com/googleapis/rules_gapic/commit/fcdab074156d6cc9615ee6f23d2a2c6eece5946f))
+
 ## [0.29.1](https://github.com/googleapis/rules_gapic/compare/v0.29.0...v0.29.1) (2023-09-21)
 
 
