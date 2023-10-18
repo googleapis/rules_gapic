@@ -84,7 +84,7 @@ class BazelBuildFileTemplate {
       String kind = entry.getKey();
       String newName = entry.getValue();
       String currentName = buildozer.getAttribute(buildBazelPath, "%" + kind, "name");
-      if (!currentName.equals(newName)) {
+      if (!newName.equals(currentName)) {
         buildozer.batchSetStringAttribute(buildBazelPath, currentName, "name", newName);
       }
     }
