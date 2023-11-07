@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.29.3](https://github.com/googleapis/rules_gapic/compare/v0.29.2...v0.29.3) (2023-11-07)
+
+
+### Bug Fixes
+
+* **bazel:** Avoid potential null dereference ([#188](https://github.com/googleapis/rules_gapic/issues/188)) ([f47dd96](https://github.com/googleapis/rules_gapic/commit/f47dd963dec8e72684555f8e9b44c57a77b8b1d0))
+* **bazel:** Include transport flag in csharp template ([#191](https://github.com/googleapis/rules_gapic/issues/191)) ([18ee180](https://github.com/googleapis/rules_gapic/commit/18ee180b436210edfb318ab9422869df46e115ca))
+
 ## [0.29.2](https://github.com/googleapis/rules_gapic/compare/v0.29.1...v0.29.2) (2023-09-27)
 
 
