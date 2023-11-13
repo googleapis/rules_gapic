@@ -29,6 +29,7 @@ import static java.util.Map.entry;
 
 class BazelBuildFileView {
   private static final String COMMON_RESOURCES_PROTO = "//google/cloud:common_resources_proto";
+  private static final String COMMON_PROTO = "//google/cloud/common:common_proto";
   private static final Pattern LABEL_NAME = Pattern.compile(":\\w+$");
   private final Map<String, String> tokens = new HashMap<>();
   private final Map<String, Map<String, String>> overriddenStringAttributes = new HashMap<>();
@@ -105,7 +106,7 @@ class BazelBuildFileView {
       if (actualImport.startsWith("google/protobuf/")) {
         actualImport = actualImport.replace("google/protobuf/", "@com_google_protobuf//:");
       } else if (actualImport.equals("google/cloud/common/operation_metadata_proto")) {
-        actualImport = "//google/cloud/common:common_proto";
+        actualImport = COMMON_PROTO;
         extraProtosNodeJS.add(actualImport);
       } else {
         actualImport = convertPathToLabel("", actualImport);
@@ -219,7 +220,7 @@ class BazelBuildFileView {
     tokens.put("java_gapic_deps", joinSetWithIndentationNl(mapJavaGapicDeps(actualImports)));
     tokens.put(
         "java_gapic_test_deps", joinSetWithIndentation(mapJavaGapicTestDeps(actualImports, javaTransport, bp.getName())));
-    tokens.put("java_gapic_assembly_gradle_pkg_deps", joinSetWithIndentation(javaGapicAssemblyDeps(javaTransport, bp.getName())));
+    tokens.put("java_gapic_assembly_gradle_pkg_deps", joinSetWithIndentation(javaGapicAssemblyDeps(actualImports, javaTransport, bp.getName())));
     tokens.put("java_loads", joinSetWithCustomIndentation(javaLoadStatements(javaTransport), 4));
     tokens.put("java_transport", '"' + javaTransport + '"');
     
@@ -378,7 +379,7 @@ class BazelBuildFileView {
       + ")";
   }
 
-  private Set<String> javaGapicAssemblyDeps(String transport, String name) {
+  private Set<String> javaGapicAssemblyDeps(Set<String> actualImports, String transport, String name) {
     Set<String> deps = new TreeSet<>();
     if (transport.contains("grpc")) {
       deps.add(String.format(":%s_java_grpc", name));
@@ -386,6 +387,9 @@ class BazelBuildFileView {
     deps.add(String.format(":%s_java_gapic", name));
     deps.add(String.format(":%s_java_proto", name));
     deps.add(String.format(":%s_proto", name));
+    if (actualImports.contains(COMMON_PROTO)) {
+      deps.add("//google/cloud/common:common_java_proto");
+    }
     return deps;
   }
 
