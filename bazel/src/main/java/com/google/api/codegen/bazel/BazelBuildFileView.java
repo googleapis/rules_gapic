@@ -29,6 +29,7 @@ import static java.util.Map.entry;
 
 class BazelBuildFileView {
   private static final String COMMON_RESOURCES_PROTO = "//google/cloud:common_resources_proto";
+  private static final String CLOUD_COMMON_PROTO = "//google/cloud/common:common_proto";
   private static final Pattern LABEL_NAME = Pattern.compile(":\\w+$");
   private final Map<String, String> tokens = new HashMap<>();
   private final Map<String, Map<String, String>> overriddenStringAttributes = new HashMap<>();
@@ -105,7 +106,7 @@ class BazelBuildFileView {
       if (actualImport.startsWith("google/protobuf/")) {
         actualImport = actualImport.replace("google/protobuf/", "@com_google_protobuf//:");
       } else if (actualImport.equals("google/cloud/common/operation_metadata_proto")) {
-        actualImport = "//google/cloud/common:common_proto";
+        actualImport = CLOUD_COMMON_PROTO;
         extraProtosNodeJS.add(actualImport);
       } else {
         actualImport = convertPathToLabel("", actualImport);
@@ -386,7 +387,7 @@ class BazelBuildFileView {
     deps.add(String.format(":%s_java_gapic", name));
     deps.add(String.format(":%s_java_proto", name));
     deps.add(String.format(":%s_proto", name));
-    if (actualImports.contains("//google/cloud/common:common_proto")) {
+    if (actualImports.contains(CLOUD_COMMON_PROTO)) {
       deps.add("//google/cloud/common:common_java_proto");
     }
     return deps;
