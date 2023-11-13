@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.29.4](https://github.com/googleapis/rules_gapic/compare/v0.29.3...v0.29.4) (2023-11-13)
+
+
+### Bug Fixes
+
+* **bazel:** Add Java common proto dep to java assembly pkg ([#192](https://github.com/googleapis/rules_gapic/issues/192)) ([b064209](https://github.com/googleapis/rules_gapic/commit/b064209b8e67b2cd972760f40a74ce25dd46b05a))
+
 ## [0.29.3](https://github.com/googleapis/rules_gapic/compare/v0.29.2...v0.29.3) (2023-11-07)
 
 
