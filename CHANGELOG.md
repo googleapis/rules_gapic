@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.0](https://github.com/googleapis/rules_gapic/compare/v0.29.4...v1.0.0) (2023-11-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* delete Build file generator code ([#194](https://github.com/googleapis/rules_gapic/issues/194))
+
+### Bug Fixes
+
+* Delete Build file generator code ([#194](https://github.com/googleapis/rules_gapic/issues/194)) ([d18e465](https://github.com/googleapis/rules_gapic/commit/d18e465887351b20bb138e8424bbd2239cd9e696))
+
 ## [0.29.4](https://github.com/googleapis/rules_gapic/compare/v0.29.3...v0.29.4) (2023-11-13)
 
 
